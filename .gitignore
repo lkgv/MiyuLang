@@ -7,7 +7,9 @@
 # Unignore all dirs
 !*/
 !dune
+!dune-project
 !Dockerfile
+!Makefile
 
 .vscode
 .DS_Store
