@@ -98,16 +98,23 @@ and pprint_plain_expr ppf ~indent expr =
   | This -> print_expr "This"
   | Id n -> print_expr (Fmt.str "ID(%s)" (label_to_string n))
 
-and pprint_class_defn ppf ~indent (name, fname, gen_tys, fields) =
+and pprint_class_defn ppf ~indent (name, father, gen_tys, fields) =
   let new_indent = indent_space ^ indent in
-  let inherit_info =
-    match fname with Some f -> Fmt.str " inherits:%s" (label_to_string f) | None -> ""
-  in
   let prt_gen_tys lst =
     if List.length lst > 0 then Fmt.pf ppf "%sGeneric Types:@." new_indent ;
     List.iter ~f:(pprint_generic_ty ppf ~indent:(indent_space ^ new_indent)) lst in
-  Fmt.pf ppf "%sClass:%s%s@." indent (label_to_string name) inherit_info ;
+  let prt_gen_params lst =
+    if List.length lst > 0 then (
+      Fmt.pf ppf "%sGeneric Type Params:@." new_indent ;
+      List.iter ~f:(pprint_ty ppf ~indent:(indent_space ^ new_indent)) lst ) in
+  let prt_inherit_info = function
+    | Some (n, lst) ->
+        Fmt.pf ppf "%sinherits:%s@." new_indent (label_to_string n) ;
+        prt_gen_params lst
+    | None          -> () in
+  Fmt.pf ppf "%sClass:%s@." indent (label_to_string name) ;
   prt_gen_tys gen_tys ;
+  prt_inherit_info father ;
   List.iter ~f:(pprint_field_defn ppf ~indent:new_indent) fields
 
 and pprint_trait_defn ppf ~indent (name, gen_tys, fields) =

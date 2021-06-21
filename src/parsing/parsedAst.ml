@@ -81,7 +81,7 @@ and expr = plain_expr located
 
 and plain_expr =
   (* class name, father name, list of generic type, class body (field defns) *)
-  | Class      of label * label option * generic_ty list * field_defn list
+  | Class      of label * (label * ty list) option * generic_ty list * field_defn list
   (* trait name, list of generic type, trait body (field defns) *)
   | Trait      of label * generic_ty list * field_defn list
   (* class name, trait name, list of generic type, list of generic type param, impl body

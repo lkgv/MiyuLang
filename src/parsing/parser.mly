@@ -324,11 +324,13 @@ gen_ty_consume_list:
 class_def: mark_position(plain_class_def) { $1 }
 plain_class_def:
   | CLASS h = class_head COLON lst = class_body END
-  { let (n, f)= h in Class (n, f, [], lst) }
-  | CLASS h = class_head lst1 = gen_ty_def COLON lst2 = class_body END
-  { let (n, f)= h in Class (n, f, lst1, lst2) }
-class_head: n = uname f = class_father? { (n, f) }
-class_father: LPAREN f = uname RPAREN { f }
+  { let (n, gen_lst, f)= h in Class (n, f, gen_lst, lst) }
+class_head:
+  | n = uname f = class_father? { (n, [], f) }
+  | n = uname lst = gen_ty_def f = class_father? { (n, lst, f) }
+class_father: 
+  | LPAREN f = uname RPAREN { (f, []) }
+  | LPAREN f = uname lst = gen_ty_consume RPAREN { (f, lst) }
 class_body:
   |
   { [] }

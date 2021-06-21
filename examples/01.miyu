@@ -22,7 +22,7 @@ fn add <'a, 'b, 'c> (a: 'a = 0, b: 'b = 0) ->
 
 end;
 
-cls P(Mama) <'T:int, 'B:float>:
+cls P <'T:int, 'B:float> (Mama<'T, 'B>):
   pub a:'T, b: 'B;
 end;
 
