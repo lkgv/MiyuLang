@@ -1,0 +1,1465 @@
+
+** Conflict (shift/reduce) in state 240.
+** Tokens involved: STAR SMALLER SEQ PLUS_ASSIGN PLUS NEQ MUL_ASSIGN MOD_ASSIGN MOD MINUS_ASSIGN MINUS LPAREN LEQ LBRACK LARGER EQUAL DOT DIV_ASSIGN DIVIDE BARBAR ASSIGN AMPERAMPER
+** The following explanations concentrate on token STAR.
+** This state is reached from prog after reading:
+
+option(module_clause) import_decls LET var_decorator LNAME ASSIGN RET expression 
+
+** The derivations that appear below have the following common factor:
+** (The question mark symbol (?) represents the spot where the derivations begin to differ.)
+
+prog 
+option(module_clause) import_decls top_defns EOF 
+                                   list(top_defn) 
+                                   top_defn list(top_defn) 
+                                   definition SEMI 
+                                   vars_decl 
+                                   mark_position(plain_vars_decl) 
+                                   plain_vars_decl 
+                                   LET separated_nonempty_list(COMMA,var_decl) 
+                                       var_decl 
+                                       mark_position(plain_var_decl) 
+                                       plain_var_decl 
+                                       var_decorator LNAME ASSIGN expression 
+                                                                  mark_position(plain_expression) 
+                                                                  plain_expression 
+                                                                  (?)
+
+** In state 240, looking ahead at STAR, shifting is permitted
+** because of the following sub-derivation:
+
+RET expression 
+    mark_position(plain_expression) 
+    plain_expression 
+    expression . STAR expression 
+
+** In state 240, looking ahead at STAR, reducing production
+** plain_expression -> RET expression 
+** is permitted because of the following sub-derivation:
+
+expression STAR expression // lookahead token appears
+mark_position(plain_expression) // lookahead token is inherited
+plain_expression // lookahead token is inherited
+RET expression . 
+
+** Conflict (shift/reduce) in state 237.
+** Tokens involved: LPAREN LBRACK DOT
+** The following explanations concentrate on token LPAREN.
+** This state is reached from prog after reading:
+
+option(module_clause) import_decls LET var_decorator LNAME ASSIGN NOT expression 
+
+** The derivations that appear below have the following common factor:
+** (The question mark symbol (?) represents the spot where the derivations begin to differ.)
+
+prog 
+option(module_clause) import_decls top_defns EOF 
+                                   list(top_defn) 
+                                   top_defn list(top_defn) 
+                                   definition SEMI 
+                                   vars_decl 
+                                   mark_position(plain_vars_decl) 
+                                   plain_vars_decl 
+                                   LET separated_nonempty_list(COMMA,var_decl) 
+                                       var_decl 
+                                       mark_position(plain_var_decl) 
+                                       plain_var_decl 
+                                       var_decorator LNAME ASSIGN expression 
+                                                                  mark_position(plain_expression) 
+                                                                  plain_expression 
+                                                                  (?)
+
+** In state 237, looking ahead at LPAREN, shifting is permitted
+** because of the following sub-derivation:
+
+NOT expression 
+    mark_position(plain_expression) 
+    plain_expression 
+    expression function_call_params 
+               . LPAREN loption(separated_nonempty_list(COMMA,param_call)) RPAREN 
+
+** In state 237, looking ahead at LPAREN, reducing production
+** plain_expression -> NOT expression 
+** is permitted because of the following sub-derivation:
+
+expression function_call_params // lookahead token appears because function_call_params can begin with LPAREN
+mark_position(plain_expression) // lookahead token is inherited
+plain_expression // lookahead token is inherited
+NOT expression . 
+
+** Conflict (shift/reduce) in state 226.
+** Token involved: ASSIGN
+** This state is reached from prog after reading:
+
+option(module_clause) import_decls LET var_decorator LNAME ASSIGN expression LPAREN LNAME 
+
+** The derivations that appear below have the following common factor:
+** (The question mark symbol (?) represents the spot where the derivations begin to differ.)
+
+prog 
+option(module_clause) import_decls top_defns EOF 
+                                   list(top_defn) 
+                                   top_defn list(top_defn) 
+                                   definition SEMI 
+                                   vars_decl 
+                                   mark_position(plain_vars_decl) 
+                                   plain_vars_decl 
+                                   LET separated_nonempty_list(COMMA,var_decl) 
+                                       var_decl 
+                                       mark_position(plain_var_decl) 
+                                       plain_var_decl 
+                                       var_decorator LNAME ASSIGN expression 
+                                                                  mark_position(plain_expression) 
+                                                                  plain_expression 
+                                                                  expression function_call_params 
+                                                                             LPAREN loption(separated_nonempty_list(COMMA,param_call)) RPAREN 
+                                                                                    separated_nonempty_list(COMMA,param_call) 
+                                                                                    param_call 
+                                                                                    (?)
+
+** In state 226, looking ahead at ASSIGN, reducing production
+** lname -> LNAME 
+** is permitted because of the following sub-derivation:
+
+expression 
+mark_position(plain_expression) 
+plain_expression 
+expression ASSIGN expression // lookahead token appears
+mark_position(plain_expression) // lookahead token is inherited
+plain_expression // lookahead token is inherited
+name // lookahead token is inherited
+lname // lookahead token is inherited
+LNAME . 
+
+** In state 226, looking ahead at ASSIGN, shifting is permitted
+** because of the following sub-derivation:
+
+LNAME . ASSIGN expression 
+
+** Conflict (shift/reduce) in state 225.
+** Tokens involved: LPAREN LBRACK DOT
+** The following explanations concentrate on token LPAREN.
+** This state is reached from prog after reading:
+
+option(module_clause) import_decls LET var_decorator LNAME ASSIGN MINUS expression 
+
+** The derivations that appear below have the following common factor:
+** (The question mark symbol (?) represents the spot where the derivations begin to differ.)
+
+prog 
+option(module_clause) import_decls top_defns EOF 
+                                   list(top_defn) 
+                                   top_defn list(top_defn) 
+                                   definition SEMI 
+                                   vars_decl 
+                                   mark_position(plain_vars_decl) 
+                                   plain_vars_decl 
+                                   LET separated_nonempty_list(COMMA,var_decl) 
+                                       var_decl 
+                                       mark_position(plain_var_decl) 
+                                       plain_var_decl 
+                                       var_decorator LNAME ASSIGN expression 
+                                                                  mark_position(plain_expression) 
+                                                                  plain_expression 
+                                                                  (?)
+
+** In state 225, looking ahead at LPAREN, shifting is permitted
+** because of the following sub-derivation:
+
+MINUS expression 
+      mark_position(plain_expression) 
+      plain_expression 
+      expression function_call_params 
+                 . LPAREN loption(separated_nonempty_list(COMMA,param_call)) RPAREN 
+
+** In state 225, looking ahead at LPAREN, reducing production
+** plain_expression -> MINUS expression 
+** is permitted because of the following sub-derivation:
+
+expression function_call_params // lookahead token appears because function_call_params can begin with LPAREN
+mark_position(plain_expression) // lookahead token is inherited
+plain_expression // lookahead token is inherited
+MINUS expression . 
+
+** Conflict (shift/reduce) in state 214.
+** Token involved: COMMA
+** This state is reached from prog after reading:
+
+option(module_clause) import_decls LET var_decorator LNAME ASSIGN LET var_decl 
+
+** The derivations that appear below have the following common factor:
+** (The question mark symbol (?) represents the spot where the derivations begin to differ.)
+
+prog 
+option(module_clause) import_decls top_defns EOF 
+                                   list(top_defn) 
+                                   top_defn list(top_defn) 
+                                   definition SEMI 
+                                   vars_decl 
+                                   mark_position(plain_vars_decl) 
+                                   plain_vars_decl 
+                                   LET separated_nonempty_list(COMMA,var_decl) 
+                                       (?)
+
+** In state 214, looking ahead at COMMA, reducing production
+** separated_nonempty_list(COMMA,var_decl) -> var_decl 
+** is permitted because of the following sub-derivation:
+
+var_decl COMMA separated_nonempty_list(COMMA,var_decl) // lookahead token appears
+mark_position(plain_var_decl) // lookahead token is inherited
+plain_var_decl // lookahead token is inherited
+var_decorator LNAME ASSIGN expression // lookahead token is inherited
+                           mark_position(plain_expression) // lookahead token is inherited
+                           plain_expression // lookahead token is inherited
+                           plain_vars_decl // lookahead token is inherited
+                           LET separated_nonempty_list(COMMA,var_decl) // lookahead token is inherited
+                               var_decl . 
+
+** In state 214, looking ahead at COMMA, shifting is permitted
+** because of the following sub-derivation:
+
+var_decl 
+mark_position(plain_var_decl) 
+plain_var_decl 
+var_decorator LNAME ASSIGN expression 
+                           mark_position(plain_expression) 
+                           plain_expression 
+                           plain_vars_decl 
+                           LET separated_nonempty_list(COMMA,var_decl) 
+                               var_decl . COMMA separated_nonempty_list(COMMA,var_decl) 
+
+** Conflict (shift/reduce) in state 213.
+** Tokens involved: LPAREN LBRACK DOT
+** The following explanations concentrate on token LPAREN.
+** This state is reached from prog after reading:
+
+option(module_clause) import_decls LET var_decorator LNAME ASSIGN LET var_decorator LNAME ASSIGN expression 
+
+** The derivations that appear below have the following common factor:
+** (The question mark symbol (?) represents the spot where the derivations begin to differ.)
+
+prog 
+option(module_clause) import_decls top_defns EOF 
+                                   list(top_defn) 
+                                   top_defn list(top_defn) 
+                                   definition SEMI 
+                                   vars_decl 
+                                   mark_position(plain_vars_decl) 
+                                   plain_vars_decl 
+                                   LET separated_nonempty_list(COMMA,var_decl) 
+                                       var_decl 
+                                       mark_position(plain_var_decl) 
+                                       plain_var_decl 
+                                       var_decorator LNAME ASSIGN expression 
+                                                                  mark_position(plain_expression) 
+                                                                  plain_expression 
+                                                                  (?)
+
+** In state 213, looking ahead at LPAREN, shifting is permitted
+** because of the following sub-derivation:
+
+plain_vars_decl 
+LET separated_nonempty_list(COMMA,var_decl) 
+    var_decl 
+    mark_position(plain_var_decl) 
+    plain_var_decl 
+    var_decorator LNAME ASSIGN expression 
+                               mark_position(plain_expression) 
+                               plain_expression 
+                               expression function_call_params 
+                                          . LPAREN loption(separated_nonempty_list(COMMA,param_call)) RPAREN 
+
+** In state 213, looking ahead at LPAREN, reducing production
+** plain_var_decl -> var_decorator LNAME ASSIGN expression 
+** is permitted because of the following sub-derivation:
+
+expression function_call_params // lookahead token appears because function_call_params can begin with LPAREN
+mark_position(plain_expression) // lookahead token is inherited
+plain_expression // lookahead token is inherited
+plain_vars_decl // lookahead token is inherited
+LET separated_nonempty_list(COMMA,var_decl) // lookahead token is inherited
+    var_decl // lookahead token is inherited
+    mark_position(plain_var_decl) // lookahead token is inherited
+    plain_var_decl // lookahead token is inherited
+    var_decorator LNAME ASSIGN expression . 
+
+** Conflict (shift/reduce) in state 211.
+** Tokens involved: LPAREN LBRACK DOT
+** The following explanations concentrate on token LPAREN.
+** This state is reached from prog after reading:
+
+option(module_clause) import_decls LET var_decorator LNAME ASSIGN LET var_decorator LNAME COLON ty ASSIGN expression 
+
+** The derivations that appear below have the following common factor:
+** (The question mark symbol (?) represents the spot where the derivations begin to differ.)
+
+prog 
+option(module_clause) import_decls top_defns EOF 
+                                   list(top_defn) 
+                                   top_defn list(top_defn) 
+                                   definition SEMI 
+                                   vars_decl 
+                                   mark_position(plain_vars_decl) 
+                                   plain_vars_decl 
+                                   LET separated_nonempty_list(COMMA,var_decl) 
+                                       var_decl 
+                                       mark_position(plain_var_decl) 
+                                       plain_var_decl 
+                                       var_decorator LNAME ASSIGN expression 
+                                                                  mark_position(plain_expression) 
+                                                                  plain_expression 
+                                                                  (?)
+
+** In state 211, looking ahead at LPAREN, shifting is permitted
+** because of the following sub-derivation:
+
+plain_vars_decl 
+LET separated_nonempty_list(COMMA,var_decl) 
+    var_decl 
+    mark_position(plain_var_decl) 
+    plain_var_decl 
+    var_decorator LNAME COLON ty ASSIGN expression 
+                                        mark_position(plain_expression) 
+                                        plain_expression 
+                                        expression function_call_params 
+                                                   . LPAREN loption(separated_nonempty_list(COMMA,param_call)) RPAREN 
+
+** In state 211, looking ahead at LPAREN, reducing production
+** plain_var_decl -> var_decorator LNAME COLON ty ASSIGN expression 
+** is permitted because of the following sub-derivation:
+
+expression function_call_params // lookahead token appears because function_call_params can begin with LPAREN
+mark_position(plain_expression) // lookahead token is inherited
+plain_expression // lookahead token is inherited
+plain_vars_decl // lookahead token is inherited
+LET separated_nonempty_list(COMMA,var_decl) // lookahead token is inherited
+    var_decl // lookahead token is inherited
+    mark_position(plain_var_decl) // lookahead token is inherited
+    plain_var_decl // lookahead token is inherited
+    var_decorator LNAME COLON ty ASSIGN expression . 
+
+** Conflict (shift/reduce) in state 166.
+** Tokens involved: STAR SMALLER SEQ PLUS_ASSIGN PLUS NEQ MUL_ASSIGN MOD_ASSIGN MOD MINUS_ASSIGN MINUS LPAREN LEQ LBRACK LARGER EQUAL DOT DIV_ASSIGN DIVIDE BARBAR ASSIGN AMPERAMPER
+** The following explanations concentrate on token STAR.
+** This state is reached from prog after reading:
+
+option(module_clause) import_decls LET var_decorator LNAME ASSIGN CONTINUE expression 
+
+** The derivations that appear below have the following common factor:
+** (The question mark symbol (?) represents the spot where the derivations begin to differ.)
+
+prog 
+option(module_clause) import_decls top_defns EOF 
+                                   list(top_defn) 
+                                   top_defn list(top_defn) 
+                                   definition SEMI 
+                                   vars_decl 
+                                   mark_position(plain_vars_decl) 
+                                   plain_vars_decl 
+                                   LET separated_nonempty_list(COMMA,var_decl) 
+                                       var_decl 
+                                       mark_position(plain_var_decl) 
+                                       plain_var_decl 
+                                       var_decorator LNAME ASSIGN expression 
+                                                                  mark_position(plain_expression) 
+                                                                  plain_expression 
+                                                                  (?)
+
+** In state 166, looking ahead at STAR, shifting is permitted
+** because of the following sub-derivation:
+
+CONTINUE expression 
+         mark_position(plain_expression) 
+         plain_expression 
+         expression . STAR expression 
+
+** In state 166, looking ahead at STAR, reducing production
+** plain_expression -> CONTINUE expression 
+** is permitted because of the following sub-derivation:
+
+expression STAR expression // lookahead token appears
+mark_position(plain_expression) // lookahead token is inherited
+plain_expression // lookahead token is inherited
+CONTINUE expression . 
+
+** Conflict (shift/reduce) in state 165.
+** Tokens involved: STAR SMALLER SEQ PLUS_ASSIGN PLUS NEQ MUL_ASSIGN MOD_ASSIGN MOD MINUS_ASSIGN MINUS LPAREN LEQ LBRACK LARGER EQUAL DOT DIV_ASSIGN DIVIDE BARBAR ASSIGN AMPERAMPER
+** The following explanations concentrate on token STAR.
+** This state is reached from prog after reading:
+
+option(module_clause) import_decls LET var_decorator LNAME ASSIGN BREAK expression 
+
+** The derivations that appear below have the following common factor:
+** (The question mark symbol (?) represents the spot where the derivations begin to differ.)
+
+prog 
+option(module_clause) import_decls top_defns EOF 
+                                   list(top_defn) 
+                                   top_defn list(top_defn) 
+                                   definition SEMI 
+                                   vars_decl 
+                                   mark_position(plain_vars_decl) 
+                                   plain_vars_decl 
+                                   LET separated_nonempty_list(COMMA,var_decl) 
+                                       var_decl 
+                                       mark_position(plain_var_decl) 
+                                       plain_var_decl 
+                                       var_decorator LNAME ASSIGN expression 
+                                                                  mark_position(plain_expression) 
+                                                                  plain_expression 
+                                                                  (?)
+
+** In state 165, looking ahead at STAR, shifting is permitted
+** because of the following sub-derivation:
+
+BREAK expression 
+      mark_position(plain_expression) 
+      plain_expression 
+      expression . STAR expression 
+
+** In state 165, looking ahead at STAR, reducing production
+** plain_expression -> BREAK expression 
+** is permitted because of the following sub-derivation:
+
+expression STAR expression // lookahead token appears
+mark_position(plain_expression) // lookahead token is inherited
+plain_expression // lookahead token is inherited
+BREAK expression . 
+
+** Conflict (shift/reduce) in state 159.
+** Tokens involved: LPAREN LBRACK DOT
+** The following explanations concentrate on token LPAREN.
+** This state is reached from prog after reading:
+
+option(module_clause) import_decls LET var_decorator LNAME ASSIGN expression ASSIGN expression 
+
+** The derivations that appear below have the following common factor:
+** (The question mark symbol (?) represents the spot where the derivations begin to differ.)
+
+prog 
+option(module_clause) import_decls top_defns EOF 
+                                   list(top_defn) 
+                                   top_defn list(top_defn) 
+                                   definition SEMI 
+                                   vars_decl 
+                                   mark_position(plain_vars_decl) 
+                                   plain_vars_decl 
+                                   LET separated_nonempty_list(COMMA,var_decl) 
+                                       var_decl 
+                                       mark_position(plain_var_decl) 
+                                       plain_var_decl 
+                                       var_decorator LNAME ASSIGN expression 
+                                                                  mark_position(plain_expression) 
+                                                                  plain_expression 
+                                                                  (?)
+
+** In state 159, looking ahead at LPAREN, shifting is permitted
+** because of the following sub-derivation:
+
+expression ASSIGN expression 
+                  mark_position(plain_expression) 
+                  plain_expression 
+                  expression function_call_params 
+                             . LPAREN loption(separated_nonempty_list(COMMA,param_call)) RPAREN 
+
+** In state 159, looking ahead at LPAREN, reducing production
+** plain_expression -> expression ASSIGN expression 
+** is permitted because of the following sub-derivation:
+
+expression function_call_params // lookahead token appears because function_call_params can begin with LPAREN
+mark_position(plain_expression) // lookahead token is inherited
+plain_expression // lookahead token is inherited
+expression ASSIGN expression . 
+
+** Conflict (shift/reduce) in state 157.
+** Tokens involved: LPAREN LBRACK DOT
+** The following explanations concentrate on token LPAREN.
+** This state is reached from prog after reading:
+
+option(module_clause) import_decls LET var_decorator LNAME ASSIGN expression AMPERAMPER expression 
+
+** The derivations that appear below have the following common factor:
+** (The question mark symbol (?) represents the spot where the derivations begin to differ.)
+
+prog 
+option(module_clause) import_decls top_defns EOF 
+                                   list(top_defn) 
+                                   top_defn list(top_defn) 
+                                   definition SEMI 
+                                   vars_decl 
+                                   mark_position(plain_vars_decl) 
+                                   plain_vars_decl 
+                                   LET separated_nonempty_list(COMMA,var_decl) 
+                                       var_decl 
+                                       mark_position(plain_var_decl) 
+                                       plain_var_decl 
+                                       var_decorator LNAME ASSIGN expression 
+                                                                  mark_position(plain_expression) 
+                                                                  plain_expression 
+                                                                  (?)
+
+** In state 157, looking ahead at LPAREN, shifting is permitted
+** because of the following sub-derivation:
+
+expression AMPERAMPER expression 
+                      mark_position(plain_expression) 
+                      plain_expression 
+                      expression function_call_params 
+                                 . LPAREN loption(separated_nonempty_list(COMMA,param_call)) RPAREN 
+
+** In state 157, looking ahead at LPAREN, reducing production
+** plain_expression -> expression AMPERAMPER expression 
+** is permitted because of the following sub-derivation:
+
+expression function_call_params // lookahead token appears because function_call_params can begin with LPAREN
+mark_position(plain_expression) // lookahead token is inherited
+plain_expression // lookahead token is inherited
+expression AMPERAMPER expression . 
+
+** Conflict (shift/reduce) in state 155.
+** Tokens involved: LPAREN LBRACK DOT
+** The following explanations concentrate on token LPAREN.
+** This state is reached from prog after reading:
+
+option(module_clause) import_decls LET var_decorator LNAME ASSIGN expression BARBAR expression 
+
+** The derivations that appear below have the following common factor:
+** (The question mark symbol (?) represents the spot where the derivations begin to differ.)
+
+prog 
+option(module_clause) import_decls top_defns EOF 
+                                   list(top_defn) 
+                                   top_defn list(top_defn) 
+                                   definition SEMI 
+                                   vars_decl 
+                                   mark_position(plain_vars_decl) 
+                                   plain_vars_decl 
+                                   LET separated_nonempty_list(COMMA,var_decl) 
+                                       var_decl 
+                                       mark_position(plain_var_decl) 
+                                       plain_var_decl 
+                                       var_decorator LNAME ASSIGN expression 
+                                                                  mark_position(plain_expression) 
+                                                                  plain_expression 
+                                                                  (?)
+
+** In state 155, looking ahead at LPAREN, shifting is permitted
+** because of the following sub-derivation:
+
+expression BARBAR expression 
+                  mark_position(plain_expression) 
+                  plain_expression 
+                  expression function_call_params 
+                             . LPAREN loption(separated_nonempty_list(COMMA,param_call)) RPAREN 
+
+** In state 155, looking ahead at LPAREN, reducing production
+** plain_expression -> expression BARBAR expression 
+** is permitted because of the following sub-derivation:
+
+expression function_call_params // lookahead token appears because function_call_params can begin with LPAREN
+mark_position(plain_expression) // lookahead token is inherited
+plain_expression // lookahead token is inherited
+expression BARBAR expression . 
+
+** Conflict (shift/reduce) in state 153.
+** Tokens involved: LPAREN LBRACK DOT
+** The following explanations concentrate on token LPAREN.
+** This state is reached from prog after reading:
+
+option(module_clause) import_decls LET var_decorator LNAME ASSIGN expression DIV_ASSIGN expression 
+
+** The derivations that appear below have the following common factor:
+** (The question mark symbol (?) represents the spot where the derivations begin to differ.)
+
+prog 
+option(module_clause) import_decls top_defns EOF 
+                                   list(top_defn) 
+                                   top_defn list(top_defn) 
+                                   definition SEMI 
+                                   vars_decl 
+                                   mark_position(plain_vars_decl) 
+                                   plain_vars_decl 
+                                   LET separated_nonempty_list(COMMA,var_decl) 
+                                       var_decl 
+                                       mark_position(plain_var_decl) 
+                                       plain_var_decl 
+                                       var_decorator LNAME ASSIGN expression 
+                                                                  mark_position(plain_expression) 
+                                                                  plain_expression 
+                                                                  (?)
+
+** In state 153, looking ahead at LPAREN, shifting is permitted
+** because of the following sub-derivation:
+
+expression DIV_ASSIGN expression 
+                      mark_position(plain_expression) 
+                      plain_expression 
+                      expression function_call_params 
+                                 . LPAREN loption(separated_nonempty_list(COMMA,param_call)) RPAREN 
+
+** In state 153, looking ahead at LPAREN, reducing production
+** plain_expression -> expression DIV_ASSIGN expression 
+** is permitted because of the following sub-derivation:
+
+expression function_call_params // lookahead token appears because function_call_params can begin with LPAREN
+mark_position(plain_expression) // lookahead token is inherited
+plain_expression // lookahead token is inherited
+expression DIV_ASSIGN expression . 
+
+** Conflict (shift/reduce) in state 151.
+** Tokens involved: LPAREN LBRACK DOT
+** The following explanations concentrate on token LPAREN.
+** This state is reached from prog after reading:
+
+option(module_clause) import_decls LET var_decorator LNAME ASSIGN expression EQUAL expression 
+
+** The derivations that appear below have the following common factor:
+** (The question mark symbol (?) represents the spot where the derivations begin to differ.)
+
+prog 
+option(module_clause) import_decls top_defns EOF 
+                                   list(top_defn) 
+                                   top_defn list(top_defn) 
+                                   definition SEMI 
+                                   vars_decl 
+                                   mark_position(plain_vars_decl) 
+                                   plain_vars_decl 
+                                   LET separated_nonempty_list(COMMA,var_decl) 
+                                       var_decl 
+                                       mark_position(plain_var_decl) 
+                                       plain_var_decl 
+                                       var_decorator LNAME ASSIGN expression 
+                                                                  mark_position(plain_expression) 
+                                                                  plain_expression 
+                                                                  (?)
+
+** In state 151, looking ahead at LPAREN, shifting is permitted
+** because of the following sub-derivation:
+
+expression EQUAL expression 
+                 mark_position(plain_expression) 
+                 plain_expression 
+                 expression function_call_params 
+                            . LPAREN loption(separated_nonempty_list(COMMA,param_call)) RPAREN 
+
+** In state 151, looking ahead at LPAREN, reducing production
+** plain_expression -> expression EQUAL expression 
+** is permitted because of the following sub-derivation:
+
+expression function_call_params // lookahead token appears because function_call_params can begin with LPAREN
+mark_position(plain_expression) // lookahead token is inherited
+plain_expression // lookahead token is inherited
+expression EQUAL expression . 
+
+** Conflict (shift/reduce) in state 149.
+** Tokens involved: LPAREN LBRACK DOT
+** The following explanations concentrate on token LPAREN.
+** This state is reached from prog after reading:
+
+option(module_clause) import_decls LET var_decorator LNAME ASSIGN expression MINUS_ASSIGN expression 
+
+** The derivations that appear below have the following common factor:
+** (The question mark symbol (?) represents the spot where the derivations begin to differ.)
+
+prog 
+option(module_clause) import_decls top_defns EOF 
+                                   list(top_defn) 
+                                   top_defn list(top_defn) 
+                                   definition SEMI 
+                                   vars_decl 
+                                   mark_position(plain_vars_decl) 
+                                   plain_vars_decl 
+                                   LET separated_nonempty_list(COMMA,var_decl) 
+                                       var_decl 
+                                       mark_position(plain_var_decl) 
+                                       plain_var_decl 
+                                       var_decorator LNAME ASSIGN expression 
+                                                                  mark_position(plain_expression) 
+                                                                  plain_expression 
+                                                                  (?)
+
+** In state 149, looking ahead at LPAREN, shifting is permitted
+** because of the following sub-derivation:
+
+expression MINUS_ASSIGN expression 
+                        mark_position(plain_expression) 
+                        plain_expression 
+                        expression function_call_params 
+                                   . LPAREN loption(separated_nonempty_list(COMMA,param_call)) RPAREN 
+
+** In state 149, looking ahead at LPAREN, reducing production
+** plain_expression -> expression MINUS_ASSIGN expression 
+** is permitted because of the following sub-derivation:
+
+expression function_call_params // lookahead token appears because function_call_params can begin with LPAREN
+mark_position(plain_expression) // lookahead token is inherited
+plain_expression // lookahead token is inherited
+expression MINUS_ASSIGN expression . 
+
+** Conflict (shift/reduce) in state 147.
+** Tokens involved: LPAREN LBRACK DOT
+** The following explanations concentrate on token LPAREN.
+** This state is reached from prog after reading:
+
+option(module_clause) import_decls LET var_decorator LNAME ASSIGN expression MOD_ASSIGN expression 
+
+** The derivations that appear below have the following common factor:
+** (The question mark symbol (?) represents the spot where the derivations begin to differ.)
+
+prog 
+option(module_clause) import_decls top_defns EOF 
+                                   list(top_defn) 
+                                   top_defn list(top_defn) 
+                                   definition SEMI 
+                                   vars_decl 
+                                   mark_position(plain_vars_decl) 
+                                   plain_vars_decl 
+                                   LET separated_nonempty_list(COMMA,var_decl) 
+                                       var_decl 
+                                       mark_position(plain_var_decl) 
+                                       plain_var_decl 
+                                       var_decorator LNAME ASSIGN expression 
+                                                                  mark_position(plain_expression) 
+                                                                  plain_expression 
+                                                                  (?)
+
+** In state 147, looking ahead at LPAREN, shifting is permitted
+** because of the following sub-derivation:
+
+expression MOD_ASSIGN expression 
+                      mark_position(plain_expression) 
+                      plain_expression 
+                      expression function_call_params 
+                                 . LPAREN loption(separated_nonempty_list(COMMA,param_call)) RPAREN 
+
+** In state 147, looking ahead at LPAREN, reducing production
+** plain_expression -> expression MOD_ASSIGN expression 
+** is permitted because of the following sub-derivation:
+
+expression function_call_params // lookahead token appears because function_call_params can begin with LPAREN
+mark_position(plain_expression) // lookahead token is inherited
+plain_expression // lookahead token is inherited
+expression MOD_ASSIGN expression . 
+
+** Conflict (shift/reduce) in state 145.
+** Tokens involved: LPAREN LBRACK DOT
+** The following explanations concentrate on token LPAREN.
+** This state is reached from prog after reading:
+
+option(module_clause) import_decls LET var_decorator LNAME ASSIGN expression MUL_ASSIGN expression 
+
+** The derivations that appear below have the following common factor:
+** (The question mark symbol (?) represents the spot where the derivations begin to differ.)
+
+prog 
+option(module_clause) import_decls top_defns EOF 
+                                   list(top_defn) 
+                                   top_defn list(top_defn) 
+                                   definition SEMI 
+                                   vars_decl 
+                                   mark_position(plain_vars_decl) 
+                                   plain_vars_decl 
+                                   LET separated_nonempty_list(COMMA,var_decl) 
+                                       var_decl 
+                                       mark_position(plain_var_decl) 
+                                       plain_var_decl 
+                                       var_decorator LNAME ASSIGN expression 
+                                                                  mark_position(plain_expression) 
+                                                                  plain_expression 
+                                                                  (?)
+
+** In state 145, looking ahead at LPAREN, shifting is permitted
+** because of the following sub-derivation:
+
+expression MUL_ASSIGN expression 
+                      mark_position(plain_expression) 
+                      plain_expression 
+                      expression function_call_params 
+                                 . LPAREN loption(separated_nonempty_list(COMMA,param_call)) RPAREN 
+
+** In state 145, looking ahead at LPAREN, reducing production
+** plain_expression -> expression MUL_ASSIGN expression 
+** is permitted because of the following sub-derivation:
+
+expression function_call_params // lookahead token appears because function_call_params can begin with LPAREN
+mark_position(plain_expression) // lookahead token is inherited
+plain_expression // lookahead token is inherited
+expression MUL_ASSIGN expression . 
+
+** Conflict (shift/reduce) in state 143.
+** Tokens involved: LPAREN LBRACK DOT
+** The following explanations concentrate on token LPAREN.
+** This state is reached from prog after reading:
+
+option(module_clause) import_decls LET var_decorator LNAME ASSIGN expression LARGER expression 
+
+** The derivations that appear below have the following common factor:
+** (The question mark symbol (?) represents the spot where the derivations begin to differ.)
+
+prog 
+option(module_clause) import_decls top_defns EOF 
+                                   list(top_defn) 
+                                   top_defn list(top_defn) 
+                                   definition SEMI 
+                                   vars_decl 
+                                   mark_position(plain_vars_decl) 
+                                   plain_vars_decl 
+                                   LET separated_nonempty_list(COMMA,var_decl) 
+                                       var_decl 
+                                       mark_position(plain_var_decl) 
+                                       plain_var_decl 
+                                       var_decorator LNAME ASSIGN expression 
+                                                                  mark_position(plain_expression) 
+                                                                  plain_expression 
+                                                                  (?)
+
+** In state 143, looking ahead at LPAREN, shifting is permitted
+** because of the following sub-derivation:
+
+expression LARGER expression 
+                  mark_position(plain_expression) 
+                  plain_expression 
+                  expression function_call_params 
+                             . LPAREN loption(separated_nonempty_list(COMMA,param_call)) RPAREN 
+
+** In state 143, looking ahead at LPAREN, reducing production
+** plain_expression -> expression LARGER expression 
+** is permitted because of the following sub-derivation:
+
+expression function_call_params // lookahead token appears because function_call_params can begin with LPAREN
+mark_position(plain_expression) // lookahead token is inherited
+plain_expression // lookahead token is inherited
+expression LARGER expression . 
+
+** Conflict (shift/reduce) in state 141.
+** Tokens involved: LPAREN LBRACK DOT
+** The following explanations concentrate on token LPAREN.
+** This state is reached from prog after reading:
+
+option(module_clause) import_decls LET var_decorator LNAME ASSIGN expression LEQ expression 
+
+** The derivations that appear below have the following common factor:
+** (The question mark symbol (?) represents the spot where the derivations begin to differ.)
+
+prog 
+option(module_clause) import_decls top_defns EOF 
+                                   list(top_defn) 
+                                   top_defn list(top_defn) 
+                                   definition SEMI 
+                                   vars_decl 
+                                   mark_position(plain_vars_decl) 
+                                   plain_vars_decl 
+                                   LET separated_nonempty_list(COMMA,var_decl) 
+                                       var_decl 
+                                       mark_position(plain_var_decl) 
+                                       plain_var_decl 
+                                       var_decorator LNAME ASSIGN expression 
+                                                                  mark_position(plain_expression) 
+                                                                  plain_expression 
+                                                                  (?)
+
+** In state 141, looking ahead at LPAREN, shifting is permitted
+** because of the following sub-derivation:
+
+expression LEQ expression 
+               mark_position(plain_expression) 
+               plain_expression 
+               expression function_call_params 
+                          . LPAREN loption(separated_nonempty_list(COMMA,param_call)) RPAREN 
+
+** In state 141, looking ahead at LPAREN, reducing production
+** plain_expression -> expression LEQ expression 
+** is permitted because of the following sub-derivation:
+
+expression function_call_params // lookahead token appears because function_call_params can begin with LPAREN
+mark_position(plain_expression) // lookahead token is inherited
+plain_expression // lookahead token is inherited
+expression LEQ expression . 
+
+** Conflict (shift/reduce) in state 139.
+** Tokens involved: LPAREN LBRACK DOT
+** The following explanations concentrate on token LPAREN.
+** This state is reached from prog after reading:
+
+option(module_clause) import_decls LET var_decorator LNAME ASSIGN expression NEQ expression 
+
+** The derivations that appear below have the following common factor:
+** (The question mark symbol (?) represents the spot where the derivations begin to differ.)
+
+prog 
+option(module_clause) import_decls top_defns EOF 
+                                   list(top_defn) 
+                                   top_defn list(top_defn) 
+                                   definition SEMI 
+                                   vars_decl 
+                                   mark_position(plain_vars_decl) 
+                                   plain_vars_decl 
+                                   LET separated_nonempty_list(COMMA,var_decl) 
+                                       var_decl 
+                                       mark_position(plain_var_decl) 
+                                       plain_var_decl 
+                                       var_decorator LNAME ASSIGN expression 
+                                                                  mark_position(plain_expression) 
+                                                                  plain_expression 
+                                                                  (?)
+
+** In state 139, looking ahead at LPAREN, shifting is permitted
+** because of the following sub-derivation:
+
+expression NEQ expression 
+               mark_position(plain_expression) 
+               plain_expression 
+               expression function_call_params 
+                          . LPAREN loption(separated_nonempty_list(COMMA,param_call)) RPAREN 
+
+** In state 139, looking ahead at LPAREN, reducing production
+** plain_expression -> expression NEQ expression 
+** is permitted because of the following sub-derivation:
+
+expression function_call_params // lookahead token appears because function_call_params can begin with LPAREN
+mark_position(plain_expression) // lookahead token is inherited
+plain_expression // lookahead token is inherited
+expression NEQ expression . 
+
+** Conflict (shift/reduce) in state 137.
+** Tokens involved: LPAREN LBRACK DOT
+** The following explanations concentrate on token LPAREN.
+** This state is reached from prog after reading:
+
+option(module_clause) import_decls LET var_decorator LNAME ASSIGN expression PLUS_ASSIGN expression 
+
+** The derivations that appear below have the following common factor:
+** (The question mark symbol (?) represents the spot where the derivations begin to differ.)
+
+prog 
+option(module_clause) import_decls top_defns EOF 
+                                   list(top_defn) 
+                                   top_defn list(top_defn) 
+                                   definition SEMI 
+                                   vars_decl 
+                                   mark_position(plain_vars_decl) 
+                                   plain_vars_decl 
+                                   LET separated_nonempty_list(COMMA,var_decl) 
+                                       var_decl 
+                                       mark_position(plain_var_decl) 
+                                       plain_var_decl 
+                                       var_decorator LNAME ASSIGN expression 
+                                                                  mark_position(plain_expression) 
+                                                                  plain_expression 
+                                                                  (?)
+
+** In state 137, looking ahead at LPAREN, shifting is permitted
+** because of the following sub-derivation:
+
+expression PLUS_ASSIGN expression 
+                       mark_position(plain_expression) 
+                       plain_expression 
+                       expression function_call_params 
+                                  . LPAREN loption(separated_nonempty_list(COMMA,param_call)) RPAREN 
+
+** In state 137, looking ahead at LPAREN, reducing production
+** plain_expression -> expression PLUS_ASSIGN expression 
+** is permitted because of the following sub-derivation:
+
+expression function_call_params // lookahead token appears because function_call_params can begin with LPAREN
+mark_position(plain_expression) // lookahead token is inherited
+plain_expression // lookahead token is inherited
+expression PLUS_ASSIGN expression . 
+
+** Conflict (shift/reduce) in state 134.
+** Tokens involved: LPAREN LBRACK DOT
+** The following explanations concentrate on token LPAREN.
+** This state is reached from prog after reading:
+
+option(module_clause) import_decls LET var_decorator LNAME ASSIGN expression SEQ expression 
+
+** The derivations that appear below have the following common factor:
+** (The question mark symbol (?) represents the spot where the derivations begin to differ.)
+
+prog 
+option(module_clause) import_decls top_defns EOF 
+                                   list(top_defn) 
+                                   top_defn list(top_defn) 
+                                   definition SEMI 
+                                   vars_decl 
+                                   mark_position(plain_vars_decl) 
+                                   plain_vars_decl 
+                                   LET separated_nonempty_list(COMMA,var_decl) 
+                                       var_decl 
+                                       mark_position(plain_var_decl) 
+                                       plain_var_decl 
+                                       var_decorator LNAME ASSIGN expression 
+                                                                  mark_position(plain_expression) 
+                                                                  plain_expression 
+                                                                  (?)
+
+** In state 134, looking ahead at LPAREN, shifting is permitted
+** because of the following sub-derivation:
+
+expression SEQ expression 
+               mark_position(plain_expression) 
+               plain_expression 
+               expression function_call_params 
+                          . LPAREN loption(separated_nonempty_list(COMMA,param_call)) RPAREN 
+
+** In state 134, looking ahead at LPAREN, reducing production
+** plain_expression -> expression SEQ expression 
+** is permitted because of the following sub-derivation:
+
+expression function_call_params // lookahead token appears because function_call_params can begin with LPAREN
+mark_position(plain_expression) // lookahead token is inherited
+plain_expression // lookahead token is inherited
+expression SEQ expression . 
+
+** Conflict (shift/reduce) in state 132.
+** Tokens involved: LPAREN LBRACK DOT
+** The following explanations concentrate on token LPAREN.
+** This state is reached from prog after reading:
+
+option(module_clause) import_decls LET var_decorator LNAME ASSIGN expression MINUS expression 
+
+** The derivations that appear below have the following common factor:
+** (The question mark symbol (?) represents the spot where the derivations begin to differ.)
+
+prog 
+option(module_clause) import_decls top_defns EOF 
+                                   list(top_defn) 
+                                   top_defn list(top_defn) 
+                                   definition SEMI 
+                                   vars_decl 
+                                   mark_position(plain_vars_decl) 
+                                   plain_vars_decl 
+                                   LET separated_nonempty_list(COMMA,var_decl) 
+                                       var_decl 
+                                       mark_position(plain_var_decl) 
+                                       plain_var_decl 
+                                       var_decorator LNAME ASSIGN expression 
+                                                                  mark_position(plain_expression) 
+                                                                  plain_expression 
+                                                                  (?)
+
+** In state 132, looking ahead at LPAREN, shifting is permitted
+** because of the following sub-derivation:
+
+expression MINUS expression 
+                 mark_position(plain_expression) 
+                 plain_expression 
+                 expression function_call_params 
+                            . LPAREN loption(separated_nonempty_list(COMMA,param_call)) RPAREN 
+
+** In state 132, looking ahead at LPAREN, reducing production
+** plain_expression -> expression MINUS expression 
+** is permitted because of the following sub-derivation:
+
+expression function_call_params // lookahead token appears because function_call_params can begin with LPAREN
+mark_position(plain_expression) // lookahead token is inherited
+plain_expression // lookahead token is inherited
+expression MINUS expression . 
+
+** Conflict (shift/reduce) in state 130.
+** Tokens involved: LPAREN LBRACK DOT
+** The following explanations concentrate on token LPAREN.
+** This state is reached from prog after reading:
+
+option(module_clause) import_decls LET var_decorator LNAME ASSIGN expression DIVIDE expression 
+
+** The derivations that appear below have the following common factor:
+** (The question mark symbol (?) represents the spot where the derivations begin to differ.)
+
+prog 
+option(module_clause) import_decls top_defns EOF 
+                                   list(top_defn) 
+                                   top_defn list(top_defn) 
+                                   definition SEMI 
+                                   vars_decl 
+                                   mark_position(plain_vars_decl) 
+                                   plain_vars_decl 
+                                   LET separated_nonempty_list(COMMA,var_decl) 
+                                       var_decl 
+                                       mark_position(plain_var_decl) 
+                                       plain_var_decl 
+                                       var_decorator LNAME ASSIGN expression 
+                                                                  mark_position(plain_expression) 
+                                                                  plain_expression 
+                                                                  (?)
+
+** In state 130, looking ahead at LPAREN, shifting is permitted
+** because of the following sub-derivation:
+
+expression DIVIDE expression 
+                  mark_position(plain_expression) 
+                  plain_expression 
+                  expression function_call_params 
+                             . LPAREN loption(separated_nonempty_list(COMMA,param_call)) RPAREN 
+
+** In state 130, looking ahead at LPAREN, reducing production
+** plain_expression -> expression DIVIDE expression 
+** is permitted because of the following sub-derivation:
+
+expression function_call_params // lookahead token appears because function_call_params can begin with LPAREN
+mark_position(plain_expression) // lookahead token is inherited
+plain_expression // lookahead token is inherited
+expression DIVIDE expression . 
+
+** Conflict (shift/reduce) in state 126.
+** Token involved: LPAREN
+** This state is reached from prog after reading:
+
+option(module_clause) import_decls LET var_decorator LNAME ASSIGN expression DOT lname 
+
+** The derivations that appear below have the following common factor:
+** (The question mark symbol (?) represents the spot where the derivations begin to differ.)
+
+prog 
+option(module_clause) import_decls top_defns EOF 
+                                   list(top_defn) 
+                                   top_defn list(top_defn) 
+                                   definition SEMI 
+                                   vars_decl 
+                                   mark_position(plain_vars_decl) 
+                                   plain_vars_decl 
+                                   LET separated_nonempty_list(COMMA,var_decl) 
+                                       var_decl 
+                                       mark_position(plain_var_decl) 
+                                       plain_var_decl 
+                                       var_decorator LNAME ASSIGN expression 
+                                                                  mark_position(plain_expression) 
+                                                                  plain_expression 
+                                                                  (?)
+
+** In state 126, looking ahead at LPAREN, shifting is permitted
+** because of the following sub-derivation:
+
+expression DOT lname function_call_params 
+                     . LPAREN loption(separated_nonempty_list(COMMA,param_call)) RPAREN 
+
+** In state 126, looking ahead at LPAREN, reducing production
+** name -> lname 
+** is permitted because of the following sub-derivation:
+
+expression function_call_params // lookahead token appears because function_call_params can begin with LPAREN
+mark_position(plain_expression) // lookahead token is inherited
+plain_expression // lookahead token is inherited
+expression DOT name // lookahead token is inherited
+               lname . 
+
+** Conflict (shift/reduce) in state 123.
+** Tokens involved: LPAREN LBRACK DOT
+** The following explanations concentrate on token LPAREN.
+** This state is reached from prog after reading:
+
+option(module_clause) import_decls LET var_decorator LNAME ASSIGN expression MOD expression 
+
+** The derivations that appear below have the following common factor:
+** (The question mark symbol (?) represents the spot where the derivations begin to differ.)
+
+prog 
+option(module_clause) import_decls top_defns EOF 
+                                   list(top_defn) 
+                                   top_defn list(top_defn) 
+                                   definition SEMI 
+                                   vars_decl 
+                                   mark_position(plain_vars_decl) 
+                                   plain_vars_decl 
+                                   LET separated_nonempty_list(COMMA,var_decl) 
+                                       var_decl 
+                                       mark_position(plain_var_decl) 
+                                       plain_var_decl 
+                                       var_decorator LNAME ASSIGN expression 
+                                                                  mark_position(plain_expression) 
+                                                                  plain_expression 
+                                                                  (?)
+
+** In state 123, looking ahead at LPAREN, shifting is permitted
+** because of the following sub-derivation:
+
+expression MOD expression 
+               mark_position(plain_expression) 
+               plain_expression 
+               expression function_call_params 
+                          . LPAREN loption(separated_nonempty_list(COMMA,param_call)) RPAREN 
+
+** In state 123, looking ahead at LPAREN, reducing production
+** plain_expression -> expression MOD expression 
+** is permitted because of the following sub-derivation:
+
+expression function_call_params // lookahead token appears because function_call_params can begin with LPAREN
+mark_position(plain_expression) // lookahead token is inherited
+plain_expression // lookahead token is inherited
+expression MOD expression . 
+
+** Conflict (shift/reduce) in state 121.
+** Tokens involved: LPAREN LBRACK DOT
+** The following explanations concentrate on token LPAREN.
+** This state is reached from prog after reading:
+
+option(module_clause) import_decls LET var_decorator LNAME ASSIGN expression PLUS expression 
+
+** The derivations that appear below have the following common factor:
+** (The question mark symbol (?) represents the spot where the derivations begin to differ.)
+
+prog 
+option(module_clause) import_decls top_defns EOF 
+                                   list(top_defn) 
+                                   top_defn list(top_defn) 
+                                   definition SEMI 
+                                   vars_decl 
+                                   mark_position(plain_vars_decl) 
+                                   plain_vars_decl 
+                                   LET separated_nonempty_list(COMMA,var_decl) 
+                                       var_decl 
+                                       mark_position(plain_var_decl) 
+                                       plain_var_decl 
+                                       var_decorator LNAME ASSIGN expression 
+                                                                  mark_position(plain_expression) 
+                                                                  plain_expression 
+                                                                  (?)
+
+** In state 121, looking ahead at LPAREN, shifting is permitted
+** because of the following sub-derivation:
+
+expression PLUS expression 
+                mark_position(plain_expression) 
+                plain_expression 
+                expression function_call_params 
+                           . LPAREN loption(separated_nonempty_list(COMMA,param_call)) RPAREN 
+
+** In state 121, looking ahead at LPAREN, reducing production
+** plain_expression -> expression PLUS expression 
+** is permitted because of the following sub-derivation:
+
+expression function_call_params // lookahead token appears because function_call_params can begin with LPAREN
+mark_position(plain_expression) // lookahead token is inherited
+plain_expression // lookahead token is inherited
+expression PLUS expression . 
+
+** Conflict (shift/reduce) in state 119.
+** Tokens involved: LPAREN LBRACK DOT
+** The following explanations concentrate on token LPAREN.
+** This state is reached from prog after reading:
+
+option(module_clause) import_decls LET var_decorator LNAME ASSIGN expression SMALLER expression 
+
+** The derivations that appear below have the following common factor:
+** (The question mark symbol (?) represents the spot where the derivations begin to differ.)
+
+prog 
+option(module_clause) import_decls top_defns EOF 
+                                   list(top_defn) 
+                                   top_defn list(top_defn) 
+                                   definition SEMI 
+                                   vars_decl 
+                                   mark_position(plain_vars_decl) 
+                                   plain_vars_decl 
+                                   LET separated_nonempty_list(COMMA,var_decl) 
+                                       var_decl 
+                                       mark_position(plain_var_decl) 
+                                       plain_var_decl 
+                                       var_decorator LNAME ASSIGN expression 
+                                                                  mark_position(plain_expression) 
+                                                                  plain_expression 
+                                                                  (?)
+
+** In state 119, looking ahead at LPAREN, shifting is permitted
+** because of the following sub-derivation:
+
+expression SMALLER expression 
+                   mark_position(plain_expression) 
+                   plain_expression 
+                   expression function_call_params 
+                              . LPAREN loption(separated_nonempty_list(COMMA,param_call)) RPAREN 
+
+** In state 119, looking ahead at LPAREN, reducing production
+** plain_expression -> expression SMALLER expression 
+** is permitted because of the following sub-derivation:
+
+expression function_call_params // lookahead token appears because function_call_params can begin with LPAREN
+mark_position(plain_expression) // lookahead token is inherited
+plain_expression // lookahead token is inherited
+expression SMALLER expression . 
+
+** Conflict (shift/reduce) in state 115.
+** Tokens involved: LPAREN LBRACK DOT
+** The following explanations concentrate on token LPAREN.
+** This state is reached from prog after reading:
+
+option(module_clause) import_decls LET var_decorator LNAME ASSIGN expression STAR expression 
+
+** The derivations that appear below have the following common factor:
+** (The question mark symbol (?) represents the spot where the derivations begin to differ.)
+
+prog 
+option(module_clause) import_decls top_defns EOF 
+                                   list(top_defn) 
+                                   top_defn list(top_defn) 
+                                   definition SEMI 
+                                   vars_decl 
+                                   mark_position(plain_vars_decl) 
+                                   plain_vars_decl 
+                                   LET separated_nonempty_list(COMMA,var_decl) 
+                                       var_decl 
+                                       mark_position(plain_var_decl) 
+                                       plain_var_decl 
+                                       var_decorator LNAME ASSIGN expression 
+                                                                  mark_position(plain_expression) 
+                                                                  plain_expression 
+                                                                  (?)
+
+** In state 115, looking ahead at LPAREN, shifting is permitted
+** because of the following sub-derivation:
+
+expression STAR expression 
+                mark_position(plain_expression) 
+                plain_expression 
+                expression function_call_params 
+                           . LPAREN loption(separated_nonempty_list(COMMA,param_call)) RPAREN 
+
+** In state 115, looking ahead at LPAREN, reducing production
+** plain_expression -> expression STAR expression 
+** is permitted because of the following sub-derivation:
+
+expression function_call_params // lookahead token appears because function_call_params can begin with LPAREN
+mark_position(plain_expression) // lookahead token is inherited
+plain_expression // lookahead token is inherited
+expression STAR expression . 
+
+** Conflict (shift/reduce) in state 80.
+** Token involved: ASSIGN
+** This state is reached from prog after reading:
+
+option(module_clause) import_decls LET var_decorator LNAME ASSIGN LET var_decorator LNAME COLON ty 
+
+** The derivations that appear below have the following common factor:
+** (The question mark symbol (?) represents the spot where the derivations begin to differ.)
+
+prog 
+option(module_clause) import_decls top_defns EOF 
+                                   list(top_defn) 
+                                   top_defn list(top_defn) 
+                                   definition SEMI 
+                                   vars_decl 
+                                   mark_position(plain_vars_decl) 
+                                   plain_vars_decl 
+                                   LET separated_nonempty_list(COMMA,var_decl) 
+                                       var_decl 
+                                       mark_position(plain_var_decl) 
+                                       plain_var_decl 
+                                       var_decorator LNAME ASSIGN expression 
+                                                                  mark_position(plain_expression) 
+                                                                  plain_expression 
+                                                                  (?)
+
+** In state 80, looking ahead at ASSIGN, reducing production
+** plain_var_decl -> var_decorator LNAME COLON ty 
+** is permitted because of the following sub-derivation:
+
+expression ASSIGN expression // lookahead token appears
+mark_position(plain_expression) // lookahead token is inherited
+plain_expression // lookahead token is inherited
+plain_vars_decl // lookahead token is inherited
+LET separated_nonempty_list(COMMA,var_decl) // lookahead token is inherited
+    var_decl // lookahead token is inherited
+    mark_position(plain_var_decl) // lookahead token is inherited
+    plain_var_decl // lookahead token is inherited
+    var_decorator LNAME COLON ty . 
+
+** In state 80, looking ahead at ASSIGN, shifting is permitted
+** because of the following sub-derivation:
+
+plain_vars_decl 
+LET separated_nonempty_list(COMMA,var_decl) 
+    var_decl 
+    mark_position(plain_var_decl) 
+    plain_var_decl 
+    var_decorator LNAME COLON ty . ASSIGN expression 
+
+** Conflict (shift/reduce) in state 49.
+** Token involved: SMALLER
+** This state is reached from prog after reading:
+
+option(module_clause) import_decls LET var_decorator LNAME ASSIGN LET var_decorator LNAME COLON tyname 
+
+** The derivations that appear below have the following common factor:
+** (The question mark symbol (?) represents the spot where the derivations begin to differ.)
+
+prog 
+option(module_clause) import_decls top_defns EOF 
+                                   list(top_defn) 
+                                   top_defn list(top_defn) 
+                                   definition SEMI 
+                                   vars_decl 
+                                   mark_position(plain_vars_decl) 
+                                   plain_vars_decl 
+                                   LET separated_nonempty_list(COMMA,var_decl) 
+                                       var_decl 
+                                       mark_position(plain_var_decl) 
+                                       plain_var_decl 
+                                       var_decorator LNAME ASSIGN expression 
+                                                                  mark_position(plain_expression) 
+                                                                  plain_expression 
+                                                                  (?)
+
+** In state 49, looking ahead at SMALLER, shifting is permitted
+** because of the following sub-derivation:
+
+plain_vars_decl 
+LET separated_nonempty_list(COMMA,var_decl) 
+    var_decl 
+    mark_position(plain_var_decl) 
+    plain_var_decl 
+    var_decorator LNAME COLON ty 
+                              mark_position(plain_ty) 
+                              plain_ty 
+                              ty_apply 
+                              tyname . SMALLER separated_nonempty_list(COMMA,ty) LARGER 
+
+** In state 49, looking ahead at SMALLER, reducing production
+** ty_apply -> tyname 
+** is permitted because of the following sub-derivation:
+
+expression SMALLER expression // lookahead token appears
+mark_position(plain_expression) // lookahead token is inherited
+plain_expression // lookahead token is inherited
+plain_vars_decl // lookahead token is inherited
+LET separated_nonempty_list(COMMA,var_decl) // lookahead token is inherited
+    var_decl // lookahead token is inherited
+    mark_position(plain_var_decl) // lookahead token is inherited
+    plain_var_decl // lookahead token is inherited
+    var_decorator LNAME COLON ty // lookahead token is inherited
+                              mark_position(plain_ty) // lookahead token is inherited
+                              plain_ty // lookahead token is inherited
+                              ty_apply // lookahead token is inherited
+                              tyname . 
+
+** Conflict (shift/reduce) in state 13.
+** Token involved: DOT
+** This state is reached from prog after reading:
+
+option(module_clause) IMPORT name 
+
+** The derivations that appear below have the following common factor:
+** (The question mark symbol (?) represents the spot where the derivations begin to differ.)
+
+prog 
+option(module_clause) import_decls top_defns EOF 
+                      list(import_decl) 
+                      import_decl list(import_decl) 
+                      mark_position(plain_import_decl) 
+                      plain_import_decl 
+                      (?)
+
+** In state 13, looking ahead at DOT, reducing production
+** separated_nonempty_list(DOT,name) -> name 
+** is permitted because of the following sub-derivation:
+
+IMPORT module_path DOT LBRACK module_list RBRACK SEMI // lookahead token appears
+       separated_nonempty_list(DOT,name) // lookahead token is inherited
+       name . 
+
+** In state 13, looking ahead at DOT, shifting is permitted
+** because of the following sub-derivation:
+
+IMPORT module_path DOT LBRACK module_list RBRACK SEMI 
+       separated_nonempty_list(DOT,name) 
+       name . DOT separated_nonempty_list(DOT,name) 

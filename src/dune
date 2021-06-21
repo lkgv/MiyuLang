@@ -1,0 +1,8 @@
+(executable
+ (name main)
+ (modules main)
+ (libraries core fmt parsing utils)
+ (preprocess
+  (pps ppx_jane bisect_ppx --conditional))
+ (lint
+  (pps ppx_js_style -annotated-ignores -styler -pretty -dated-deprecation)))
