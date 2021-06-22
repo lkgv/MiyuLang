@@ -12,7 +12,7 @@ fn add <'a, 'b, 'c> (a: 'a = 0, b: 'b = 0) ->
             .get(b)
             .get(get_sum(a + b))
             .out());
-  c = new Ga<int, l<g, a, t<a, b>>, 'T> (3, 4);
+  c = new Ga::<int, l<g, a, t<a, b>>, 'T> (3, 4);
 
   (fn f <'T:int, 'B:float> ( a: T, b: B) -> let a:int; end);
 
@@ -24,6 +24,7 @@ end;
 
 cls P <'T:int, 'B:float> (Mama<'T, 'B>):
   pub a:'T, b: 'B;
+  a = a < 4 + a :: <a, b, c> (3 > 4, b :: <a, c>) > 4;
 end;
 
   

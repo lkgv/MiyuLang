@@ -19,6 +19,7 @@ let pprint_tokens ppf = function
   | GNAME n      -> Fmt.pf ppf "GNAME(%s)@." (ParsedAst.label_to_string n)
   | AT           -> Fmt.pf ppf "AT@."
   | INT i        -> Fmt.pf ppf "INT(%d)@." i
+  | COLONCOLON   -> Fmt.pf ppf "COLONCOLON@."
   | STRING s     -> Fmt.pf ppf "STRING(\"%s\")@." s
   | BOOL true    -> Fmt.pf ppf "BOOL(true)@."
   | BOOL false   -> Fmt.pf ppf "BOOL(false)@."

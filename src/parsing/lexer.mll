@@ -91,6 +91,7 @@ rule token = parse
   | '{'                 { LBRACE }
   | '}'                 { RBRACE }
   | ':'                 { COLON }
+  | "::"                { COLONCOLON }
   | ','                 { COMMA }
   | '.'                 { DOT }
   | ';'                 { SEMI }

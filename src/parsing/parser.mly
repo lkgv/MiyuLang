@@ -16,7 +16,7 @@
 %token <float> FLOAT
 %token IMPORT MODULE
 %token BREAK CONTINUE RET PRINT THIS NULL
-%token FN
+%token FN COLONCOLON
 %token IF ELIF ELSE
 %token LET CONST PUB REF STATIC
 %token LOOP WHILE FOR IN
@@ -42,6 +42,7 @@
 %left LARGER LEQ SMALLER SEQ
 %left PLUS MINUS
 %left STAR DIVIDE MOD
+%nonassoc COLONCOLON
 
 %start prog
 %type <ParsedAst.program> prog
@@ -169,17 +170,17 @@ primary_expression_access:
     { MethodCall (pe, f, [], lst) }
   | pe = primary_expression lst = function_call_params
     { Call (pe, [], lst) }
-  | pe = primary_expression DOT id = name plst = gen_ty_consume
+  | pe = primary_expression DOT id = name COLONCOLON plst = gen_ty_consume
     { Retrive (pe, id, plst) }
-  | pe = primary_expression DOT f = name plst = gen_ty_consume lst = function_call_params
+  | pe = primary_expression DOT f = name COLONCOLON plst = gen_ty_consume lst = function_call_params
     { MethodCall (pe, f, plst, lst) }
-  | pe = primary_expression plst = gen_ty_consume lst = function_call_params
+  | pe = primary_expression COLONCOLON plst = gen_ty_consume lst = function_call_params
     { Call (pe, plst, lst) }
 
 primary_expression_start:
   | NEW n = uname lst = function_call_params 
     { New (n, [], lst) }
-  | NEW n = uname lst1 = gen_ty_consume lst2 = function_call_params 
+  | NEW n = uname COLONCOLON lst1 = gen_ty_consume lst2 = function_call_params 
     { New (n, lst1, lst2) }
   | LPAREN e = plain_expression RPAREN
     { e }
@@ -191,7 +192,7 @@ primary_expression_start:
     { Literal i }
   | THIS
     { This }
-  | n = name lst = gen_ty_consume
+  | n = name COLONCOLON lst = gen_ty_consume
     { Id (n, lst) }
   | n = name
     { Id (n, []) }
