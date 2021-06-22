@@ -13,7 +13,8 @@ fn fib(d, g, em, a:int=7, b=4, c=4) : int ->
         let a = 3;
     end;
 
-    3 + a < 3 < begin new A<int>(3, 4); end && 3 < 3 || 4 > a;
+    3 + a + (begin
+    new A<int>(3, 4); end);
 end;
 
 fn main() ->

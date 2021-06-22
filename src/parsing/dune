@@ -1,6 +1,7 @@
 (library
  (name parsing)
- (libraries utils core fmt)
+ (libraries utils core fmt menhirLib)
+ (flags -w)
  (preprocess
   (pps bisect_ppx --conditional))
  (lint
@@ -9,4 +10,13 @@
 (ocamllex lexer)
 
 (menhir
- (modules parser))
+ (modules parser)
+ (flags --table))
+
+(rule
+ (targets parserMessages.ml)
+ (deps parser.messages parser.mly)
+ (action
+  (with-stdout-to
+   %{targets}
+   (run menhir --compile-errors %{deps}))))

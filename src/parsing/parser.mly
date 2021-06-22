@@ -9,7 +9,7 @@
 %token <ParsedAst.label> LNAME
 %token <ParsedAst.label> UNAME
 %token <ParsedAst.label> GNAME
-%token UNDERSCORE AT
+%token AT
 %token <int> INT
 %token <string> STRING
 %token <bool> BOOL
@@ -39,7 +39,7 @@
 %left BAR
 %left AMBER
 %left EQUAL NEQ
-%left LARGER LEQ SMALLER SEQ shift
+%left LARGER LEQ SMALLER SEQ
 %left PLUS MINUS
 %left STAR DIVIDE MOD
 
@@ -52,16 +52,19 @@ prog:
   | s = module_clause? i_lst = import_decls d_lst = top_defns EOF
     { Prog (s, i_lst, d_lst) }
 
+sep: single_sep+ {}
+single_sep: SEMI {}
+
 module_clause: mark_position(plain_module_clause) { $1 }
 plain_module_clause:
-  | MODULE lst = separated_nonempty_list(DOT, name) SEMI
+  | MODULE lst = separated_nonempty_list(DOT, name) sep
     { let mname = String.concat "." lst in Module mname }
 
 import_decls: lst = import_decl* { lst }
 
 import_decl: mark_position(plain_import_decl) { $1 }
 plain_import_decl:
-  | IMPORT lst = separated_nonempty_list(COMMA, module_path_list) SEMI
+  | IMPORT lst = separated_nonempty_list(COMMA, module_path_list) sep
     {
       let import_lst = List.concat lst in
       let split xs =
@@ -84,7 +87,8 @@ module_path:
 
 top_defns:
   | { [] }
-  | def = definition SEMI lst = top_defns { def :: lst }
+  | def = definition { def :: [] }
+  | def = definition sep lst = top_defns { def :: lst }
 
 lname: LNAME { $1 }
 uname: UNAME { $1 }
@@ -103,66 +107,94 @@ definition:
     { f }
 
 expression: mark_position(plain_expression) { $1 }
-
 plain_expression:
   | v = plain_vars_decl
     { v }
-  | e = expression DOT id = name
-    { Retrive (e, id) }
-  | e = expression LBRACK id = expression RBRACK
+  | f = plain_function_def
+    { f }
+  | BEGIN b = block END
+    { b }
+  | LOOP b = block END
+    { Loop b }
+  | WHILE e = arithmetic_expression COLON b = block END
+    { While (e, b) }
+  | FOR n = lname IN e = unary_expression COLON b = block END
+    { For (n, e, b) }
+  | DEL n = name
+    { Del n }
+  | e = if_expression
+    { e }
+  | BREAK LPAREN e = arithmetic_expression
+    { Break e }
+  | CONTINUE e = arithmetic_expression
+    { Continue e }
+  | RET e = arithmetic_expression
+    { Return e }
+  | PRINT LPAREN e = arithmetic_expression RPAREN
+    { Print e }
+  | e = arithmetic_expression { e.it }
+
+arithmetic_expression:
+  | e = assignment { e }
+  | e = bin_expression { e }
+
+assignment: mark_position(plain_assignment) { $1 }
+plain_assignment:
+  | e1 = unary_expression op = assign_op e2 = arithmetic_expression
+    { AssignOp (op, e1, e2) }
+
+bin_expression:
+  | ue = unary_expression { ue }
+  | e1 = bin_expression op = bin_op e2 = bin_expression
+    { {it= BinOp (op, e1, e2) ;at= Location.make $startpos $endpos} }
+
+unary_expression:
+  | pe = primary_expression { pe }
+  | op = un_op ue = unary_expression
+    { {it= UnOp (op, ue) ;at= Location.make $startpos $endpos} }
+
+primary_expression: mark_position(plain_primary_expression) { $1 }
+plain_primary_expression:
+  | e = primary_expression_access
+    { e }
+  | e = primary_expression LBRACK id = arithmetic_expression RBRACK
     { Index (e, id) }
+
+primary_expression_access:
+  | pe = primary_expression_start
+    { pe }
+  | pe = primary_expression DOT id = name
+    { Retrive (pe, id, []) }
+  | pe = primary_expression DOT f = name lst = function_call_params
+    { MethodCall (pe, f, [], lst) }
+  | pe = primary_expression lst = function_call_params
+    { Call (pe, [], lst) }
+  | pe = primary_expression DOT id = name plst = gen_ty_consume
+    { Retrive (pe, id, plst) }
+  | pe = primary_expression DOT f = name plst = gen_ty_consume lst = function_call_params
+    { MethodCall (pe, f, plst, lst) }
+  | pe = primary_expression plst = gen_ty_consume lst = function_call_params
+    { Call (pe, plst, lst) }
+
+primary_expression_start:
   | NEW n = uname lst = function_call_params 
     { New (n, [], lst) }
   | NEW n = uname lst1 = gen_ty_consume lst2 = function_call_params 
     { New (n, lst1, lst2) }
-  | DEL n = lname
-    { Del n }
   | LPAREN e = plain_expression RPAREN
     { e }
   | LBRACK RBRACK
     { Array [] }
-  | LBRACK lst = separated_nonempty_list(COMMA, expression) RBRACK
+  | LBRACK lst = separated_nonempty_list(COMMA, arithmetic_expression) RBRACK
     { Array lst }
-  | op = un_op e = expression
-    { UnOp (op, e) }
-  | e1 = expression op = bin_op e2 = expression
-    { BinOp (op, e1, e2) }
-  | e1 = expression op = assign_op e2 = expression
-    { AssignOp (op, e1, e2) }
-  | BREAK e = expression
-    { Break e }
-  | CONTINUE e = expression
-    { Continue e }
-  | RET e = expression
-    { Return e }
-  | PRINT LPAREN e = expression RPAREN
-    { Print e }
-  | e = expression DOT f = name lst = function_call_params
-    { MethodCall (e, f, lst) }
-  | f = name lst = function_call_params
-    { Call (f, lst) }
-  | e = expression_with_blk
-    { e }
   | i = literal
     { Literal i }
   | THIS
     { This }
+  | n = name lst = gen_ty_consume
+    { Id (n, lst) }
   | n = name
-    { Id n }
-
-expression_with_blk:
-  | BEGIN b = block END
-    { b }
-  | f = plain_function_def
-    { f }
-  | e = if_expression
-    { e }
-  | LOOP b = block END
-    { Loop b }
-  | WHILE e = expression COLON b = block END
-    { While (e, b) }
-  | FOR n = lname IN e = expression COLON b = block END
-    { For (n, e, b) }
+    { Id (n, []) }
 
 %inline assign_op:
   | MUL_ASSIGN   { MulAssign }
@@ -190,14 +222,14 @@ expression_with_blk:
   | NEQ          { BinOpNeq }
 
 if_expression:
-  | IF e1 = expression COLON b1 = block lst = list(elif_expression) els = option(else_expression) END
+  | IF e1 = bin_expression COLON b1 = block lst = list(elif_expression) els = option(else_expression) END
     { let els_lst =
         match els with
         | Some e -> [e]
         | None -> [] in
       If (Cond (e1, b1) :: lst @ els_lst) }
 elif_expression:
-  | ELIF e = expression COLON b = block
+  | ELIF e = bin_expression COLON b = block
     { Cond (e, b) }
 else_expression:
   | ELSE COLON e = block
@@ -211,9 +243,9 @@ var_decl: mark_position(plain_var_decl) { $1 }
 plain_var_decl:
   | d = var_decorator name = LNAME COLON ty = ty
     { Var (name, d, Some ty, None) }
-  | d = var_decorator name = LNAME COLON ty = ty ASSIGN exp = expression
+  | d = var_decorator name = LNAME COLON ty = ty ASSIGN exp = arithmetic_expression
     { Var (name, d, Some ty, Some exp) }
-  | d = var_decorator name = LNAME ASSIGN exp = expression
+  | d = var_decorator name = LNAME ASSIGN exp = arithmetic_expression
     { Var (name, d, None, Some exp) }
 var_decorator:
   | c = CONST?
@@ -245,43 +277,34 @@ function_param_list:
   | p = param_def { [p;] }
   | p = param_def COMMA lst = function_param_list { p :: lst }
 
-/*| LPAREN RPAREN
-    { [] }
-  | LPAREN p = param_def lst1 = comma_param_def* lst2 = com.ma_param_def_default* RPAREN
-    { p::lst1@lst2 }
-  | LPAREN p = param_def_default lst = comma_param_def_default* RPAREN
-    { p::lst }
-  | lst1 = separated_nonempty_list(COMMA, param_def) COMMA lst2 = separated_list(COMMA, param_def_default)
-    { lst1 @ lst2 }
-  | lst = separated_nonempty_list(COMMA, param_def_default)
-    { lst } */
-
-
 param_def:
   | d = var_decorator n = lname COLON t = ty
     { Param (n, d, Some t, None) }
   | d = var_decorator n = lname
     { Param (n, d, None, None) }
-  | d = var_decorator n = lname COLON t = ty ASSIGN exp = expression
+  | d = var_decorator n = lname COLON t = ty ASSIGN exp = bin_expression
     { Param (n, d, Some t, Some(exp)) }
-  | d = var_decorator n = lname ASSIGN exp = expression
+  | d = var_decorator n = lname ASSIGN exp = bin_expression
     { Param (n, d, None, Some(exp)) }
 
 function_call_params:
-  | LPAREN lst = separated_list(COMMA, param_call) RPAREN
-    { lst }
+  | LPAREN RPAREN { [] }
+  | LPAREN lst = param_call_list RPAREN { lst }
+
+param_call_list:
+  | c = param_call { [c;] }
+  | c = param_call COMMA lst = param_call_list { c :: lst }
 
 param_call:
-  | v = expression
+  | v = bin_expression
     { CallParam (None, v) }
-  | name = LNAME ASSIGN v = expression
+  | name = lname ASSIGN v = bin_expression
     { CallParam (Some(name), v) }
 
 block:
-  |
-    { Block [] }
-  | e = expression SEMI b = block
-    { match b with | Block lst -> Block (e :: lst) | _ -> Block [e;] }
+  | { Block [] }
+  | e = expression { Block [e;] }
+  | e = expression sep b = block { match b with  Block lst -> Block (e :: lst) | _ -> Block [e;] }
 
 ty_def:
   | c = class_def
@@ -332,10 +355,9 @@ class_father:
   | LPAREN f = uname RPAREN { (f, []) }
   | LPAREN f = uname lst = gen_ty_consume RPAREN { (f, lst) }
 class_body:
-  |
-  { [] }
-  | d = field_decl SEMI lst = class_body
-  { d :: lst }
+  | { [] }
+  | d = field_decl { [d;] }
+  | d = field_decl sep lst = class_body { d :: lst }
 
 field_decl: mark_position(plain_field_decl) { $1 }
 plain_field_decl:
@@ -357,9 +379,9 @@ method_decl:
 properties_decl:
   | anns = field_decorator name = LNAME COLON t = ty
     { Property (name, anns, Some t, None) }
-  | anns = field_decorator name = LNAME COLON t = ty ASSIGN exp = expression
+  | anns = field_decorator name = LNAME COLON t = ty ASSIGN exp = arithmetic_expression
     { Property (name, anns, Some t, Some exp) }
-  | anns = field_decorator name = LNAME ASSIGN exp = expression
+  | anns = field_decorator name = LNAME ASSIGN exp = arithmetic_expression
     { Property (name, anns, None, Some exp) }
 field_decorator:
   | s = STATIC? p = PUB? c = CONST?

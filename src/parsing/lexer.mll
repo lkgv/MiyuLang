@@ -59,8 +59,11 @@
   ]
 }
 
-let lname = ( ['a'-'z'] ['_' 'a'-'z' 'A'-'Z' '0'-'9']*
-            | ['_' 'a'-'z'] ['_' 'a'-'z' 'A'-'Z' '0'-'9']+)
+let newline = '\r' | '\n' | "\r\n"
+
+let lname = ( '_'
+            | ['a'-'z'] ['_' 'a'-'z' 'A'-'Z' '0'-'9']*
+            | ['_'] ['a'-'z' 'A'-'Z' '0'-'9']+ ['_' 'a'-'z' 'A'-'Z' '0'-'9']*)
 
 let uname = ['A'-'Z'] ['_' 'a'-'z' 'A'-'Z' '0'-'9']*
 
@@ -81,7 +84,6 @@ let float =
    ('.' ['0'-'9' '_']*)? (['e' 'E'] ['+' '-']? ['0'-'9'] ['0'-'9' '_']*))
 
 rule token = parse
-  | '_'                 { UNDERSCORE }
   | '('                 { LPAREN }
   | ')'                 { RPAREN }
   | '['                 { LBRACK }
@@ -116,7 +118,7 @@ rule token = parse
   | "||"                { BARBAR }
   | '&'                 { AMPER }
   | "&&"                { AMPERAMPER }
-  | '\n'                { Lexing.new_line lexbuf; token lexbuf }
+  | newline             { Lexing.new_line lexbuf; token lexbuf }
   | "/*"                { comment 0 lexbuf }
   | "//"                 { single_line_comment lexbuf }
   | [' ' '\r' '\t']     { token lexbuf }

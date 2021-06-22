@@ -17,7 +17,6 @@ let pprint_tokens ppf = function
   | LNAME n      -> Fmt.pf ppf "LNAME(%s)@." (ParsedAst.label_to_string n)
   | UNAME n      -> Fmt.pf ppf "UNAME(%s)@." (ParsedAst.label_to_string n)
   | GNAME n      -> Fmt.pf ppf "GNAME(%s)@." (ParsedAst.label_to_string n)
-  | UNDERSCORE   -> Fmt.pf ppf "UNDERSCORE@."
   | AT           -> Fmt.pf ppf "AT@."
   | INT i        -> Fmt.pf ppf "INT(%d)@." i
   | STRING s     -> Fmt.pf ppf "STRING(\"%s\")@." s

@@ -13,5 +13,4 @@
  (synopsis "A programming language just for practice")
  (depends
   menhir
-  (ocaml (>= 4.08.1))
-  (ocamlformat (= 0.12.0))))
+  (ocaml (>= 4.08.1))))

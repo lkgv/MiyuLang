@@ -1,12 +1,11 @@
 module Example_03;
 
-fn add (a: int = 0, b: int = 0) ->
-  let result = a + b;
+fn add (a: int = 0, b: int = 0) -> let result = a + b;
   print(fmt("result:\n  %s + %s = %s.\n")
             .get(a)
             .get(b)
             .get(a + b)
-            .out());
+            .out())
 end;
 
 cls Point:
@@ -15,7 +14,7 @@ cls Point:
 
     fn point (xx, yy) ->
         let x = xx;
-        let y = yy;
+        let y = yy
     end;
 
 end; 
@@ -42,11 +41,15 @@ fn minus(a: Vector, b: Vector): Vector ->
 end;
 
 fn scale_product(a: Vector, b: float): Vector ->
-    ret Vector (a.x * k, a.y * k);
+    ret Vector (a.x * k, a.y * k)
 end;
 
 fn main() ->
     let a = Vector(0.0, 1.0), b = Vector(1.0, 0.0);
     print(0);
     print("plus :");
+
+    ret (fn _ () -> 3; end)(3)("a", "b", "c")(2,3,4).get(5)[3][9]
 end;
+
+let a = 3;

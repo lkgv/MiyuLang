@@ -90,11 +90,12 @@ and plain_expr =
   | Vars       of var list
   (* function name, list of generic type, list of param, return type (optional), expr*)
   | Fn         of label * generic_ty list * param list * ty option * plain_expr
-  (* source, method name, param *)
-  | MethodCall of expr * label * call_param list
-  | Retrive    of expr * label
+  (* source, method name, list of param ty, param *)
+  | MethodCall of expr * label * ty list * call_param list
+  | Retrive    of expr * label * ty list
   | Index      of expr * expr
-  | Call       of label * call_param list
+  (* function name, list of param ty, list of call param *)
+  | Call       of expr * ty list * call_param list
   (* class name, list of param ty, list of call param *)
   | New        of label * ty list * call_param list
   | Del        of label
@@ -115,7 +116,8 @@ and plain_expr =
   | While      of expr * plain_expr
   | For        of label * expr * plain_expr
   | This
-  | Id         of label
+  (* identity name, list of generic type params *)
+  | Id         of label * ty list
 
 and field_defn = plain_field_defn located
 

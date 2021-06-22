@@ -20,27 +20,43 @@ and pprint_plain_expr ppf ~indent expr =
       List.iter ~f:(pprint_var ppf ~indent:new_indent) vs
   | Fn (name, gen_tys, params, ty, body) ->
       pprint_fn_defn ppf ~indent (name, gen_tys, params, ty, body)
-  | MethodCall (source, name, params) ->
+  | MethodCall (source, name, lst, params) ->
+      let prt_gen_params lst =
+        if List.length lst > 0 then (
+          Fmt.pf ppf "%sGeneric Type Params:@." new_indent ;
+          List.iter ~f:(pprint_ty ppf ~indent:(indent_space ^ new_indent)) lst ) in
       print_expr "MethodCall" ;
       Fmt.pf ppf "%sSource:@." new_indent ;
       pprint_expr ppf ~indent:(indent_space ^ new_indent) source ;
       Fmt.pf ppf "%sMethod name: %s@." new_indent name ;
+      prt_gen_params lst ;
       Fmt.pf ppf "%sCall Params:@." new_indent ;
       List.iter ~f:(pprint_call_param ppf ~indent:(indent_space ^ new_indent)) params
-  | Retrive (source, field) ->
+  | Retrive (source, field, lst) ->
+      let prt_gen_params lst =
+        if List.length lst > 0 then (
+          Fmt.pf ppf "%sGeneric Type Params:@." new_indent ;
+          List.iter ~f:(pprint_ty ppf ~indent:(indent_space ^ new_indent)) lst ) in
       print_expr "Retrive" ;
       Fmt.pf ppf "%sSource:@." new_indent ;
       pprint_expr ppf ~indent:(indent_space ^ new_indent) source ;
-      Fmt.pf ppf "%sField: %s@." new_indent (label_to_string field)
+      Fmt.pf ppf "%sField: %s@." new_indent (label_to_string field) ;
+      prt_gen_params lst
   | Index (source, id) ->
       print_expr "Index" ;
       Fmt.pf ppf "%sSource:@." new_indent ;
       pprint_expr ppf ~indent:(indent_space ^ new_indent) source ;
       Fmt.pf ppf "%sId:@." new_indent ;
       pprint_expr ppf ~indent:(indent_space ^ new_indent) id
-  | Call (fn, params) ->
+  | Call (fn, lst, params) ->
+      let prt_gen_params lst =
+        if List.length lst > 0 then (
+          Fmt.pf ppf "%sGeneric Type Params:@." new_indent ;
+          List.iter ~f:(pprint_ty ppf ~indent:(indent_space ^ new_indent)) lst ) in
       print_expr "FnCall" ;
-      Fmt.pf ppf "%sFn: %s@." new_indent (label_to_string fn) ;
+      Fmt.pf ppf "%sFn:@." new_indent ;
+      pprint_expr ppf ~indent:(indent_space ^ new_indent) fn ;
+      prt_gen_params lst ;
       Fmt.pf ppf "%sCall Params:@." new_indent ;
       List.iter ~f:(pprint_call_param ppf ~indent:(indent_space ^ new_indent)) params
   | New (name, gen_params, params) ->
@@ -96,7 +112,13 @@ and pprint_plain_expr ppf ~indent expr =
       Fmt.pf ppf "%sExpression:@." new_indent ;
       pprint_plain_expr ppf ~indent:(indent_space ^ new_indent) block
   | This -> print_expr "This"
-  | Id n -> print_expr (Fmt.str "ID(%s)" (label_to_string n))
+  | Id (n, lst) ->
+      let prt_gen_params lst =
+        if List.length lst > 0 then (
+          Fmt.pf ppf "%sGeneric Type Params:@." new_indent ;
+          List.iter ~f:(pprint_ty ppf ~indent:(indent_space ^ new_indent)) lst ) in
+      print_expr (Fmt.str "ID(%s)" (label_to_string n)) ;
+      prt_gen_params lst
 
 and pprint_class_defn ppf ~indent (name, father, gen_tys, fields) =
   let new_indent = indent_space ^ indent in

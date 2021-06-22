@@ -9,7 +9,6 @@ depends: [
   "dune" {>= "2.5"}
   "menhir"
   "ocaml" {>= "4.08.1"}
-  "ocamlformat" {= "0.12.0"}
 ]
 build: [
   ["dune" "subst"] {pinned}
