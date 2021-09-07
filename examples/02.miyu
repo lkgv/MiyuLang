@@ -1,0 +1,55 @@
+module Example_03;
+
+static pub fn add (a: int = 0, b: int = 0) -> let result = a + b;
+  print(fmt("result:\n  %s + %s = %s.\n")
+            .get(a)
+            .get(b)
+            .get(a + b)
+            .out())
+end;
+
+cls Point:
+    pub x: float;
+    pub y: float;
+
+    fn point (xx, yy) ->
+        let x = xx;
+        let y = yy
+    end;
+
+end; 
+
+a = 3, b = 4, c : int = 5;
+
+
+cls Vector (Pointer):
+    pub fn vector(xx, yy): int ->
+        super(xx, yy);
+    end;
+
+    pub fn as_str(): string ->
+        ret "<vec: " + this.x.as_str() + ", " + this.y.as_str() + ">";
+    end;
+end; 
+
+fn plus(a: Vector, b: Vector): Vector ->
+    ret new Vectorinit(a.x + b.x, a.y + b.y);
+end;
+
+fn minus(a: Vector, b: Vector): Vector ->
+    ret new Vector(a.x - b.x, a.y - b.y);
+end;
+
+fn scale_product(a: Vector, b: float): Vector ->
+    ret new Vector(a.x * k, a.y * k)
+end;
+
+fn main() ->
+    let a = new Vector(0.0, 1.0), b = new Vector(1.0, 0.0);
+    print(0);
+    print("plus :");
+
+    ret (fn _ () -> 3; end).call(3).call("a", "b", "c").call(2,3,4).get(5)[3][9]
+end;
+
+a = 3;
