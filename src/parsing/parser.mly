@@ -1,14 +1,15 @@
 %{
   open ParsedAst
   open Utils
+  open Ast.AstTypes
 %}
 
 %token LPAREN RPAREN LBRACK RBRACK LBRACE RBRACE
 %token COLON COMMA DOT SEMI ARROW
 %token BEGIN END
-%token <ParsedAst.label> LNAME
-%token <ParsedAst.label> UNAME
-%token <ParsedAst.label> GNAME
+%token <string> LNAME
+%token <string> UNAME
+%token <string> GNAME
 %token AT
 %token <int> INT
 %token <string> STRING
@@ -37,7 +38,7 @@
 %left BARBAR
 %left AMPERAMPER
 %left BAR
-%left AMBER
+%left AMPER
 %left EQUAL NEQ
 %left LARGER LEQ SMALLER SEQ
 %left PLUS MINUS
@@ -50,7 +51,7 @@
 %%
 
 prog:
-  | s = module_clause? i_lst = import_decls d_lst = top_defns EOF
+  | s = module_clause? i_lst = import_decls d_lst = class_body EOF
     { Prog (s, i_lst, d_lst) }
 
 sep: single_sep+ {}
@@ -59,7 +60,7 @@ single_sep: SEMI {}
 module_clause: mark_position(plain_module_clause) { $1 }
 plain_module_clause:
   | MODULE lst = separated_nonempty_list(DOT, name) sep
-    { let mname = String.concat "." lst in Module mname }
+    { let mname = String.concat "." lst in Module (Mod_id.of_string mname) }
 
 import_decls: lst = import_decl* { lst }
 
@@ -70,7 +71,8 @@ plain_import_decl:
       let import_lst = List.concat lst in
       let split xs =
         let rxs = List.rev xs in
-        ((String.concat "." (List.rev (List.tl rxs))), List.hd rxs) in
+        ((String.concat "." (List.rev (List.tl rxs))), List.hd rxs)
+        |> fun (m, n) -> (Mod_id.of_string m, n) in
       let module_item_list = List.map split import_lst in
       Import module_item_list
     }
@@ -86,11 +88,6 @@ module_path:
   | n = name { [n;] }
   | n = name DOT lst = module_path { n :: lst }
 
-top_defns:
-  | { [] }
-  | def = definition { def :: [] }
-  | def = definition sep lst = top_defns { def :: lst }
-
 lname: LNAME { $1 }
 uname: UNAME { $1 }
 name:
@@ -98,14 +95,6 @@ name:
     { n }
   | n = uname
     { n }
-
-definition:
-  | t = ty_def
-    { t }
-  | v = vars_decl
-    { v }
-  | f = function_def
-    { f }
 
 expression: mark_position(plain_expression) { $1 }
 plain_expression:
@@ -120,9 +109,9 @@ plain_expression:
   | WHILE e = arithmetic_expression COLON b = block END
     { While (e, b) }
   | FOR n = lname IN e = unary_expression COLON b = block END
-    { For (n, e, b) }
-  | DEL n = name
-    { Del n }
+    { For ((Var_id.of_string n), e, b) }
+  | DEL n = lname
+    { Del (Var_id.of_string n) }
   | e = if_expression
     { e }
   | BREAK LPAREN e = arithmetic_expression
@@ -164,24 +153,24 @@ plain_primary_expression:
 primary_expression_access:
   | pe = primary_expression_start
     { pe }
-  | pe = primary_expression DOT id = name
-    { Retrive (pe, id, []) }
-  | pe = primary_expression DOT f = name lst = function_call_params
-    { MethodCall (pe, f, [], lst) }
-  | pe = primary_expression lst = function_call_params
-    { Call (pe, [], lst) }
-  | pe = primary_expression DOT id = name COLONCOLON plst = gen_ty_consume
-    { Retrive (pe, id, plst) }
-  | pe = primary_expression DOT f = name COLONCOLON plst = gen_ty_consume lst = function_call_params
-    { MethodCall (pe, f, plst, lst) }
-  | pe = primary_expression COLONCOLON plst = gen_ty_consume lst = function_call_params
-    { Call (pe, plst, lst) }
+  | pe = primary_expression DOT id = lname
+    { Retrive (pe, (Property_id.of_string id), []) }
+  | pe = primary_expression DOT f = lname lst = function_call_params
+    { MethodCall (pe, (Method_id.of_string f), [], lst) }
+  | f = lname lst = function_call_params
+    { Call ((Fn_id.of_string f), [], lst) }
+  | pe = primary_expression DOT id = lname COLONCOLON plst = gen_ty_consume
+    { Retrive (pe, (Property_id.of_string id), plst) }
+  | pe = primary_expression DOT f = lname lst = function_call_params COLONCOLON plst = gen_ty_consume
+    { MethodCall (pe, (Method_id.of_string f), plst, lst) }
+  | f = lname lst = function_call_params COLONCOLON plst = gen_ty_consume
+    { Call ((Fn_id.of_string f), plst, lst) }
 
 primary_expression_start:
   | NEW n = uname lst = function_call_params 
-    { New (n, [], lst) }
-  | NEW n = uname COLONCOLON lst1 = gen_ty_consume lst2 = function_call_params 
-    { New (n, lst1, lst2) }
+    { New ((Ty_id.of_string n), [], lst) }
+  | NEW n = uname lst2 = function_call_params COLONCOLON lst1 = gen_ty_consume
+    { New ((Ty_id.of_string n), lst1, lst2) }
   | LPAREN e = plain_expression RPAREN
     { e }
   | LBRACK RBRACK
@@ -192,10 +181,10 @@ primary_expression_start:
     { Literal i }
   | THIS
     { This }
-  | n = name COLONCOLON lst = gen_ty_consume
-    { Id (n, lst) }
   | n = name
-    { Id (n, []) }
+    { Id ((Var_id.of_string n), [])}
+  | n = name COLONCOLON plst = gen_ty_consume
+    { Id ((Var_id.of_string n), plst) }
 
 %inline assign_op:
   | MUL_ASSIGN   { MulAssign }
@@ -242,12 +231,12 @@ plain_vars_decl:
     { Vars lst }
 var_decl: mark_position(plain_var_decl) { $1 }
 plain_var_decl:
-  | d = var_decorator name = LNAME COLON ty = ty
-    { Var (name, d, Some ty, None) }
-  | d = var_decorator name = LNAME COLON ty = ty ASSIGN exp = arithmetic_expression
-    { Var (name, d, Some ty, Some exp) }
-  | d = var_decorator name = LNAME ASSIGN exp = arithmetic_expression
-    { Var (name, d, None, Some exp) }
+  | d = var_decorator n = lname COLON ty = ty
+    { Var ((Var_id.of_string n), d, Some ty, None) }
+  | d = var_decorator n = lname COLON ty = ty ASSIGN exp = arithmetic_expression
+    { Var ((Var_id.of_string n), d, Some ty, Some exp) }
+  | d = var_decorator n = lname ASSIGN exp = arithmetic_expression
+    { Var ((Var_id.of_string n), d, None, Some exp) }
 var_decorator:
   | c = CONST?
     {
@@ -259,14 +248,14 @@ var_decorator:
 
 function_def: mark_position(plain_function_def) { $1 }
 plain_function_def:
-  | FN n = LNAME lst = function_params ARROW b = block END
-    { Fn (n, [], lst, None, b) }
-  | FN n = LNAME lst = function_params COLON t = ty ARROW b = block END
-    { Fn (n, [], lst, Some t, b) }
-  | FN n = LNAME lst1 = gen_ty_def lst2 = function_params ARROW b = block END
-    { Fn (n, lst1, lst2, None, b) }
-  | FN n = LNAME lst1 = gen_ty_def lst2 = function_params COLON t = ty ARROW b = block END
-    { Fn (n, lst1, lst2, Some t, b) }
+  | FN n = lname lst = function_params ARROW b = block END
+    { Fn ((Fn_id.of_string n), [], lst, None, b) }
+  | FN n = lname lst = function_params COLON t = ty ARROW b = block END
+    { Fn ((Fn_id.of_string n), [], lst, Some t, b) }
+  | FN n = lname lst1 = gen_ty_def lst2 = function_params ARROW b = block END
+    { Fn ((Fn_id.of_string n), lst1, lst2, None, b) }
+  | FN n = lname lst1 = gen_ty_def lst2 = function_params COLON t = ty ARROW b = block END
+    { Fn ((Fn_id.of_string n), lst1, lst2, Some t, b) }
 
 function_params:
   | LPAREN RPAREN
@@ -280,40 +269,30 @@ function_param_list:
 
 param_def:
   | d = var_decorator n = lname COLON t = ty
-    { Param (n, d, Some t, None) }
+    { Param ((Var_id.of_string n), d, Some t, None) }
   | d = var_decorator n = lname
-    { Param (n, d, None, None) }
+    { Param ((Var_id.of_string n), d, None, None) }
   | d = var_decorator n = lname COLON t = ty ASSIGN exp = bin_expression
-    { Param (n, d, Some t, Some(exp)) }
+    { Param ((Var_id.of_string n), d, Some t, Some(exp)) }
   | d = var_decorator n = lname ASSIGN exp = bin_expression
-    { Param (n, d, None, Some(exp)) }
+    { Param ((Var_id.of_string n), d, None, Some(exp)) }
 
 function_call_params:
   | LPAREN RPAREN { [] }
   | LPAREN lst = param_call_list RPAREN { lst }
-
 param_call_list:
   | c = param_call { [c;] }
   | c = param_call COMMA lst = param_call_list { c :: lst }
-
 param_call:
   | v = bin_expression
     { CallParam (None, v) }
-  | name = lname ASSIGN v = bin_expression
-    { CallParam (Some(name), v) }
+  | n = lname ASSIGN v = bin_expression
+    { CallParam (Some(Var_id.of_string n), v) }
 
 block:
   | { Block [] }
   | e = expression { Block [e;] }
   | e = expression sep b = block { match b with  Block lst -> Block (e :: lst) | _ -> Block [e;] }
-
-ty_def:
-  | c = class_def
-    { c }
-  | t = trait_def
-    { t }
-  | i = impl_def
-    { i }
 
 ty: mark_position(plain_ty) { $1 }
 plain_ty:
@@ -326,10 +305,10 @@ ty_apply:
   | t = tyname
     { TyApply (t, []) }
   | t = genname
-    { TyApply (t, []) }
+    { TyGen t }
 
-tyname: t = name { t }
-genname: t = GNAME { t }
+tyname: t = name { Ty_id.of_string t }
+genname: t = GNAME { Gen_id.of_string t }
 
 gen_ty_def: SMALLER lst = gen_ty_def_list LARGER { lst }
 gen_ty_def_list:
@@ -347,43 +326,61 @@ gen_ty_consume_list:
 
 class_def: mark_position(plain_class_def) { $1 }
 plain_class_def:
-  | CLASS h = class_head COLON lst = class_body END
-  { let (n, gen_lst, f)= h in Class (n, f, gen_lst, lst) }
+  | d = field_decorator CLASS h = class_head COLON lst = class_body END
+  { let (n, gen_lst, f)= h in Class (n, d, f, gen_lst, lst) }
 class_head:
-  | n = uname f = class_father? { (n, [], f) }
-  | n = uname lst = gen_ty_def f = class_father? { (n, lst, f) }
+  | n = uname f = class_father?
+    { ((Ty_id.of_string n), [], f) }
+  | n = uname lst = gen_ty_def f = class_father?
+    { ((Ty_id.of_string n), lst, f) }
 class_father: 
-  | LPAREN f = uname RPAREN { (f, []) }
-  | LPAREN f = uname lst = gen_ty_consume RPAREN { (f, lst) }
+  | LPAREN f = uname RPAREN { ((Ty_id.of_string f), []) }
+  | LPAREN f = uname lst = gen_ty_consume RPAREN { ((Ty_id.of_string f), lst) }
 class_body:
   | { [] }
   | d = field_decl { [d;] }
   | d = field_decl sep lst = class_body { d :: lst }
 
+trait_def: mark_position(plain_trait_def) { $1 }
+plain_trait_def:
+  | d = field_decorator TRAIT n = uname lst1 = gen_ty_def f = trait_father? COLON fs = class_body END
+    { Trait ((Ty_id.of_string n), d, f, lst1, fs) }
+  | d = field_decorator TRAIT n = uname f = trait_father? COLON fs = class_body END
+    { Trait ((Ty_id.of_string n), d, f, [], fs) }
+trait_father: 
+  | LPAREN f = uname RPAREN { ((Ty_id.of_string f), []) }
+  | LPAREN f = uname lst = gen_ty_consume RPAREN { ((Ty_id.of_string f), lst) }
+
 field_decl: mark_position(plain_field_decl) { $1 }
 plain_field_decl:
+  | c = plain_class_def
+    { c }
+  | t = plain_trait_def
+    { t }
+  | i = plain_impl_def
+    { i }
   | lst = separated_nonempty_list(COMMA, properties_decl)
-  { Properties lst }
+    { Properties lst }
   | m = method_decl
-  { m }
+    { m }
 
 method_decl:
   | d = field_decorator FN n = lname lst = function_params ARROW b = block END
-    { Method (n, d, [], lst, None, b) }
+    { Method ((Method_id.of_string n), d, [], lst, None, b) }
   | d = field_decorator FN n = lname lst = function_params COLON t = ty ARROW b = block END
-    { Method (n, d, [], lst, Some t, b) }
+    { Method ((Method_id.of_string n), d, [], lst, Some t, b) }
   | d = field_decorator FN n = lname lst1 = gen_ty_def lst2 = function_params ARROW b = block END
-    { Method (n, d, lst1, lst2, None, b) }
+    { Method ((Method_id.of_string n), d, lst1, lst2, None, b) }
   | d = field_decorator FN n = lname lst1 = gen_ty_def lst2 = function_params COLON t = ty ARROW b = block END
-    { Method (n, d, lst1, lst2, Some t, b) }
+    { Method ((Method_id.of_string n), d, lst1, lst2, Some t, b) }
 
 properties_decl:
-  | anns = field_decorator name = LNAME COLON t = ty
-    { Property (name, anns, Some t, None) }
-  | anns = field_decorator name = LNAME COLON t = ty ASSIGN exp = arithmetic_expression
-    { Property (name, anns, Some t, Some exp) }
-  | anns = field_decorator name = LNAME ASSIGN exp = arithmetic_expression
-    { Property (name, anns, None, Some exp) }
+  | anns = field_decorator n = lname COLON t = ty
+    { Property ((Property_id.of_string n), anns, Some t, None) }
+  | anns = field_decorator n = lname COLON t = ty ASSIGN exp = arithmetic_expression
+    { Property ((Property_id.of_string n), anns, Some t, Some exp) }
+  | anns = field_decorator n = lname ASSIGN exp = arithmetic_expression
+    { Property ((Property_id.of_string n), anns, None, Some exp) }
 field_decorator:
   | s = STATIC? p = PUB? c = CONST?
     {
@@ -393,23 +390,16 @@ field_decorator:
       in { static= jg s; pub= jg p; const= jg c; }
     }
 
-trait_def: mark_position(plain_trait_def) { $1 }
-plain_trait_def:
-  | TRAIT n = uname COLON lst = class_body END
-    { Trait (n, [], lst) }
-  | TRAIT n = uname lst1 = gen_ty_def COLON lst2 = class_body END
-    { Trait (n, lst1, lst2) }
-
 impl_def: mark_position(plain_impl_def) { $1 }
 plain_impl_def:
-  | CLASS c = uname IMPL t = uname COLON lst = class_body END
-  { Impl (c, t, [], [], lst) }
-  | CLASS c = uname lst1 = gen_ty_def IMPL t = uname COLON lst2 = class_body END
-  { Impl (c, t, lst1, [], lst2) }
-  | CLASS c = uname IMPL t = uname lst1 = gen_ty_consume COLON lst2 = class_body END
-  { Impl (c, t, [], lst1, lst2) }
-  | CLASS c = uname lst1 = gen_ty_def IMPL t = uname lst2 = gen_ty_consume COLON lst3 = class_body END
-  { Impl (c, t, lst1, lst2, lst3) }
+  | IMPL c = uname FOR t = uname COLON fs = class_body END
+    { Impl ((Ty_id.of_string c), (Ty_id.of_string t), [], [], fs) }
+  | IMPL c = uname gs = gen_ty_def FOR t = uname COLON fs = class_body END
+    { Impl ((Ty_id.of_string c), (Ty_id.of_string t), gs, [], fs) }
+  | IMPL c = uname FOR t = uname gcs = gen_ty_consume COLON fs = class_body END
+    { Impl ((Ty_id.of_string c), (Ty_id.of_string t), [], gcs, fs) }
+  | IMPL c = uname gs = gen_ty_def FOR t = uname gcs = gen_ty_consume COLON fs = class_body END
+    { Impl ((Ty_id.of_string c), (Ty_id.of_string t), gs, gcs, fs) }
 
 mark_position(X):
   x = X

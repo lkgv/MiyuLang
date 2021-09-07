@@ -1,6 +1,6 @@
 (library
  (name parsing)
- (libraries utils core fmt menhirLib)
+ (libraries utils ast core fmt menhirLib)
  (flags -w)
  (preprocess
   (pps bisect_ppx --conditional))

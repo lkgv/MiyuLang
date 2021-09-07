@@ -14,7 +14,7 @@ fn fib(d, g, em, a:int=7, b=4, c=4) : int ->
     end;
 
     3 + a + (begin
-    new A<int>(3, 4); end);
+    new A(3, 4)::<int, int>; end);
 end;
 
 fn main() ->

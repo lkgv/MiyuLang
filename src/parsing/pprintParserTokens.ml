@@ -14,9 +14,9 @@ let pprint_tokens ppf = function
   | ARROW        -> Fmt.pf ppf "ARROW@."
   | BEGIN        -> Fmt.pf ppf "BEGIN@."
   | END          -> Fmt.pf ppf "END@."
-  | LNAME n      -> Fmt.pf ppf "LNAME(%s)@." (ParsedAst.label_to_string n)
-  | UNAME n      -> Fmt.pf ppf "UNAME(%s)@." (ParsedAst.label_to_string n)
-  | GNAME n      -> Fmt.pf ppf "GNAME(%s)@." (ParsedAst.label_to_string n)
+  | LNAME n      -> Fmt.pf ppf "LNAME(%s)@." n
+  | UNAME n      -> Fmt.pf ppf "UNAME(%s)@." n
+  | GNAME n      -> Fmt.pf ppf "GNAME(%s)@." n
   | AT           -> Fmt.pf ppf "AT@."
   | INT i        -> Fmt.pf ppf "INT(%d)@." i
   | COLONCOLON   -> Fmt.pf ppf "COLONCOLON@."

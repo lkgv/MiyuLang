@@ -16,7 +16,7 @@ let get_parse_error env =
   | (lazy Nil) -> "Invalid syntax"
   | (lazy (Cons (I.Element (state, _, _, _), _))) -> (
     try ParserMessages.message (I.number state)
-    with Not_found -> "invalid syntax (no specific message for this eror)" )
+    with Not_found_s _ -> "invalid syntax (no specific message for this eror)" )
 
 let rec parse lexbuf (checkpoint : ParsedAst.program I.checkpoint) =
   match checkpoint with
