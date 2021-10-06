@@ -1,6 +1,6 @@
-module Example_03;
+pkg: Example_03;
 
-static pub fn add (a: int = 0, b: int = 0) -> let result = a + b;
+fn add (a: int = 0, b: int = 0) -> let result = a + b;
   print(fmt("result:\n  %s + %s = %s.\n")
             .get(a)
             .get(b)
@@ -19,7 +19,7 @@ cls Point:
 
 end; 
 
-a = 3, b = 4, c : int = 5;
+let a = 3, b = 4, c : int = 5;
 
 
 cls Vector (Pointer):
@@ -52,4 +52,4 @@ fn main() ->
     ret (fn _ () -> 3; end).call(3).call("a", "b", "c").call(2,3,4).get(5)[3][9]
 end;
 
-a = 3;
+let a = 3;

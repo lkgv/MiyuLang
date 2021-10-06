@@ -1,4 +1,4 @@
-module Org . Miyu . Test . Lab_01;
+pkg: Org . Miyu . Test . Lab_01;
 
 import A.B;
 import G.X.(a, b, c);

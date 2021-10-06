@@ -27,7 +27,6 @@
 
   let reserved = Assoc.of_list [
     ("import",    IMPORT);
-    ("module",    MODULE);
     ("break",     BREAK);
     ("continue",  CONTINUE);
     ("fn",        FN);
@@ -56,6 +55,7 @@
     ("this",      THIS);
     ("null",      NULL);
     ("static",    STATIC);
+    ("pkg",       PACKAGE)
   ]
 }
 
