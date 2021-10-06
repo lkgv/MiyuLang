@@ -44,7 +44,7 @@ and plain_expr =
   (* class name, father name, list of generic type, class body (field defns) *)
   | Class      of Ty_id.t * (Ty_id.t * ty list) option * generic_ty list * field_defn list
   (* trait name, father name, list of generic type, trait body (field defns) *)
-  | Trait      of Ty_id.t * (Ty_id.t * ty list) option * generic_ty list * field_defn list
+  | Trait      of Ty_id.t * (Ty_id.t * ty list) list * generic_ty list * field_defn list
   (* class name, trait name, list of generic type, list of generic type param, impl body
      (field defns) *)
   | Impl       of Ty_id.t * Ty_id.t * generic_ty list * ty list * field_defn list

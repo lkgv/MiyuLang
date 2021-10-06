@@ -365,13 +365,21 @@ class_body:
 
 trait_def: mark_position(plain_trait_def) { $1 }
 plain_trait_def:
-  | TRAIT n = uname lst1 = gen_ty_def f = trait_father? COLON fs = class_body END
-    { Trait ((Ty_id.of_string n), f, lst1, fs) }
-  | TRAIT n = uname f = trait_father? COLON fs = class_body END
-    { Trait ((Ty_id.of_string n), f, [], fs) }
-trait_father: 
-  | LPAREN f = uname RPAREN { ((Ty_id.of_string f), []) }
-  | LPAREN f = uname lst = gen_ty_consume RPAREN { ((Ty_id.of_string f), lst) }
+  | TRAIT n = uname glst = gen_ty_def LPAREN flst = trait_fathers RPAREN COLON blst = class_body END
+    { Trait ((Ty_id.of_string n), flst, glst, blst) }
+  | TRAIT n = uname LPAREN flst = trait_fathers RPAREN COLON blst = class_body END
+    { Trait ((Ty_id.of_string n), flst, [], blst) }
+  | TRAIT n = uname glst = gen_ty_def COLON blst = class_body END
+    { Trait ((Ty_id.of_string n), [], glst, blst) }
+  | TRAIT n = uname COLON blst = class_body END
+    { Trait ((Ty_id.of_string n), [], [], blst) }
+trait_fathers:
+  | { [] }
+  | f = trait_father { [f;] }
+  | f = trait_father COMMA lst = trait_fathers { f :: lst }
+trait_father:
+  | f = uname { ((Ty_id.of_string f), []) }
+  | f = uname lst = gen_ty_consume { ((Ty_id.of_string f), lst) }
 
 field_decl: mark_position(plain_field_decl) { $1 }
 plain_field_decl:

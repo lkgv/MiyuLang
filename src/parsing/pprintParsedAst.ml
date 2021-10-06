@@ -151,18 +151,20 @@ and pprint_trait_defn ppf ~indent (name, father, gen_tys, fields) =
     if List.length lst > 0 then (
       Fmt.pf ppf "%sGeneric Types:@." new_indent ;
       List.iter ~f:(pprint_generic_ty ppf ~indent:(indent_space ^ new_indent)) lst ) in
-  let prt_gen_params lst =
+  let prt_gen_params ~indent lst =
     if List.length lst > 0 then (
-      Fmt.pf ppf "%sGeneric Type Params:@." new_indent ;
-      List.iter ~f:(pprint_ty ppf ~indent:(indent_space ^ new_indent)) lst ) in
-  let prt_inherit_info = function
-    | Some (n, lst) ->
-        Fmt.pf ppf "%sinherits:%s@." new_indent (Ty_id.to_string n) ;
-        prt_gen_params lst
-    | None          -> () in
+      Fmt.pf ppf "%sGeneric Type Params:@." indent ;
+      List.iter ~f:(pprint_ty ppf ~indent:(indent_space ^ indent)) lst ) in
+  let prt_inherit_info ~indent (name, gen_params) =
+    Fmt.pf ppf "%sName: %s@." indent (Ty_id.to_string name) ;
+    prt_gen_params ~indent:(indent_space ^ indent) gen_params in
+  let prt_inherit_lst lst =
+    if List.length lst > 0 then (
+      Fmt.pf ppf "%sinherits:@." new_indent ;
+      List.iter ~f:(prt_inherit_info ~indent:(indent_space ^ new_indent)) lst ) in
   Fmt.pf ppf "%sTrait:%s@." indent (Ty_id.to_string name) ;
   prt_gen_tys gen_tys ;
-  prt_inherit_info father ;
+  prt_inherit_lst father ;
   List.iter ~f:(pprint_field_defn ppf ~indent:new_indent) fields
 
 and pprint_impl_defn ppf ~indent (cname, tname, gen_tys, gen_params, fields) =
