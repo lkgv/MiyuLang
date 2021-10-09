@@ -15,7 +15,7 @@
 %token <string> STRING
 %token <bool> BOOL
 %token <float> FLOAT
-%token IMPORT MODULE
+%token IMPORT PACKAGE
 %token BREAK CONTINUE RET PRINT THIS NULL
 %token FN COLONCOLON
 %token IF ELIF ELSE
@@ -50,23 +50,29 @@
 
 %%
 
+lname: LNAME { $1 }
+uname: UNAME { $1 }
+name:
+  | n = lname
+    { n }
+  | n = uname
+    { n }
+
 prog:
-  | s = module_clause? i_lst = import_decls d_lst = class_body EOF
-    { Prog (s, i_lst, d_lst) }
+  | s = module_clause? lst = pkg_body EOF
+    { Prog (s, lst) }
 
 sep: single_sep+ {}
 single_sep: SEMI {}
 
 module_clause: mark_position(plain_module_clause) { $1 }
 plain_module_clause:
-  | MODULE lst = separated_nonempty_list(DOT, name) sep
+  | PACKAGE COLON lst = separated_nonempty_list(DOT, name) sep
     { let mname = String.concat "." lst in Module (Mod_id.of_string mname) }
-
-import_decls: lst = import_decl* { lst }
 
 import_decl: mark_position(plain_import_decl) { $1 }
 plain_import_decl:
-  | IMPORT lst = separated_nonempty_list(COMMA, module_path_list) sep
+  | IMPORT lst = separated_nonempty_list(COMMA, module_path_list)
     {
       let import_lst = List.concat lst in
       let split xs =
@@ -88,13 +94,29 @@ module_path:
   | n = name { [n;] }
   | n = name DOT lst = module_path { n :: lst }
 
-lname: LNAME { $1 }
-uname: UNAME { $1 }
-name:
-  | n = lname
-    { n }
-  | n = uname
-    { n }
+pkg_def: mark_position(plain_pkg_def) { $1 }
+plain_pkg_def:
+  | PACKAGE n = uname COLON lst = pkg_body END
+    { Package (n, lst) }
+
+pkg_body:
+  | { [] }
+  | d = pkg_field_decl { [d;] }
+  | d = pkg_field_decl sep lst = pkg_body { d :: lst }
+
+pkg_field_decl:
+  | im = import_decl
+    { im }
+  | c = class_def
+    { c }
+  | t = trait_def
+    { t }
+  | i = impl_def
+    { i }
+  | v = vars_decl
+    { v }
+  | f = function_def
+    { f }
 
 expression: mark_position(plain_expression) { $1 }
 plain_expression:
@@ -326,8 +348,8 @@ gen_ty_consume_list:
 
 class_def: mark_position(plain_class_def) { $1 }
 plain_class_def:
-  | d = field_decorator CLASS h = class_head COLON lst = class_body END
-  { let (n, gen_lst, f)= h in Class (n, d, f, gen_lst, lst) }
+  | CLASS h = class_head COLON lst = class_body END
+  { let (n, gen_lst, f)= h in Class (n, f, gen_lst, lst) }
 class_head:
   | n = uname f = class_father?
     { ((Ty_id.of_string n), [], f) }
@@ -343,22 +365,24 @@ class_body:
 
 trait_def: mark_position(plain_trait_def) { $1 }
 plain_trait_def:
-  | d = field_decorator TRAIT n = uname lst1 = gen_ty_def f = trait_father? COLON fs = class_body END
-    { Trait ((Ty_id.of_string n), d, f, lst1, fs) }
-  | d = field_decorator TRAIT n = uname f = trait_father? COLON fs = class_body END
-    { Trait ((Ty_id.of_string n), d, f, [], fs) }
-trait_father: 
-  | LPAREN f = uname RPAREN { ((Ty_id.of_string f), []) }
-  | LPAREN f = uname lst = gen_ty_consume RPAREN { ((Ty_id.of_string f), lst) }
+  | TRAIT n = uname glst = gen_ty_def LPAREN flst = trait_fathers RPAREN COLON blst = class_body END
+    { Trait ((Ty_id.of_string n), flst, glst, blst) }
+  | TRAIT n = uname LPAREN flst = trait_fathers RPAREN COLON blst = class_body END
+    { Trait ((Ty_id.of_string n), flst, [], blst) }
+  | TRAIT n = uname glst = gen_ty_def COLON blst = class_body END
+    { Trait ((Ty_id.of_string n), [], glst, blst) }
+  | TRAIT n = uname COLON blst = class_body END
+    { Trait ((Ty_id.of_string n), [], [], blst) }
+trait_fathers:
+  | { [] }
+  | f = trait_father { [f;] }
+  | f = trait_father COMMA lst = trait_fathers { f :: lst }
+trait_father:
+  | f = uname { ((Ty_id.of_string f), []) }
+  | f = uname lst = gen_ty_consume { ((Ty_id.of_string f), lst) }
 
 field_decl: mark_position(plain_field_decl) { $1 }
 plain_field_decl:
-  | c = plain_class_def
-    { c }
-  | t = plain_trait_def
-    { t }
-  | i = plain_impl_def
-    { i }
   | lst = separated_nonempty_list(COMMA, properties_decl)
     { Properties lst }
   | m = method_decl

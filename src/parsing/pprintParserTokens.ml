@@ -25,7 +25,7 @@ let pprint_tokens ppf = function
   | BOOL false   -> Fmt.pf ppf "BOOL(false)@."
   | FLOAT f      -> Fmt.pf ppf "FLOAT(%f)@." f
   | IMPORT       -> Fmt.pf ppf "IMPORT@."
-  | MODULE       -> Fmt.pf ppf "MODULE@."
+  | PACKAGE      -> Fmt.pf ppf "PACKAGE@."
   | BREAK        -> Fmt.pf ppf "BREAK@."
   | CONTINUE     -> Fmt.pf ppf "CONTINUE@."
   | RET          -> Fmt.pf ppf "RET@."
