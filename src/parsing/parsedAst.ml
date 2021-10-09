@@ -64,8 +64,10 @@ and plain_field_defn =
       * ty option
       * plain_expr
 
+and property = plain_property located
+
 (* property name, field decorator, type (optional), init value (optional) *)
-and property = Property of Property_id.t * field_decorator * ty option * expr option
+and plain_property = Property of Property_id.t * field_decorator * ty option * expr option
 
 and var = plain_var located
 

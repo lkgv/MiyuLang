@@ -383,7 +383,7 @@ trait_father:
 
 field_decl: mark_position(plain_field_decl) { $1 }
 plain_field_decl:
-  | lst = separated_nonempty_list(COMMA, properties_decl)
+  | lst = separated_nonempty_list(COMMA, property_decl)
     { Properties lst }
   | m = method_decl
     { m }
@@ -398,7 +398,8 @@ method_decl:
   | d = field_decorator FN n = lname lst1 = gen_ty_def lst2 = function_params COLON t = ty ARROW b = block END
     { Method ((Method_id.of_string n), d, lst1, lst2, Some t, b) }
 
-properties_decl:
+property_decl: mark_position(plain_property_decl) { $1 }
+plain_property_decl:
   | anns = field_decorator n = lname COLON t = ty
     { Property ((Property_id.of_string n), anns, Some t, None) }
   | anns = field_decorator n = lname COLON t = ty ASSIGN exp = arithmetic_expression

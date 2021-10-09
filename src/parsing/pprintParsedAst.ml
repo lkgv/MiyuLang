@@ -192,7 +192,10 @@ and pprint_field_defn ppf ~indent {it= field; _} =
   | Method (name, decr, gen_tys, params, ty, body) ->
       pprint_method_defn ppf ~indent (name, decr, gen_tys, params, ty, body)
 
-and pprint_property_defn ppf ~indent (Property (name, decr, ty, value)) =
+
+and pprint_property_defn ppf ~indent {it= property; _} = pprint_plain_property_defn ppf ~indent property
+
+and pprint_plain_property_defn ppf ~indent (Property (name, decr, ty, value)) =
   let new_indent = indent_space ^ indent in
   let prt_ty = function Some t -> pprint_ty ppf ~indent:new_indent t | None -> () in
   let prt_v = function

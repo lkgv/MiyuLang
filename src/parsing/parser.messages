@@ -1,508 +1,6 @@
-prog: CLASS UNAME COLON CONST WHILE
-##
-## Ends in an error in state: 292.
-##
-## method_decl -> field_decorator . FN lname function_params ARROW block END [ SEMI END ]
-## method_decl -> field_decorator . FN lname function_params COLON ty ARROW block END [ SEMI END ]
-## method_decl -> field_decorator . FN lname gen_ty_def function_params ARROW block END [ SEMI END ]
-## method_decl -> field_decorator . FN lname gen_ty_def function_params COLON ty ARROW block END [ SEMI END ]
-## properties_decl -> field_decorator . lname COLON ty [ SEMI END COMMA ]
-## properties_decl -> field_decorator . lname COLON ty ASSIGN arithmetic_expression [ SEMI END COMMA ]
-## properties_decl -> field_decorator . lname ASSIGN arithmetic_expression [ SEMI END COMMA ]
-##
-## The known suffix of the stack is as follows:
-## field_decorator
-##
-
-<YOUR SYNTAX ERROR MESSAGE HERE>
-
-prog: CLASS UNAME COLON FN LNAME LPAREN RPAREN ARROW END WHILE
-##
-## Ends in an error in state: 314.
-##
-## class_body -> field_decl . [ END ]
-## class_body -> field_decl . sep class_body [ END ]
-##
-## The known suffix of the stack is as follows:
-## field_decl
-##
-
-<YOUR SYNTAX ERROR MESSAGE HERE>
-
-prog: CLASS UNAME COLON FN LNAME LPAREN RPAREN ARROW TRAIT
-##
-## Ends in an error in state: 311.
-##
-## method_decl -> field_decorator FN lname function_params ARROW . block END [ SEMI END ]
-##
-## The known suffix of the stack is as follows:
-## field_decorator FN lname function_params ARROW
-##
-
-<YOUR SYNTAX ERROR MESSAGE HERE>
-
-prog: CLASS UNAME COLON FN LNAME LPAREN RPAREN ARROW UNAME ELSE
-##
-## Ends in an error in state: 312.
-##
-## method_decl -> field_decorator FN lname function_params ARROW block . END [ SEMI END ]
-##
-## The known suffix of the stack is as follows:
-## field_decorator FN lname function_params ARROW block
-##
-## WARNING: This example involves spurious reductions.
-## This implies that, although the LR(1) items shown above provide an
-## accurate view of the past (what has been recognized so far), they
-## may provide an INCOMPLETE view of the future (what was expected next).
-## In state 98, spurious reduction of production primary_expression_start -> name 
-## In state 92, spurious reduction of production primary_expression_access -> primary_expression_start 
-## In state 93, spurious reduction of production plain_primary_expression -> primary_expression_access 
-## In state 96, spurious reduction of production mark_position(plain_primary_expression) -> plain_primary_expression 
-## In state 101, spurious reduction of production primary_expression -> mark_position(plain_primary_expression) 
-## In state 94, spurious reduction of production unary_expression -> primary_expression 
-## In state 90, spurious reduction of production bin_expression -> unary_expression 
-## In state 108, spurious reduction of production arithmetic_expression -> bin_expression 
-## In state 233, spurious reduction of production plain_expression -> arithmetic_expression 
-## In state 227, spurious reduction of production mark_position(plain_expression) -> plain_expression 
-## In state 228, spurious reduction of production expression -> mark_position(plain_expression) 
-## In state 230, spurious reduction of production block -> expression 
-##
-
-<YOUR SYNTAX ERROR MESSAGE HERE>
-
-prog: CLASS UNAME COLON FN LNAME LPAREN RPAREN COLON UNAME ARROW TRAIT
-##
-## Ends in an error in state: 308.
-##
-## method_decl -> field_decorator FN lname function_params COLON ty ARROW . block END [ SEMI END ]
-##
-## The known suffix of the stack is as follows:
-## field_decorator FN lname function_params COLON ty ARROW
-##
-
-<YOUR SYNTAX ERROR MESSAGE HERE>
-
-prog: CLASS UNAME COLON FN LNAME LPAREN RPAREN COLON UNAME ARROW UNAME ELSE
-##
-## Ends in an error in state: 309.
-##
-## method_decl -> field_decorator FN lname function_params COLON ty ARROW block . END [ SEMI END ]
-##
-## The known suffix of the stack is as follows:
-## field_decorator FN lname function_params COLON ty ARROW block
-##
-## WARNING: This example involves spurious reductions.
-## This implies that, although the LR(1) items shown above provide an
-## accurate view of the past (what has been recognized so far), they
-## may provide an INCOMPLETE view of the future (what was expected next).
-## In state 98, spurious reduction of production primary_expression_start -> name 
-## In state 92, spurious reduction of production primary_expression_access -> primary_expression_start 
-## In state 93, spurious reduction of production plain_primary_expression -> primary_expression_access 
-## In state 96, spurious reduction of production mark_position(plain_primary_expression) -> plain_primary_expression 
-## In state 101, spurious reduction of production primary_expression -> mark_position(plain_primary_expression) 
-## In state 94, spurious reduction of production unary_expression -> primary_expression 
-## In state 90, spurious reduction of production bin_expression -> unary_expression 
-## In state 108, spurious reduction of production arithmetic_expression -> bin_expression 
-## In state 233, spurious reduction of production plain_expression -> arithmetic_expression 
-## In state 227, spurious reduction of production mark_position(plain_expression) -> plain_expression 
-## In state 228, spurious reduction of production expression -> mark_position(plain_expression) 
-## In state 230, spurious reduction of production block -> expression 
-##
-
-<YOUR SYNTAX ERROR MESSAGE HERE>
-
-prog: CLASS UNAME COLON FN LNAME LPAREN RPAREN COLON UNAME SEMI
-##
-## Ends in an error in state: 307.
-##
-## method_decl -> field_decorator FN lname function_params COLON ty . ARROW block END [ SEMI END ]
-##
-## The known suffix of the stack is as follows:
-## field_decorator FN lname function_params COLON ty
-##
-## WARNING: This example involves spurious reductions.
-## This implies that, although the LR(1) items shown above provide an
-## accurate view of the past (what has been recognized so far), they
-## may provide an INCOMPLETE view of the future (what was expected next).
-## In state 27, spurious reduction of production ty_apply -> tyname 
-## In state 29, spurious reduction of production plain_ty -> ty_apply 
-## In state 33, spurious reduction of production mark_position(plain_ty) -> plain_ty 
-## In state 35, spurious reduction of production ty -> mark_position(plain_ty) 
-##
-
-<YOUR SYNTAX ERROR MESSAGE HERE>
-
-prog: CLASS UNAME COLON FN LNAME LPAREN RPAREN COLON WHILE
-##
-## Ends in an error in state: 306.
-##
-## method_decl -> field_decorator FN lname function_params COLON . ty ARROW block END [ SEMI END ]
-##
-## The known suffix of the stack is as follows:
-## field_decorator FN lname function_params COLON
-##
-
-<YOUR SYNTAX ERROR MESSAGE HERE>
-
-prog: CLASS UNAME COLON FN LNAME LPAREN RPAREN WHILE
-##
-## Ends in an error in state: 305.
-##
-## method_decl -> field_decorator FN lname function_params . ARROW block END [ SEMI END ]
-## method_decl -> field_decorator FN lname function_params . COLON ty ARROW block END [ SEMI END ]
-##
-## The known suffix of the stack is as follows:
-## field_decorator FN lname function_params
-##
-
-<YOUR SYNTAX ERROR MESSAGE HERE>
-
-prog: CLASS UNAME COLON FN LNAME SMALLER GNAME LARGER LPAREN RPAREN ARROW TRAIT
-##
-## Ends in an error in state: 302.
-##
-## method_decl -> field_decorator FN lname gen_ty_def function_params ARROW . block END [ SEMI END ]
-##
-## The known suffix of the stack is as follows:
-## field_decorator FN lname gen_ty_def function_params ARROW
-##
-
-<YOUR SYNTAX ERROR MESSAGE HERE>
-
-prog: CLASS UNAME COLON FN LNAME SMALLER GNAME LARGER LPAREN RPAREN ARROW UNAME ELSE
-##
-## Ends in an error in state: 303.
-##
-## method_decl -> field_decorator FN lname gen_ty_def function_params ARROW block . END [ SEMI END ]
-##
-## The known suffix of the stack is as follows:
-## field_decorator FN lname gen_ty_def function_params ARROW block
-##
-## WARNING: This example involves spurious reductions.
-## This implies that, although the LR(1) items shown above provide an
-## accurate view of the past (what has been recognized so far), they
-## may provide an INCOMPLETE view of the future (what was expected next).
-## In state 98, spurious reduction of production primary_expression_start -> name 
-## In state 92, spurious reduction of production primary_expression_access -> primary_expression_start 
-## In state 93, spurious reduction of production plain_primary_expression -> primary_expression_access 
-## In state 96, spurious reduction of production mark_position(plain_primary_expression) -> plain_primary_expression 
-## In state 101, spurious reduction of production primary_expression -> mark_position(plain_primary_expression) 
-## In state 94, spurious reduction of production unary_expression -> primary_expression 
-## In state 90, spurious reduction of production bin_expression -> unary_expression 
-## In state 108, spurious reduction of production arithmetic_expression -> bin_expression 
-## In state 233, spurious reduction of production plain_expression -> arithmetic_expression 
-## In state 227, spurious reduction of production mark_position(plain_expression) -> plain_expression 
-## In state 228, spurious reduction of production expression -> mark_position(plain_expression) 
-## In state 230, spurious reduction of production block -> expression 
-##
-
-<YOUR SYNTAX ERROR MESSAGE HERE>
-
-prog: CLASS UNAME COLON FN LNAME SMALLER GNAME LARGER LPAREN RPAREN COLON UNAME ARROW TRAIT
-##
-## Ends in an error in state: 299.
-##
-## method_decl -> field_decorator FN lname gen_ty_def function_params COLON ty ARROW . block END [ SEMI END ]
-##
-## The known suffix of the stack is as follows:
-## field_decorator FN lname gen_ty_def function_params COLON ty ARROW
-##
-
-<YOUR SYNTAX ERROR MESSAGE HERE>
-
-prog: CLASS UNAME COLON FN LNAME SMALLER GNAME LARGER LPAREN RPAREN COLON UNAME ARROW UNAME ELSE
-##
-## Ends in an error in state: 300.
-##
-## method_decl -> field_decorator FN lname gen_ty_def function_params COLON ty ARROW block . END [ SEMI END ]
-##
-## The known suffix of the stack is as follows:
-## field_decorator FN lname gen_ty_def function_params COLON ty ARROW block
-##
-## WARNING: This example involves spurious reductions.
-## This implies that, although the LR(1) items shown above provide an
-## accurate view of the past (what has been recognized so far), they
-## may provide an INCOMPLETE view of the future (what was expected next).
-## In state 98, spurious reduction of production primary_expression_start -> name 
-## In state 92, spurious reduction of production primary_expression_access -> primary_expression_start 
-## In state 93, spurious reduction of production plain_primary_expression -> primary_expression_access 
-## In state 96, spurious reduction of production mark_position(plain_primary_expression) -> plain_primary_expression 
-## In state 101, spurious reduction of production primary_expression -> mark_position(plain_primary_expression) 
-## In state 94, spurious reduction of production unary_expression -> primary_expression 
-## In state 90, spurious reduction of production bin_expression -> unary_expression 
-## In state 108, spurious reduction of production arithmetic_expression -> bin_expression 
-## In state 233, spurious reduction of production plain_expression -> arithmetic_expression 
-## In state 227, spurious reduction of production mark_position(plain_expression) -> plain_expression 
-## In state 228, spurious reduction of production expression -> mark_position(plain_expression) 
-## In state 230, spurious reduction of production block -> expression 
-##
-
-<YOUR SYNTAX ERROR MESSAGE HERE>
-
-prog: CLASS UNAME COLON FN LNAME SMALLER GNAME LARGER LPAREN RPAREN COLON UNAME SEMI
-##
-## Ends in an error in state: 298.
-##
-## method_decl -> field_decorator FN lname gen_ty_def function_params COLON ty . ARROW block END [ SEMI END ]
-##
-## The known suffix of the stack is as follows:
-## field_decorator FN lname gen_ty_def function_params COLON ty
-##
-## WARNING: This example involves spurious reductions.
-## This implies that, although the LR(1) items shown above provide an
-## accurate view of the past (what has been recognized so far), they
-## may provide an INCOMPLETE view of the future (what was expected next).
-## In state 27, spurious reduction of production ty_apply -> tyname 
-## In state 29, spurious reduction of production plain_ty -> ty_apply 
-## In state 33, spurious reduction of production mark_position(plain_ty) -> plain_ty 
-## In state 35, spurious reduction of production ty -> mark_position(plain_ty) 
-##
-
-<YOUR SYNTAX ERROR MESSAGE HERE>
-
-prog: CLASS UNAME COLON FN LNAME SMALLER GNAME LARGER LPAREN RPAREN COLON WHILE
-##
-## Ends in an error in state: 297.
-##
-## method_decl -> field_decorator FN lname gen_ty_def function_params COLON . ty ARROW block END [ SEMI END ]
-##
-## The known suffix of the stack is as follows:
-## field_decorator FN lname gen_ty_def function_params COLON
-##
-
-<YOUR SYNTAX ERROR MESSAGE HERE>
-
-prog: CLASS UNAME COLON FN LNAME SMALLER GNAME LARGER LPAREN RPAREN WHILE
-##
-## Ends in an error in state: 296.
-##
-## method_decl -> field_decorator FN lname gen_ty_def function_params . ARROW block END [ SEMI END ]
-## method_decl -> field_decorator FN lname gen_ty_def function_params . COLON ty ARROW block END [ SEMI END ]
-##
-## The known suffix of the stack is as follows:
-## field_decorator FN lname gen_ty_def function_params
-##
-
-<YOUR SYNTAX ERROR MESSAGE HERE>
-
-prog: CLASS UNAME COLON FN LNAME SMALLER GNAME LARGER WHILE
-##
-## Ends in an error in state: 295.
-##
-## method_decl -> field_decorator FN lname gen_ty_def . function_params ARROW block END [ SEMI END ]
-## method_decl -> field_decorator FN lname gen_ty_def . function_params COLON ty ARROW block END [ SEMI END ]
-##
-## The known suffix of the stack is as follows:
-## field_decorator FN lname gen_ty_def
-##
-
-<YOUR SYNTAX ERROR MESSAGE HERE>
-
-prog: CLASS UNAME COLON FN LNAME WHILE
-##
-## Ends in an error in state: 294.
-##
-## method_decl -> field_decorator FN lname . function_params ARROW block END [ SEMI END ]
-## method_decl -> field_decorator FN lname . function_params COLON ty ARROW block END [ SEMI END ]
-## method_decl -> field_decorator FN lname . gen_ty_def function_params ARROW block END [ SEMI END ]
-## method_decl -> field_decorator FN lname . gen_ty_def function_params COLON ty ARROW block END [ SEMI END ]
-##
-## The known suffix of the stack is as follows:
-## field_decorator FN lname
-##
-
-<YOUR SYNTAX ERROR MESSAGE HERE>
-
-prog: CLASS UNAME COLON FN WHILE
-##
-## Ends in an error in state: 293.
-##
-## method_decl -> field_decorator FN . lname function_params ARROW block END [ SEMI END ]
-## method_decl -> field_decorator FN . lname function_params COLON ty ARROW block END [ SEMI END ]
-## method_decl -> field_decorator FN . lname gen_ty_def function_params ARROW block END [ SEMI END ]
-## method_decl -> field_decorator FN . lname gen_ty_def function_params COLON ty ARROW block END [ SEMI END ]
-##
-## The known suffix of the stack is as follows:
-## field_decorator FN
-##
-
-<YOUR SYNTAX ERROR MESSAGE HERE>
-
-prog: CLASS UNAME COLON LNAME ASSIGN BOOL COMMA STATIC FN
-##
-## Ends in an error in state: 69.
-##
-## properties_decl -> field_decorator . lname COLON ty [ SEMI END COMMA ]
-## properties_decl -> field_decorator . lname COLON ty ASSIGN arithmetic_expression [ SEMI END COMMA ]
-## properties_decl -> field_decorator . lname ASSIGN arithmetic_expression [ SEMI END COMMA ]
-##
-## The known suffix of the stack is as follows:
-## field_decorator
-##
-## WARNING: This example involves spurious reductions.
-## This implies that, although the LR(1) items shown above provide an
-## accurate view of the past (what has been recognized so far), they
-## may provide an INCOMPLETE view of the future (what was expected next).
-## In state 64, spurious reduction of production option(PUB) -> 
-## In state 66, spurious reduction of production option(CONST) -> 
-## In state 68, spurious reduction of production field_decorator -> option(STATIC) option(PUB) option(CONST) 
-##
-
-<YOUR SYNTAX ERROR MESSAGE HERE>
-
-prog: CLASS UNAME COLON LNAME ASSIGN BOOL COMMA WHILE
-##
-## Ends in an error in state: 62.
-##
-## separated_nonempty_list(COMMA,properties_decl) -> properties_decl COMMA . separated_nonempty_list(COMMA,properties_decl) [ SEMI END ]
-##
-## The known suffix of the stack is as follows:
-## properties_decl COMMA
-##
-
-<YOUR SYNTAX ERROR MESSAGE HERE>
-
-prog: CLASS UNAME COLON LNAME ASSIGN BOOL RPAREN
-##
-## Ends in an error in state: 61.
-##
-## separated_nonempty_list(COMMA,properties_decl) -> properties_decl . [ SEMI END ]
-## separated_nonempty_list(COMMA,properties_decl) -> properties_decl . COMMA separated_nonempty_list(COMMA,properties_decl) [ SEMI END ]
-##
-## The known suffix of the stack is as follows:
-## properties_decl
-##
-## WARNING: This example involves spurious reductions.
-## This implies that, although the LR(1) items shown above provide an
-## accurate view of the past (what has been recognized so far), they
-## may provide an INCOMPLETE view of the future (what was expected next).
-## In state 94, spurious reduction of production unary_expression -> primary_expression 
-## In state 90, spurious reduction of production bin_expression -> unary_expression 
-## In state 108, spurious reduction of production arithmetic_expression -> bin_expression 
-## In state 288, spurious reduction of production properties_decl -> field_decorator lname ASSIGN arithmetic_expression 
-##
-
-<YOUR SYNTAX ERROR MESSAGE HERE>
-
-prog: CLASS UNAME COLON LNAME ASSIGN BOOL SEMI WHILE
-##
-## Ends in an error in state: 315.
-##
-## class_body -> field_decl sep . class_body [ END ]
-##
-## The known suffix of the stack is as follows:
-## field_decl sep
-##
-## WARNING: This example involves spurious reductions.
-## This implies that, although the LR(1) items shown above provide an
-## accurate view of the past (what has been recognized so far), they
-## may provide an INCOMPLETE view of the future (what was expected next).
-## In state 8, spurious reduction of production nonempty_list(single_sep) -> single_sep 
-## In state 11, spurious reduction of production sep -> nonempty_list(single_sep) 
-##
-
-<YOUR SYNTAX ERROR MESSAGE HERE>
-
-prog: CLASS UNAME COLON LNAME ASSIGN WHILE
-##
-## Ends in an error in state: 287.
-##
-## properties_decl -> field_decorator lname ASSIGN . arithmetic_expression [ SEMI END COMMA ]
-##
-## The known suffix of the stack is as follows:
-## field_decorator lname ASSIGN
-##
-
-<YOUR SYNTAX ERROR MESSAGE HERE>
-
-prog: CLASS UNAME COLON LNAME COLON UNAME ASSIGN WHILE
-##
-## Ends in an error in state: 73.
-##
-## properties_decl -> field_decorator lname COLON ty ASSIGN . arithmetic_expression [ SEMI END COMMA ]
-##
-## The known suffix of the stack is as follows:
-## field_decorator lname COLON ty ASSIGN
-##
-
-<YOUR SYNTAX ERROR MESSAGE HERE>
-
-prog: CLASS UNAME COLON LNAME COLON UNAME RPAREN
-##
-## Ends in an error in state: 72.
-##
-## properties_decl -> field_decorator lname COLON ty . [ SEMI END COMMA ]
-## properties_decl -> field_decorator lname COLON ty . ASSIGN arithmetic_expression [ SEMI END COMMA ]
-##
-## The known suffix of the stack is as follows:
-## field_decorator lname COLON ty
-##
-## WARNING: This example involves spurious reductions.
-## This implies that, although the LR(1) items shown above provide an
-## accurate view of the past (what has been recognized so far), they
-## may provide an INCOMPLETE view of the future (what was expected next).
-## In state 27, spurious reduction of production ty_apply -> tyname 
-## In state 29, spurious reduction of production plain_ty -> ty_apply 
-## In state 33, spurious reduction of production mark_position(plain_ty) -> plain_ty 
-## In state 35, spurious reduction of production ty -> mark_position(plain_ty) 
-##
-
-<YOUR SYNTAX ERROR MESSAGE HERE>
-
-prog: CLASS UNAME COLON LNAME COLON WHILE
-##
-## Ends in an error in state: 71.
-##
-## properties_decl -> field_decorator lname COLON . ty [ SEMI END COMMA ]
-## properties_decl -> field_decorator lname COLON . ty ASSIGN arithmetic_expression [ SEMI END COMMA ]
-##
-## The known suffix of the stack is as follows:
-## field_decorator lname COLON
-##
-
-<YOUR SYNTAX ERROR MESSAGE HERE>
-
-prog: CLASS UNAME COLON LNAME WHILE
-##
-## Ends in an error in state: 70.
-##
-## properties_decl -> field_decorator lname . COLON ty [ SEMI END COMMA ]
-## properties_decl -> field_decorator lname . COLON ty ASSIGN arithmetic_expression [ SEMI END COMMA ]
-## properties_decl -> field_decorator lname . ASSIGN arithmetic_expression [ SEMI END COMMA ]
-##
-## The known suffix of the stack is as follows:
-## field_decorator lname
-##
-
-<YOUR SYNTAX ERROR MESSAGE HERE>
-
-prog: CLASS UNAME COLON PUB COMMA
-##
-## Ends in an error in state: 66.
-##
-## field_decorator -> option(STATIC) option(PUB) . option(CONST) [ LNAME FN ]
-##
-## The known suffix of the stack is as follows:
-## option(STATIC) option(PUB)
-##
-
-<YOUR SYNTAX ERROR MESSAGE HERE>
-
-prog: CLASS UNAME COLON STATIC COMMA
-##
-## Ends in an error in state: 64.
-##
-## field_decorator -> option(STATIC) . option(PUB) option(CONST) [ LNAME FN ]
-##
-## The known suffix of the stack is as follows:
-## option(STATIC)
-##
-
-<YOUR SYNTAX ERROR MESSAGE HERE>
-
 prog: CLASS UNAME COLON WHILE
 ##
-## Ends in an error in state: 376.
+## Ends in an error in state: 387.
 ##
 ## plain_class_def -> CLASS class_head COLON . class_body END [ SEMI EOF ]
 ##
@@ -514,7 +12,7 @@ prog: CLASS UNAME COLON WHILE
 
 prog: CLASS UNAME LPAREN UNAME RPAREN WHILE
 ##
-## Ends in an error in state: 375.
+## Ends in an error in state: 386.
 ##
 ## plain_class_def -> CLASS class_head . COLON class_body END [ SEMI EOF ]
 ##
@@ -526,7 +24,7 @@ prog: CLASS UNAME LPAREN UNAME RPAREN WHILE
 
 prog: CLASS UNAME LPAREN UNAME SMALLER GNAME LARGER WHILE
 ##
-## Ends in an error in state: 369.
+## Ends in an error in state: 380.
 ##
 ## class_father -> LPAREN uname gen_ty_consume . RPAREN [ COLON ]
 ##
@@ -538,7 +36,7 @@ prog: CLASS UNAME LPAREN UNAME SMALLER GNAME LARGER WHILE
 
 prog: CLASS UNAME LPAREN UNAME WHILE
 ##
-## Ends in an error in state: 367.
+## Ends in an error in state: 378.
 ##
 ## class_father -> LPAREN uname . RPAREN [ COLON ]
 ## class_father -> LPAREN uname . gen_ty_consume RPAREN [ COLON ]
@@ -551,7 +49,7 @@ prog: CLASS UNAME LPAREN UNAME WHILE
 
 prog: CLASS UNAME LPAREN WHILE
 ##
-## Ends in an error in state: 366.
+## Ends in an error in state: 377.
 ##
 ## class_father -> LPAREN . uname RPAREN [ COLON ]
 ## class_father -> LPAREN . uname gen_ty_consume RPAREN [ COLON ]
@@ -564,7 +62,7 @@ prog: CLASS UNAME LPAREN WHILE
 
 prog: CLASS UNAME SMALLER GNAME LARGER WHILE
 ##
-## Ends in an error in state: 372.
+## Ends in an error in state: 383.
 ##
 ## class_head -> uname gen_ty_def . option(class_father) [ COLON ]
 ##
@@ -576,7 +74,7 @@ prog: CLASS UNAME SMALLER GNAME LARGER WHILE
 
 prog: CLASS UNAME WHILE
 ##
-## Ends in an error in state: 365.
+## Ends in an error in state: 376.
 ##
 ## class_head -> uname . option(class_father) [ COLON ]
 ## class_head -> uname . gen_ty_def option(class_father) [ COLON ]
@@ -589,7 +87,7 @@ prog: CLASS UNAME WHILE
 
 prog: CLASS WHILE
 ##
-## Ends in an error in state: 364.
+## Ends in an error in state: 375.
 ##
 ## plain_class_def -> CLASS . class_head COLON class_body END [ SEMI EOF ]
 ##
@@ -1136,7 +634,7 @@ prog: FN WHILE
 
 prog: IMPL UNAME FOR UNAME COLON WHILE
 ##
-## Ends in an error in state: 347.
+## Ends in an error in state: 358.
 ##
 ## plain_impl_def -> IMPL uname FOR uname COLON . class_body END [ SEMI EOF ]
 ##
@@ -1148,7 +646,7 @@ prog: IMPL UNAME FOR UNAME COLON WHILE
 
 prog: IMPL UNAME FOR UNAME SMALLER GNAME LARGER COLON WHILE
 ##
-## Ends in an error in state: 351.
+## Ends in an error in state: 362.
 ##
 ## plain_impl_def -> IMPL uname FOR uname gen_ty_consume COLON . class_body END [ SEMI EOF ]
 ##
@@ -1160,7 +658,7 @@ prog: IMPL UNAME FOR UNAME SMALLER GNAME LARGER COLON WHILE
 
 prog: IMPL UNAME FOR UNAME SMALLER GNAME LARGER WHILE
 ##
-## Ends in an error in state: 350.
+## Ends in an error in state: 361.
 ##
 ## plain_impl_def -> IMPL uname FOR uname gen_ty_consume . COLON class_body END [ SEMI EOF ]
 ##
@@ -1172,7 +670,7 @@ prog: IMPL UNAME FOR UNAME SMALLER GNAME LARGER WHILE
 
 prog: IMPL UNAME FOR UNAME WHILE
 ##
-## Ends in an error in state: 346.
+## Ends in an error in state: 357.
 ##
 ## plain_impl_def -> IMPL uname FOR uname . COLON class_body END [ SEMI EOF ]
 ## plain_impl_def -> IMPL uname FOR uname . gen_ty_consume COLON class_body END [ SEMI EOF ]
@@ -1185,7 +683,7 @@ prog: IMPL UNAME FOR UNAME WHILE
 
 prog: IMPL UNAME FOR WHILE
 ##
-## Ends in an error in state: 345.
+## Ends in an error in state: 356.
 ##
 ## plain_impl_def -> IMPL uname FOR . uname COLON class_body END [ SEMI EOF ]
 ## plain_impl_def -> IMPL uname FOR . uname gen_ty_consume COLON class_body END [ SEMI EOF ]
@@ -1198,7 +696,7 @@ prog: IMPL UNAME FOR WHILE
 
 prog: IMPL UNAME SMALLER GNAME LARGER FOR UNAME COLON WHILE
 ##
-## Ends in an error in state: 357.
+## Ends in an error in state: 368.
 ##
 ## plain_impl_def -> IMPL uname gen_ty_def FOR uname COLON . class_body END [ SEMI EOF ]
 ##
@@ -1210,7 +708,7 @@ prog: IMPL UNAME SMALLER GNAME LARGER FOR UNAME COLON WHILE
 
 prog: IMPL UNAME SMALLER GNAME LARGER FOR UNAME SMALLER GNAME LARGER COLON WHILE
 ##
-## Ends in an error in state: 361.
+## Ends in an error in state: 372.
 ##
 ## plain_impl_def -> IMPL uname gen_ty_def FOR uname gen_ty_consume COLON . class_body END [ SEMI EOF ]
 ##
@@ -1222,7 +720,7 @@ prog: IMPL UNAME SMALLER GNAME LARGER FOR UNAME SMALLER GNAME LARGER COLON WHILE
 
 prog: IMPL UNAME SMALLER GNAME LARGER FOR UNAME SMALLER GNAME LARGER WHILE
 ##
-## Ends in an error in state: 360.
+## Ends in an error in state: 371.
 ##
 ## plain_impl_def -> IMPL uname gen_ty_def FOR uname gen_ty_consume . COLON class_body END [ SEMI EOF ]
 ##
@@ -1234,7 +732,7 @@ prog: IMPL UNAME SMALLER GNAME LARGER FOR UNAME SMALLER GNAME LARGER WHILE
 
 prog: IMPL UNAME SMALLER GNAME LARGER FOR UNAME WHILE
 ##
-## Ends in an error in state: 356.
+## Ends in an error in state: 367.
 ##
 ## plain_impl_def -> IMPL uname gen_ty_def FOR uname . COLON class_body END [ SEMI EOF ]
 ## plain_impl_def -> IMPL uname gen_ty_def FOR uname . gen_ty_consume COLON class_body END [ SEMI EOF ]
@@ -1247,7 +745,7 @@ prog: IMPL UNAME SMALLER GNAME LARGER FOR UNAME WHILE
 
 prog: IMPL UNAME SMALLER GNAME LARGER FOR WHILE
 ##
-## Ends in an error in state: 355.
+## Ends in an error in state: 366.
 ##
 ## plain_impl_def -> IMPL uname gen_ty_def FOR . uname COLON class_body END [ SEMI EOF ]
 ## plain_impl_def -> IMPL uname gen_ty_def FOR . uname gen_ty_consume COLON class_body END [ SEMI EOF ]
@@ -1260,7 +758,7 @@ prog: IMPL UNAME SMALLER GNAME LARGER FOR WHILE
 
 prog: IMPL UNAME SMALLER GNAME LARGER WHILE
 ##
-## Ends in an error in state: 354.
+## Ends in an error in state: 365.
 ##
 ## plain_impl_def -> IMPL uname gen_ty_def . FOR uname COLON class_body END [ SEMI EOF ]
 ## plain_impl_def -> IMPL uname gen_ty_def . FOR uname gen_ty_consume COLON class_body END [ SEMI EOF ]
@@ -1273,7 +771,7 @@ prog: IMPL UNAME SMALLER GNAME LARGER WHILE
 
 prog: IMPL UNAME WHILE
 ##
-## Ends in an error in state: 344.
+## Ends in an error in state: 355.
 ##
 ## plain_impl_def -> IMPL uname . FOR uname COLON class_body END [ SEMI EOF ]
 ## plain_impl_def -> IMPL uname . gen_ty_def FOR uname COLON class_body END [ SEMI EOF ]
@@ -1288,7 +786,7 @@ prog: IMPL UNAME WHILE
 
 prog: IMPL WHILE
 ##
-## Ends in an error in state: 343.
+## Ends in an error in state: 354.
 ##
 ## plain_impl_def -> IMPL . uname FOR uname COLON class_body END [ SEMI EOF ]
 ## plain_impl_def -> IMPL . uname gen_ty_def FOR uname COLON class_body END [ SEMI EOF ]
@@ -1303,7 +801,7 @@ prog: IMPL WHILE
 
 prog: IMPORT UNAME COMMA WHILE
 ##
-## Ends in an error in state: 341.
+## Ends in an error in state: 352.
 ##
 ## separated_nonempty_list(COMMA,module_path_list) -> module_path_list COMMA . separated_nonempty_list(COMMA,module_path_list) [ SEMI EOF ]
 ##
@@ -1315,7 +813,7 @@ prog: IMPORT UNAME COMMA WHILE
 
 prog: IMPORT UNAME DOT LPAREN LNAME RPAREN WHILE
 ##
-## Ends in an error in state: 340.
+## Ends in an error in state: 351.
 ##
 ## separated_nonempty_list(COMMA,module_path_list) -> module_path_list . [ SEMI EOF ]
 ## separated_nonempty_list(COMMA,module_path_list) -> module_path_list . COMMA separated_nonempty_list(COMMA,module_path_list) [ SEMI EOF ]
@@ -1328,7 +826,7 @@ prog: IMPORT UNAME DOT LPAREN LNAME RPAREN WHILE
 
 prog: IMPORT UNAME DOT LPAREN UNAME COMMA WHILE
 ##
-## Ends in an error in state: 338.
+## Ends in an error in state: 349.
 ##
 ## separated_nonempty_list(COMMA,module_path) -> module_path COMMA . separated_nonempty_list(COMMA,module_path) [ RPAREN ]
 ##
@@ -1340,7 +838,7 @@ prog: IMPORT UNAME DOT LPAREN UNAME COMMA WHILE
 
 prog: IMPORT UNAME DOT LPAREN UNAME DOT WHILE
 ##
-## Ends in an error in state: 335.
+## Ends in an error in state: 346.
 ##
 ## module_path -> name DOT . module_path [ RPAREN COMMA ]
 ##
@@ -1352,7 +850,7 @@ prog: IMPORT UNAME DOT LPAREN UNAME DOT WHILE
 
 prog: IMPORT UNAME DOT LPAREN UNAME WHILE
 ##
-## Ends in an error in state: 334.
+## Ends in an error in state: 345.
 ##
 ## module_path -> name . [ RPAREN COMMA ]
 ## module_path -> name . DOT module_path [ RPAREN COMMA ]
@@ -1365,7 +863,7 @@ prog: IMPORT UNAME DOT LPAREN UNAME WHILE
 
 prog: IMPORT UNAME DOT LPAREN WHILE
 ##
-## Ends in an error in state: 331.
+## Ends in an error in state: 342.
 ##
 ## module_path_list -> module_root_path LPAREN . separated_nonempty_list(COMMA,module_path) RPAREN [ SEMI EOF COMMA ]
 ##
@@ -1377,7 +875,7 @@ prog: IMPORT UNAME DOT LPAREN WHILE
 
 prog: IMPORT UNAME DOT WHILE
 ##
-## Ends in an error in state: 328.
+## Ends in an error in state: 339.
 ##
 ## module_root_path -> name DOT . [ LPAREN ]
 ## module_root_path -> name DOT . module_root_path [ LPAREN ]
@@ -1404,7 +902,7 @@ prog: IMPORT UNAME SEMI STAR
 
 prog: IMPORT UNAME SEMI WHILE
 ##
-## Ends in an error in state: 388.
+## Ends in an error in state: 399.
 ##
 ## pkg_body -> pkg_field_decl sep . pkg_body [ EOF ]
 ##
@@ -1423,7 +921,7 @@ prog: IMPORT UNAME SEMI WHILE
 
 prog: IMPORT UNAME WHILE
 ##
-## Ends in an error in state: 327.
+## Ends in an error in state: 338.
 ##
 ## module_root_path -> name . DOT [ LPAREN ]
 ## module_root_path -> name . DOT module_root_path [ LPAREN ]
@@ -1438,7 +936,7 @@ prog: IMPORT UNAME WHILE
 
 prog: IMPORT WHILE
 ##
-## Ends in an error in state: 324.
+## Ends in an error in state: 335.
 ##
 ## plain_import_decl -> IMPORT . separated_nonempty_list(COMMA,module_path_list) [ SEMI EOF ]
 ##
@@ -3306,8 +2804,8 @@ prog: PACKAGE COLON LNAME SEMI BREAK
 ## In state 11, spurious reduction of production sep -> nonempty_list(single_sep) 
 ## In state 10, spurious reduction of production plain_module_clause -> PACKAGE COLON separated_nonempty_list(DOT,name) sep 
 ## In state 17, spurious reduction of production mark_position(plain_module_clause) -> plain_module_clause 
-## In state 403, spurious reduction of production module_clause -> mark_position(plain_module_clause) 
-## In state 402, spurious reduction of production option(module_clause) -> module_clause 
+## In state 414, spurious reduction of production module_clause -> mark_position(plain_module_clause) 
+## In state 413, spurious reduction of production option(module_clause) -> module_clause 
 ##
 
 <YOUR SYNTAX ERROR MESSAGE HERE>
@@ -3361,9 +2859,27 @@ prog: PACKAGE WHILE
 
 <YOUR SYNTAX ERROR MESSAGE HERE>
 
+prog: TRAIT UNAME COLON CONST WHILE
+##
+## Ends in an error in state: 292.
+##
+## method_decl -> field_decorator . FN lname function_params ARROW block END [ SEMI END ]
+## method_decl -> field_decorator . FN lname function_params COLON ty ARROW block END [ SEMI END ]
+## method_decl -> field_decorator . FN lname gen_ty_def function_params ARROW block END [ SEMI END ]
+## method_decl -> field_decorator . FN lname gen_ty_def function_params COLON ty ARROW block END [ SEMI END ]
+## plain_property_decl -> field_decorator . lname COLON ty [ SEMI END COMMA ]
+## plain_property_decl -> field_decorator . lname COLON ty ASSIGN arithmetic_expression [ SEMI END COMMA ]
+## plain_property_decl -> field_decorator . lname ASSIGN arithmetic_expression [ SEMI END COMMA ]
+##
+## The known suffix of the stack is as follows:
+## field_decorator
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
 prog: TRAIT UNAME COLON END WHILE
 ##
-## Ends in an error in state: 387.
+## Ends in an error in state: 398.
 ##
 ## pkg_body -> pkg_field_decl . [ EOF ]
 ## pkg_body -> pkg_field_decl . sep pkg_body [ EOF ]
@@ -3374,26 +2890,536 @@ prog: TRAIT UNAME COLON END WHILE
 
 <YOUR SYNTAX ERROR MESSAGE HERE>
 
-prog: TRAIT UNAME COLON WHILE
+prog: TRAIT UNAME COLON FN LNAME LPAREN RPAREN ARROW END WHILE
 ##
-## Ends in an error in state: 58.
+## Ends in an error in state: 314.
 ##
-## plain_trait_def -> TRAIT uname option(trait_father) COLON . class_body END [ SEMI EOF ]
+## class_body -> field_decl . [ END ]
+## class_body -> field_decl . sep class_body [ END ]
 ##
 ## The known suffix of the stack is as follows:
-## TRAIT uname option(trait_father) COLON
+## field_decl
 ##
 
 <YOUR SYNTAX ERROR MESSAGE HERE>
 
-prog: TRAIT UNAME LPAREN UNAME RPAREN CLASS
+prog: TRAIT UNAME COLON FN LNAME LPAREN RPAREN ARROW TRAIT
 ##
-## Ends in an error in state: 57.
+## Ends in an error in state: 311.
 ##
-## plain_trait_def -> TRAIT uname option(trait_father) . COLON class_body END [ SEMI EOF ]
+## method_decl -> field_decorator FN lname function_params ARROW . block END [ SEMI END ]
 ##
 ## The known suffix of the stack is as follows:
-## TRAIT uname option(trait_father)
+## field_decorator FN lname function_params ARROW
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+prog: TRAIT UNAME COLON FN LNAME LPAREN RPAREN ARROW UNAME ELSE
+##
+## Ends in an error in state: 312.
+##
+## method_decl -> field_decorator FN lname function_params ARROW block . END [ SEMI END ]
+##
+## The known suffix of the stack is as follows:
+## field_decorator FN lname function_params ARROW block
+##
+## WARNING: This example involves spurious reductions.
+## This implies that, although the LR(1) items shown above provide an
+## accurate view of the past (what has been recognized so far), they
+## may provide an INCOMPLETE view of the future (what was expected next).
+## In state 98, spurious reduction of production primary_expression_start -> name 
+## In state 92, spurious reduction of production primary_expression_access -> primary_expression_start 
+## In state 93, spurious reduction of production plain_primary_expression -> primary_expression_access 
+## In state 96, spurious reduction of production mark_position(plain_primary_expression) -> plain_primary_expression 
+## In state 101, spurious reduction of production primary_expression -> mark_position(plain_primary_expression) 
+## In state 94, spurious reduction of production unary_expression -> primary_expression 
+## In state 90, spurious reduction of production bin_expression -> unary_expression 
+## In state 108, spurious reduction of production arithmetic_expression -> bin_expression 
+## In state 233, spurious reduction of production plain_expression -> arithmetic_expression 
+## In state 227, spurious reduction of production mark_position(plain_expression) -> plain_expression 
+## In state 228, spurious reduction of production expression -> mark_position(plain_expression) 
+## In state 230, spurious reduction of production block -> expression 
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+prog: TRAIT UNAME COLON FN LNAME LPAREN RPAREN COLON UNAME ARROW TRAIT
+##
+## Ends in an error in state: 308.
+##
+## method_decl -> field_decorator FN lname function_params COLON ty ARROW . block END [ SEMI END ]
+##
+## The known suffix of the stack is as follows:
+## field_decorator FN lname function_params COLON ty ARROW
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+prog: TRAIT UNAME COLON FN LNAME LPAREN RPAREN COLON UNAME ARROW UNAME ELSE
+##
+## Ends in an error in state: 309.
+##
+## method_decl -> field_decorator FN lname function_params COLON ty ARROW block . END [ SEMI END ]
+##
+## The known suffix of the stack is as follows:
+## field_decorator FN lname function_params COLON ty ARROW block
+##
+## WARNING: This example involves spurious reductions.
+## This implies that, although the LR(1) items shown above provide an
+## accurate view of the past (what has been recognized so far), they
+## may provide an INCOMPLETE view of the future (what was expected next).
+## In state 98, spurious reduction of production primary_expression_start -> name 
+## In state 92, spurious reduction of production primary_expression_access -> primary_expression_start 
+## In state 93, spurious reduction of production plain_primary_expression -> primary_expression_access 
+## In state 96, spurious reduction of production mark_position(plain_primary_expression) -> plain_primary_expression 
+## In state 101, spurious reduction of production primary_expression -> mark_position(plain_primary_expression) 
+## In state 94, spurious reduction of production unary_expression -> primary_expression 
+## In state 90, spurious reduction of production bin_expression -> unary_expression 
+## In state 108, spurious reduction of production arithmetic_expression -> bin_expression 
+## In state 233, spurious reduction of production plain_expression -> arithmetic_expression 
+## In state 227, spurious reduction of production mark_position(plain_expression) -> plain_expression 
+## In state 228, spurious reduction of production expression -> mark_position(plain_expression) 
+## In state 230, spurious reduction of production block -> expression 
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+prog: TRAIT UNAME COLON FN LNAME LPAREN RPAREN COLON UNAME SEMI
+##
+## Ends in an error in state: 307.
+##
+## method_decl -> field_decorator FN lname function_params COLON ty . ARROW block END [ SEMI END ]
+##
+## The known suffix of the stack is as follows:
+## field_decorator FN lname function_params COLON ty
+##
+## WARNING: This example involves spurious reductions.
+## This implies that, although the LR(1) items shown above provide an
+## accurate view of the past (what has been recognized so far), they
+## may provide an INCOMPLETE view of the future (what was expected next).
+## In state 27, spurious reduction of production ty_apply -> tyname 
+## In state 29, spurious reduction of production plain_ty -> ty_apply 
+## In state 33, spurious reduction of production mark_position(plain_ty) -> plain_ty 
+## In state 35, spurious reduction of production ty -> mark_position(plain_ty) 
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+prog: TRAIT UNAME COLON FN LNAME LPAREN RPAREN COLON WHILE
+##
+## Ends in an error in state: 306.
+##
+## method_decl -> field_decorator FN lname function_params COLON . ty ARROW block END [ SEMI END ]
+##
+## The known suffix of the stack is as follows:
+## field_decorator FN lname function_params COLON
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+prog: TRAIT UNAME COLON FN LNAME LPAREN RPAREN WHILE
+##
+## Ends in an error in state: 305.
+##
+## method_decl -> field_decorator FN lname function_params . ARROW block END [ SEMI END ]
+## method_decl -> field_decorator FN lname function_params . COLON ty ARROW block END [ SEMI END ]
+##
+## The known suffix of the stack is as follows:
+## field_decorator FN lname function_params
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+prog: TRAIT UNAME COLON FN LNAME SMALLER GNAME LARGER LPAREN RPAREN ARROW TRAIT
+##
+## Ends in an error in state: 302.
+##
+## method_decl -> field_decorator FN lname gen_ty_def function_params ARROW . block END [ SEMI END ]
+##
+## The known suffix of the stack is as follows:
+## field_decorator FN lname gen_ty_def function_params ARROW
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+prog: TRAIT UNAME COLON FN LNAME SMALLER GNAME LARGER LPAREN RPAREN ARROW UNAME ELSE
+##
+## Ends in an error in state: 303.
+##
+## method_decl -> field_decorator FN lname gen_ty_def function_params ARROW block . END [ SEMI END ]
+##
+## The known suffix of the stack is as follows:
+## field_decorator FN lname gen_ty_def function_params ARROW block
+##
+## WARNING: This example involves spurious reductions.
+## This implies that, although the LR(1) items shown above provide an
+## accurate view of the past (what has been recognized so far), they
+## may provide an INCOMPLETE view of the future (what was expected next).
+## In state 98, spurious reduction of production primary_expression_start -> name 
+## In state 92, spurious reduction of production primary_expression_access -> primary_expression_start 
+## In state 93, spurious reduction of production plain_primary_expression -> primary_expression_access 
+## In state 96, spurious reduction of production mark_position(plain_primary_expression) -> plain_primary_expression 
+## In state 101, spurious reduction of production primary_expression -> mark_position(plain_primary_expression) 
+## In state 94, spurious reduction of production unary_expression -> primary_expression 
+## In state 90, spurious reduction of production bin_expression -> unary_expression 
+## In state 108, spurious reduction of production arithmetic_expression -> bin_expression 
+## In state 233, spurious reduction of production plain_expression -> arithmetic_expression 
+## In state 227, spurious reduction of production mark_position(plain_expression) -> plain_expression 
+## In state 228, spurious reduction of production expression -> mark_position(plain_expression) 
+## In state 230, spurious reduction of production block -> expression 
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+prog: TRAIT UNAME COLON FN LNAME SMALLER GNAME LARGER LPAREN RPAREN COLON UNAME ARROW TRAIT
+##
+## Ends in an error in state: 299.
+##
+## method_decl -> field_decorator FN lname gen_ty_def function_params COLON ty ARROW . block END [ SEMI END ]
+##
+## The known suffix of the stack is as follows:
+## field_decorator FN lname gen_ty_def function_params COLON ty ARROW
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+prog: TRAIT UNAME COLON FN LNAME SMALLER GNAME LARGER LPAREN RPAREN COLON UNAME ARROW UNAME ELSE
+##
+## Ends in an error in state: 300.
+##
+## method_decl -> field_decorator FN lname gen_ty_def function_params COLON ty ARROW block . END [ SEMI END ]
+##
+## The known suffix of the stack is as follows:
+## field_decorator FN lname gen_ty_def function_params COLON ty ARROW block
+##
+## WARNING: This example involves spurious reductions.
+## This implies that, although the LR(1) items shown above provide an
+## accurate view of the past (what has been recognized so far), they
+## may provide an INCOMPLETE view of the future (what was expected next).
+## In state 98, spurious reduction of production primary_expression_start -> name 
+## In state 92, spurious reduction of production primary_expression_access -> primary_expression_start 
+## In state 93, spurious reduction of production plain_primary_expression -> primary_expression_access 
+## In state 96, spurious reduction of production mark_position(plain_primary_expression) -> plain_primary_expression 
+## In state 101, spurious reduction of production primary_expression -> mark_position(plain_primary_expression) 
+## In state 94, spurious reduction of production unary_expression -> primary_expression 
+## In state 90, spurious reduction of production bin_expression -> unary_expression 
+## In state 108, spurious reduction of production arithmetic_expression -> bin_expression 
+## In state 233, spurious reduction of production plain_expression -> arithmetic_expression 
+## In state 227, spurious reduction of production mark_position(plain_expression) -> plain_expression 
+## In state 228, spurious reduction of production expression -> mark_position(plain_expression) 
+## In state 230, spurious reduction of production block -> expression 
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+prog: TRAIT UNAME COLON FN LNAME SMALLER GNAME LARGER LPAREN RPAREN COLON UNAME SEMI
+##
+## Ends in an error in state: 298.
+##
+## method_decl -> field_decorator FN lname gen_ty_def function_params COLON ty . ARROW block END [ SEMI END ]
+##
+## The known suffix of the stack is as follows:
+## field_decorator FN lname gen_ty_def function_params COLON ty
+##
+## WARNING: This example involves spurious reductions.
+## This implies that, although the LR(1) items shown above provide an
+## accurate view of the past (what has been recognized so far), they
+## may provide an INCOMPLETE view of the future (what was expected next).
+## In state 27, spurious reduction of production ty_apply -> tyname 
+## In state 29, spurious reduction of production plain_ty -> ty_apply 
+## In state 33, spurious reduction of production mark_position(plain_ty) -> plain_ty 
+## In state 35, spurious reduction of production ty -> mark_position(plain_ty) 
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+prog: TRAIT UNAME COLON FN LNAME SMALLER GNAME LARGER LPAREN RPAREN COLON WHILE
+##
+## Ends in an error in state: 297.
+##
+## method_decl -> field_decorator FN lname gen_ty_def function_params COLON . ty ARROW block END [ SEMI END ]
+##
+## The known suffix of the stack is as follows:
+## field_decorator FN lname gen_ty_def function_params COLON
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+prog: TRAIT UNAME COLON FN LNAME SMALLER GNAME LARGER LPAREN RPAREN WHILE
+##
+## Ends in an error in state: 296.
+##
+## method_decl -> field_decorator FN lname gen_ty_def function_params . ARROW block END [ SEMI END ]
+## method_decl -> field_decorator FN lname gen_ty_def function_params . COLON ty ARROW block END [ SEMI END ]
+##
+## The known suffix of the stack is as follows:
+## field_decorator FN lname gen_ty_def function_params
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+prog: TRAIT UNAME COLON FN LNAME SMALLER GNAME LARGER WHILE
+##
+## Ends in an error in state: 295.
+##
+## method_decl -> field_decorator FN lname gen_ty_def . function_params ARROW block END [ SEMI END ]
+## method_decl -> field_decorator FN lname gen_ty_def . function_params COLON ty ARROW block END [ SEMI END ]
+##
+## The known suffix of the stack is as follows:
+## field_decorator FN lname gen_ty_def
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+prog: TRAIT UNAME COLON FN LNAME WHILE
+##
+## Ends in an error in state: 294.
+##
+## method_decl -> field_decorator FN lname . function_params ARROW block END [ SEMI END ]
+## method_decl -> field_decorator FN lname . function_params COLON ty ARROW block END [ SEMI END ]
+## method_decl -> field_decorator FN lname . gen_ty_def function_params ARROW block END [ SEMI END ]
+## method_decl -> field_decorator FN lname . gen_ty_def function_params COLON ty ARROW block END [ SEMI END ]
+##
+## The known suffix of the stack is as follows:
+## field_decorator FN lname
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+prog: TRAIT UNAME COLON FN WHILE
+##
+## Ends in an error in state: 293.
+##
+## method_decl -> field_decorator FN . lname function_params ARROW block END [ SEMI END ]
+## method_decl -> field_decorator FN . lname function_params COLON ty ARROW block END [ SEMI END ]
+## method_decl -> field_decorator FN . lname gen_ty_def function_params ARROW block END [ SEMI END ]
+## method_decl -> field_decorator FN . lname gen_ty_def function_params COLON ty ARROW block END [ SEMI END ]
+##
+## The known suffix of the stack is as follows:
+## field_decorator FN
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+prog: TRAIT UNAME COLON LNAME ASSIGN BOOL COMMA STATIC FN
+##
+## Ends in an error in state: 69.
+##
+## plain_property_decl -> field_decorator . lname COLON ty [ SEMI END COMMA ]
+## plain_property_decl -> field_decorator . lname COLON ty ASSIGN arithmetic_expression [ SEMI END COMMA ]
+## plain_property_decl -> field_decorator . lname ASSIGN arithmetic_expression [ SEMI END COMMA ]
+##
+## The known suffix of the stack is as follows:
+## field_decorator
+##
+## WARNING: This example involves spurious reductions.
+## This implies that, although the LR(1) items shown above provide an
+## accurate view of the past (what has been recognized so far), they
+## may provide an INCOMPLETE view of the future (what was expected next).
+## In state 63, spurious reduction of production option(PUB) -> 
+## In state 65, spurious reduction of production option(CONST) -> 
+## In state 67, spurious reduction of production field_decorator -> option(STATIC) option(PUB) option(CONST) 
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+prog: TRAIT UNAME COLON LNAME ASSIGN BOOL COMMA WHILE
+##
+## Ends in an error in state: 60.
+##
+## separated_nonempty_list(COMMA,property_decl) -> property_decl COMMA . separated_nonempty_list(COMMA,property_decl) [ SEMI END ]
+##
+## The known suffix of the stack is as follows:
+## property_decl COMMA
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+prog: TRAIT UNAME COLON LNAME ASSIGN BOOL RPAREN
+##
+## Ends in an error in state: 59.
+##
+## separated_nonempty_list(COMMA,property_decl) -> property_decl . [ SEMI END ]
+## separated_nonempty_list(COMMA,property_decl) -> property_decl . COMMA separated_nonempty_list(COMMA,property_decl) [ SEMI END ]
+##
+## The known suffix of the stack is as follows:
+## property_decl
+##
+## WARNING: This example involves spurious reductions.
+## This implies that, although the LR(1) items shown above provide an
+## accurate view of the past (what has been recognized so far), they
+## may provide an INCOMPLETE view of the future (what was expected next).
+## In state 94, spurious reduction of production unary_expression -> primary_expression 
+## In state 90, spurious reduction of production bin_expression -> unary_expression 
+## In state 108, spurious reduction of production arithmetic_expression -> bin_expression 
+## In state 288, spurious reduction of production plain_property_decl -> field_decorator lname ASSIGN arithmetic_expression 
+## In state 62, spurious reduction of production mark_position(plain_property_decl) -> plain_property_decl 
+## In state 68, spurious reduction of production property_decl -> mark_position(plain_property_decl) 
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+prog: TRAIT UNAME COLON LNAME ASSIGN BOOL SEMI WHILE
+##
+## Ends in an error in state: 315.
+##
+## class_body -> field_decl sep . class_body [ END ]
+##
+## The known suffix of the stack is as follows:
+## field_decl sep
+##
+## WARNING: This example involves spurious reductions.
+## This implies that, although the LR(1) items shown above provide an
+## accurate view of the past (what has been recognized so far), they
+## may provide an INCOMPLETE view of the future (what was expected next).
+## In state 8, spurious reduction of production nonempty_list(single_sep) -> single_sep 
+## In state 11, spurious reduction of production sep -> nonempty_list(single_sep) 
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+prog: TRAIT UNAME COLON LNAME ASSIGN WHILE
+##
+## Ends in an error in state: 287.
+##
+## plain_property_decl -> field_decorator lname ASSIGN . arithmetic_expression [ SEMI END COMMA ]
+##
+## The known suffix of the stack is as follows:
+## field_decorator lname ASSIGN
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+prog: TRAIT UNAME COLON LNAME COLON UNAME ASSIGN WHILE
+##
+## Ends in an error in state: 73.
+##
+## plain_property_decl -> field_decorator lname COLON ty ASSIGN . arithmetic_expression [ SEMI END COMMA ]
+##
+## The known suffix of the stack is as follows:
+## field_decorator lname COLON ty ASSIGN
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+prog: TRAIT UNAME COLON LNAME COLON UNAME RPAREN
+##
+## Ends in an error in state: 72.
+##
+## plain_property_decl -> field_decorator lname COLON ty . [ SEMI END COMMA ]
+## plain_property_decl -> field_decorator lname COLON ty . ASSIGN arithmetic_expression [ SEMI END COMMA ]
+##
+## The known suffix of the stack is as follows:
+## field_decorator lname COLON ty
+##
+## WARNING: This example involves spurious reductions.
+## This implies that, although the LR(1) items shown above provide an
+## accurate view of the past (what has been recognized so far), they
+## may provide an INCOMPLETE view of the future (what was expected next).
+## In state 27, spurious reduction of production ty_apply -> tyname 
+## In state 29, spurious reduction of production plain_ty -> ty_apply 
+## In state 33, spurious reduction of production mark_position(plain_ty) -> plain_ty 
+## In state 35, spurious reduction of production ty -> mark_position(plain_ty) 
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+prog: TRAIT UNAME COLON LNAME COLON WHILE
+##
+## Ends in an error in state: 71.
+##
+## plain_property_decl -> field_decorator lname COLON . ty [ SEMI END COMMA ]
+## plain_property_decl -> field_decorator lname COLON . ty ASSIGN arithmetic_expression [ SEMI END COMMA ]
+##
+## The known suffix of the stack is as follows:
+## field_decorator lname COLON
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+prog: TRAIT UNAME COLON LNAME WHILE
+##
+## Ends in an error in state: 70.
+##
+## plain_property_decl -> field_decorator lname . COLON ty [ SEMI END COMMA ]
+## plain_property_decl -> field_decorator lname . COLON ty ASSIGN arithmetic_expression [ SEMI END COMMA ]
+## plain_property_decl -> field_decorator lname . ASSIGN arithmetic_expression [ SEMI END COMMA ]
+##
+## The known suffix of the stack is as follows:
+## field_decorator lname
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+prog: TRAIT UNAME COLON PUB COMMA
+##
+## Ends in an error in state: 65.
+##
+## field_decorator -> option(STATIC) option(PUB) . option(CONST) [ LNAME FN ]
+##
+## The known suffix of the stack is as follows:
+## option(STATIC) option(PUB)
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+prog: TRAIT UNAME COLON STATIC COMMA
+##
+## Ends in an error in state: 63.
+##
+## field_decorator -> option(STATIC) . option(PUB) option(CONST) [ LNAME FN ]
+##
+## The known suffix of the stack is as follows:
+## option(STATIC)
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+prog: TRAIT UNAME COLON WHILE
+##
+## Ends in an error in state: 322.
+##
+## plain_trait_def -> TRAIT uname COLON . class_body END [ SEMI EOF ]
+##
+## The known suffix of the stack is as follows:
+## TRAIT uname COLON
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+prog: TRAIT UNAME LPAREN RPAREN COLON WHILE
+##
+## Ends in an error in state: 56.
+##
+## plain_trait_def -> TRAIT uname LPAREN trait_fathers RPAREN COLON . class_body END [ SEMI EOF ]
+##
+## The known suffix of the stack is as follows:
+## TRAIT uname LPAREN trait_fathers RPAREN COLON
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+prog: TRAIT UNAME LPAREN RPAREN WHILE
+##
+## Ends in an error in state: 55.
+##
+## plain_trait_def -> TRAIT uname LPAREN trait_fathers RPAREN . COLON class_body END [ SEMI EOF ]
+##
+## The known suffix of the stack is as follows:
+## TRAIT uname LPAREN trait_fathers RPAREN
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+prog: TRAIT UNAME LPAREN UNAME COMMA WHILE
+##
+## Ends in an error in state: 320.
+##
+## trait_fathers -> trait_father COMMA . trait_fathers [ RPAREN ]
+##
+## The known suffix of the stack is as follows:
+## trait_father COMMA
 ##
 
 <YOUR SYNTAX ERROR MESSAGE HERE>
@@ -3412,12 +3438,13 @@ prog: TRAIT UNAME LPAREN UNAME SMALLER UNAME COMMA WHILE
 
 prog: TRAIT UNAME LPAREN UNAME SMALLER UNAME LARGER WHILE
 ##
-## Ends in an error in state: 54.
+## Ends in an error in state: 319.
 ##
-## trait_father -> LPAREN uname gen_ty_consume . RPAREN [ COLON ]
+## trait_fathers -> trait_father . [ RPAREN ]
+## trait_fathers -> trait_father . COMMA trait_fathers [ RPAREN ]
 ##
 ## The known suffix of the stack is as follows:
-## LPAREN uname gen_ty_consume
+## trait_father
 ##
 
 <YOUR SYNTAX ERROR MESSAGE HERE>
@@ -3460,11 +3487,11 @@ prog: TRAIT UNAME LPAREN UNAME WHILE
 ##
 ## Ends in an error in state: 46.
 ##
-## trait_father -> LPAREN uname . RPAREN [ COLON ]
-## trait_father -> LPAREN uname . gen_ty_consume RPAREN [ COLON ]
+## trait_father -> uname . [ RPAREN COMMA ]
+## trait_father -> uname . gen_ty_consume [ RPAREN COMMA ]
 ##
 ## The known suffix of the stack is as follows:
-## LPAREN uname
+## uname
 ##
 
 <YOUR SYNTAX ERROR MESSAGE HERE>
@@ -3473,11 +3500,10 @@ prog: TRAIT UNAME LPAREN WHILE
 ##
 ## Ends in an error in state: 45.
 ##
-## trait_father -> LPAREN . uname RPAREN [ COLON ]
-## trait_father -> LPAREN . uname gen_ty_consume RPAREN [ COLON ]
+## plain_trait_def -> TRAIT uname LPAREN . trait_fathers RPAREN COLON class_body END [ SEMI EOF ]
 ##
 ## The known suffix of the stack is as follows:
-## LPAREN
+## TRAIT uname LPAREN
 ##
 
 <YOUR SYNTAX ERROR MESSAGE HERE>
@@ -3521,33 +3547,58 @@ prog: TRAIT UNAME SMALLER GNAME COMMA WHILE
 
 prog: TRAIT UNAME SMALLER GNAME LARGER COLON WHILE
 ##
-## Ends in an error in state: 321.
+## Ends in an error in state: 332.
 ##
-## plain_trait_def -> TRAIT uname gen_ty_def option(trait_father) COLON . class_body END [ SEMI EOF ]
+## plain_trait_def -> TRAIT uname gen_ty_def COLON . class_body END [ SEMI EOF ]
 ##
 ## The known suffix of the stack is as follows:
-## TRAIT uname gen_ty_def option(trait_father) COLON
+## TRAIT uname gen_ty_def COLON
 ##
 
 <YOUR SYNTAX ERROR MESSAGE HERE>
 
-prog: TRAIT UNAME SMALLER GNAME LARGER LPAREN UNAME RPAREN CLASS
+prog: TRAIT UNAME SMALLER GNAME LARGER LPAREN RPAREN COLON WHILE
 ##
-## Ends in an error in state: 320.
+## Ends in an error in state: 329.
 ##
-## plain_trait_def -> TRAIT uname gen_ty_def option(trait_father) . COLON class_body END [ SEMI EOF ]
+## plain_trait_def -> TRAIT uname gen_ty_def LPAREN trait_fathers RPAREN COLON . class_body END [ SEMI EOF ]
 ##
 ## The known suffix of the stack is as follows:
-## TRAIT uname gen_ty_def option(trait_father)
+## TRAIT uname gen_ty_def LPAREN trait_fathers RPAREN COLON
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+prog: TRAIT UNAME SMALLER GNAME LARGER LPAREN RPAREN WHILE
+##
+## Ends in an error in state: 328.
+##
+## plain_trait_def -> TRAIT uname gen_ty_def LPAREN trait_fathers RPAREN . COLON class_body END [ SEMI EOF ]
+##
+## The known suffix of the stack is as follows:
+## TRAIT uname gen_ty_def LPAREN trait_fathers RPAREN
+##
+
+<YOUR SYNTAX ERROR MESSAGE HERE>
+
+prog: TRAIT UNAME SMALLER GNAME LARGER LPAREN WHILE
+##
+## Ends in an error in state: 326.
+##
+## plain_trait_def -> TRAIT uname gen_ty_def LPAREN . trait_fathers RPAREN COLON class_body END [ SEMI EOF ]
+##
+## The known suffix of the stack is as follows:
+## TRAIT uname gen_ty_def LPAREN
 ##
 
 <YOUR SYNTAX ERROR MESSAGE HERE>
 
 prog: TRAIT UNAME SMALLER GNAME LARGER WHILE
 ##
-## Ends in an error in state: 319.
+## Ends in an error in state: 325.
 ##
-## plain_trait_def -> TRAIT uname gen_ty_def . option(trait_father) COLON class_body END [ SEMI EOF ]
+## plain_trait_def -> TRAIT uname gen_ty_def . LPAREN trait_fathers RPAREN COLON class_body END [ SEMI EOF ]
+## plain_trait_def -> TRAIT uname gen_ty_def . COLON class_body END [ SEMI EOF ]
 ##
 ## The known suffix of the stack is as follows:
 ## TRAIT uname gen_ty_def
@@ -3584,8 +3635,10 @@ prog: TRAIT UNAME WHILE
 ##
 ## Ends in an error in state: 20.
 ##
-## plain_trait_def -> TRAIT uname . gen_ty_def option(trait_father) COLON class_body END [ SEMI EOF ]
-## plain_trait_def -> TRAIT uname . option(trait_father) COLON class_body END [ SEMI EOF ]
+## plain_trait_def -> TRAIT uname . gen_ty_def LPAREN trait_fathers RPAREN COLON class_body END [ SEMI EOF ]
+## plain_trait_def -> TRAIT uname . LPAREN trait_fathers RPAREN COLON class_body END [ SEMI EOF ]
+## plain_trait_def -> TRAIT uname . gen_ty_def COLON class_body END [ SEMI EOF ]
+## plain_trait_def -> TRAIT uname . COLON class_body END [ SEMI EOF ]
 ##
 ## The known suffix of the stack is as follows:
 ## TRAIT uname
@@ -3597,8 +3650,10 @@ prog: TRAIT WHILE
 ##
 ## Ends in an error in state: 19.
 ##
-## plain_trait_def -> TRAIT . uname gen_ty_def option(trait_father) COLON class_body END [ SEMI EOF ]
-## plain_trait_def -> TRAIT . uname option(trait_father) COLON class_body END [ SEMI EOF ]
+## plain_trait_def -> TRAIT . uname gen_ty_def LPAREN trait_fathers RPAREN COLON class_body END [ SEMI EOF ]
+## plain_trait_def -> TRAIT . uname LPAREN trait_fathers RPAREN COLON class_body END [ SEMI EOF ]
+## plain_trait_def -> TRAIT . uname gen_ty_def COLON class_body END [ SEMI EOF ]
+## plain_trait_def -> TRAIT . uname COLON class_body END [ SEMI EOF ]
 ##
 ## The known suffix of the stack is as follows:
 ## TRAIT
