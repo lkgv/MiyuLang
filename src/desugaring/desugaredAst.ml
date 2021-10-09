@@ -1,18 +1,35 @@
 open Utils
 open Ast.AstTypes
 
-type program = Prog of module_clause option * expr list
+type program = package list
 
-and module_clause = plain_module_clause located
+and package =
+  | Package    of Mod_id.t * import_defn list * class_defn list * function_defn list * var list
 
-and plain_module_clause = Module of Mod_id.t
+and import_defn = plain_import_defn located
+
+and plain_import_defn = Import of (Mod_id.t * string)
+
+and class_defn = plain_class_defn located
+
+and plain_class_defn =
+  (* class name, father name, list of generic type, properties, methods *)
+  | Class      of Ty_id.t * (Ty_id.t * ty list) option * generic_ty list * property_defn list * method_defn list
+  (* trait name, father name, list of generic type, properties, methods *)
+  | Trait      of Ty_id.t * (Ty_id.t * ty list) list * generic_ty list * property_defn list * method_defn list
+  (* class name, trait name, list of generic type, list of generic type param, properties, methods *)
+  | Impl       of Ty_id.t * Ty_id.t * generic_ty list * ty list * property_defn list * method_defn list
+
+and function_defn = plain_function_defn located
+
+and plain_function_defn =
+  (* function name, list of generic type, list of param, return type (optional), expr*)
+  | Fn         of Fn_id.t * generic_ty list * param list * ty option * block_expr
 
 and expr = plain_expr located
 
 and plain_expr =
-  | Vars       of var list
-  (* function name, list of generic type, list of param, return type (optional), expr*)
-  | Fn         of Fn_id.t * generic_ty list * param list * ty option * plain_expr
+  | Let        of var
   (* source, method name, list of param ty, param *)
   | MethodCall of expr * Method_id.t * ty list * call_param list
   | Retrive    of expr * Property_id.t * ty list
@@ -33,27 +50,28 @@ and plain_expr =
   | Continue   of expr
   | Return     of expr
   | Print      of expr
-  | Block      of expr list
   | If         of if_item list
-  | Loop       of plain_expr
-  | While      of expr * plain_expr
-  | For        of Var_id.t * expr * plain_expr
+  | Loop       of block_expr
+  | While      of expr * block_expr
+  | For        of Var_id.t * expr * block_expr
   | This
   (* identity name, list of generic type params *)
   | Id         of Var_id.t * ty list
-  (* class name, father name, list of generic type, class body (field defns) *)
-  | Class      of Ty_id.t * (Ty_id.t * ty list) option * generic_ty list * field_defn list
-  (* trait name, father name, list of generic type, trait body (field defns) *)
-  | Trait      of Ty_id.t * (Ty_id.t * ty list) list * generic_ty list * field_defn list
-  (* class name, trait name, list of generic type, list of generic type param, impl body
-     (field defns) *)
-  | Impl       of Ty_id.t * Ty_id.t * generic_ty list * ty list * field_defn list
-  | Import     of (Mod_id.t * string) list
 
-and field_defn = plain_field_defn located
+and block_expr = plain_block_expr located
 
-and plain_field_defn =
-  | Properties of property list
+and plain_block_expr =
+  | Block      of expr list
+
+and property_defn = plain_property_defn located
+
+and plain_property_defn =
+  (* property name, field decorator, type (optional), init value (optional) *)
+  | Property   of Property_id.t * field_decorator * ty option * expr option
+
+and method_defn = plain_method_defn located
+
+and plain_method_defn = 
   (* method name, field decorator, list of generic type, list of params, return type
      (optional), body *)
   | Method     of
@@ -62,10 +80,7 @@ and plain_field_defn =
       * generic_ty list
       * param list
       * ty option
-      * plain_expr
-
-(* property name, field decorator, type (optional), init value (optional) *)
-and property = Property of Property_id.t * field_decorator * ty option * expr option
+      * block_expr
 
 and var = plain_var located
 
@@ -78,4 +93,4 @@ and param = Param of Var_id.t * var_decorator * ty option * expr option
 (* param name, input value *)
 and call_param = CallParam of Var_id.t option * expr
 
-and if_item = Cond of expr * plain_expr | Else of plain_expr
+and if_item = Cond of expr * block_expr | Else of block_expr
