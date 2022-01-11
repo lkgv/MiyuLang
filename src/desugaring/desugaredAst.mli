@@ -4,7 +4,7 @@ open Ast.AstTypes
 type program = package list
 
 and package =
-  | Package    of Mod_id.t * import_defn list * class_defn list * function_defn list * var list
+  | Package    of Mod_id.t option * import_defn list * class_defn list * function_defn list * var list
 
 and import_defn = plain_import_defn located
 
