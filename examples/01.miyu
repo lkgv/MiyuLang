@@ -1,4 +1,4 @@
-module Org . Miyu . Test . Lab_01;
+pkg: Org . Miyu . Test . Lab_01;
 
 import A.B;
 import G.X.(a, b, c);
@@ -28,6 +28,8 @@ cls P <'T:int, 'B:float> :
   a = a + 4 + a::<'a, 'b, 'c> + k(3, 4, b::<'a, 'c>) + 4;
 end;
 
+trait Ka<'a, 'b, 'c>(Fs<'a>, Ko<int>, M):
+end;
   
 
 fn main( ) ->

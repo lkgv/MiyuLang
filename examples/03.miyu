@@ -1,4 +1,5 @@
-module Kaf;
+pkg: Kaf;
+
 import a.b.c, a.d, a.e;
 import d.e.( a.d.e ), e.( d, p.g, f );
 

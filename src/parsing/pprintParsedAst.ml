@@ -114,8 +114,19 @@ and pprint_plain_expr ppf ~indent expr =
           List.iter ~f:(pprint_ty ppf ~indent:(indent_space ^ new_indent)) lst ) in
       print_expr (Fmt.str "ID(%s)" (Var_id.to_string name)) ;
       prt_gen_params lst
+  | Class (name, fname, gen_tys, fields) ->
+      pprint_class_defn ppf ~indent (name, fname, gen_tys, fields)
+  | Trait (name, fname, gen_tys, fields) ->
+      pprint_trait_defn ppf ~indent (name, fname, gen_tys, fields)
+  | Impl (cname, tname, gen_tys, gen_params, fields) ->
+      pprint_impl_defn ppf ~indent (cname, tname, gen_tys, gen_params, fields)
+  | Import paths ->
+      print_expr "Import" ;
+      paths
+      |> List.iter ~f:(fun (p, x) ->
+             Fmt.pf ppf "%s%s . %s@." new_indent (Mod_id.to_string p) x)
 
-and pprint_class_defn ppf ~indent (name, decr, father, gen_tys, fields) =
+and pprint_class_defn ppf ~indent (name, father, gen_tys, fields) =
   let new_indent = indent_space ^ indent in
   let prt_gen_tys lst =
     if List.length lst > 0 then Fmt.pf ppf "%sGeneric Types:@." new_indent ;
@@ -130,30 +141,30 @@ and pprint_class_defn ppf ~indent (name, decr, father, gen_tys, fields) =
         prt_gen_params lst
     | None          -> () in
   Fmt.pf ppf "%sClass:%s@." indent (Ty_id.to_string name) ;
-  Fmt.pf ppf "%sDecorator: %s@." new_indent (string_of_field_decorator decr) ;
   prt_gen_tys gen_tys ;
   prt_inherit_info father ;
   List.iter ~f:(pprint_field_defn ppf ~indent:new_indent) fields
 
-and pprint_trait_defn ppf ~indent (name, decr, father, gen_tys, fields) =
+and pprint_trait_defn ppf ~indent (name, father, gen_tys, fields) =
   let new_indent = indent_space ^ indent in
   let prt_gen_tys lst =
     if List.length lst > 0 then (
       Fmt.pf ppf "%sGeneric Types:@." new_indent ;
       List.iter ~f:(pprint_generic_ty ppf ~indent:(indent_space ^ new_indent)) lst ) in
-  let prt_gen_params lst =
+  let prt_gen_params ~indent lst =
     if List.length lst > 0 then (
-      Fmt.pf ppf "%sGeneric Type Params:@." new_indent ;
-      List.iter ~f:(pprint_ty ppf ~indent:(indent_space ^ new_indent)) lst ) in
-  let prt_inherit_info = function
-    | Some (n, lst) ->
-        Fmt.pf ppf "%sinherits:%s@." new_indent (Ty_id.to_string n) ;
-        prt_gen_params lst
-    | None          -> () in
+      Fmt.pf ppf "%sGeneric Type Params:@." indent ;
+      List.iter ~f:(pprint_ty ppf ~indent:(indent_space ^ indent)) lst ) in
+  let prt_inherit_info ~indent (name, gen_params) =
+    Fmt.pf ppf "%sName: %s@." indent (Ty_id.to_string name) ;
+    prt_gen_params ~indent:(indent_space ^ indent) gen_params in
+  let prt_inherit_lst lst =
+    if List.length lst > 0 then (
+      Fmt.pf ppf "%sinherits:@." new_indent ;
+      List.iter ~f:(prt_inherit_info ~indent:(indent_space ^ new_indent)) lst ) in
   Fmt.pf ppf "%sTrait:%s@." indent (Ty_id.to_string name) ;
-  Fmt.pf ppf "%sDecorator: %s@." new_indent (string_of_field_decorator decr) ;
   prt_gen_tys gen_tys ;
-  prt_inherit_info father ;
+  prt_inherit_lst father ;
   List.iter ~f:(pprint_field_defn ppf ~indent:new_indent) fields
 
 and pprint_impl_defn ppf ~indent (cname, tname, gen_tys, gen_params, fields) =
@@ -180,14 +191,11 @@ and pprint_field_defn ppf ~indent {it= field; _} =
       List.iter ~f:(pprint_property_defn ppf ~indent:new_indent) xs
   | Method (name, decr, gen_tys, params, ty, body) ->
       pprint_method_defn ppf ~indent (name, decr, gen_tys, params, ty, body)
-  | Class (name, decr, fname, gen_tys, fields) ->
-      pprint_class_defn ppf ~indent (name, decr, fname, gen_tys, fields)
-  | Trait (name, decr, fname, gen_tys, fields) ->
-      pprint_trait_defn ppf ~indent (name, decr, fname, gen_tys, fields)
-  | Impl (cname, tname, gen_tys, gen_params, fields) ->
-      pprint_impl_defn ppf ~indent (cname, tname, gen_tys, gen_params, fields)
 
-and pprint_property_defn ppf ~indent (Property (name, decr, ty, value)) =
+
+and pprint_property_defn ppf ~indent {it= property; _} = pprint_plain_property_defn ppf ~indent property
+
+and pprint_plain_property_defn ppf ~indent (Property (name, decr, ty, value)) =
   let new_indent = indent_space ^ indent in
   let prt_ty = function Some t -> pprint_ty ppf ~indent:new_indent t | None -> () in
   let prt_v = function
@@ -317,21 +325,11 @@ and pprint_generic_ty ppf ~indent t =
 and pprint_module_clause ppf ~indent {it= Module mname; _} =
   Fmt.pf ppf "%sModule %s@." indent (Mod_id.to_string mname)
 
-and pprint_import_decl ppf ~indent {it= Import paths; _} =
-  let new_indent = indent_space ^ indent in
-  Fmt.pf ppf "%sImport:@." indent ;
-  paths
-  (* |> List.map ~f:(List.map ~f:label_to_string) |> List.map ~f:(String.concat ~sep:" .
-     ") *)
-  |> List.iter ~f:(fun (p, x) ->
-         Fmt.pf ppf "%s%s . %s@." new_indent (Mod_id.to_string p) x)
-
-and pprint_program ppf (Prog (module_clause, import_decls, body)) =
+and pprint_program ppf (Prog (module_clause, body)) =
   let indent = "└──" in
   let prt_module_clause = function
     | Some m -> pprint_module_clause ppf ~indent m
     | None   -> () in
   Fmt.pf ppf "Program@." ;
   prt_module_clause module_clause ;
-  List.iter ~f:(pprint_import_decl ppf ~indent) import_decls ;
-  List.iter ~f:(pprint_field_defn ppf ~indent) body
+  List.iter ~f:(pprint_expr ppf ~indent) body

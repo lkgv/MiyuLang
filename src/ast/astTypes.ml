@@ -29,16 +29,16 @@ type var_decorator = {const: bool}
 
 let string_of_var_decorator {const} =
   let dec_lst = [] in
-  let dec_lst = (if const then "const" else "") :: dec_lst in
+  let dec_lst = if const then "const" :: dec_lst else dec_lst in
   String.concat ~sep:", " dec_lst
 
 type field_decorator = {static: bool; pub: bool; const: bool}
 
 let string_of_field_decorator {static; pub; const} =
   let dec_lst = [] in
-  let dec_lst = (if const then "const" else "") :: dec_lst in
-  let dec_lst = (if pub then "pub" else "") :: dec_lst in
-  let dec_lst = (if static then "static" else "") :: dec_lst in
+  let dec_lst = if const then "const" :: dec_lst else dec_lst in
+  let dec_lst = if pub then "pub" :: dec_lst else dec_lst in
+  let dec_lst = if static then "static" :: dec_lst else dec_lst in
   String.concat ~sep:", " dec_lst
 
 type un_op = UnOpNot | UnOpNeg

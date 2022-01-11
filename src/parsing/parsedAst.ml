@@ -1,16 +1,11 @@
 open Utils
 open Ast.AstTypes
 
-type program = Prog of module_clause option * import_decl list * field_defn list
+type program = Prog of module_clause option * expr list
 
 and module_clause = plain_module_clause located
 
 and plain_module_clause = Module of Mod_id.t
-
-and import_decl = plain_import_decl located
-
-(* list of module_name, attribute *)
-and plain_import_decl = Import of (Mod_id.t * string) list
 
 and expr = plain_expr located
 
@@ -46,6 +41,14 @@ and plain_expr =
   | This
   (* identity name, list of generic type params *)
   | Id         of Var_id.t * ty list
+  (* class name, father name, list of generic type, class body (field defns) *)
+  | Class      of Ty_id.t * (Ty_id.t * ty list) option * generic_ty list * field_defn list
+  (* trait name, father name, list of generic type, trait body (field defns) *)
+  | Trait      of Ty_id.t * (Ty_id.t * ty list) list * generic_ty list * field_defn list
+  (* class name, trait name, list of generic type, list of generic type param, impl body
+     (field defns) *)
+  | Impl       of Ty_id.t * Ty_id.t * generic_ty list * ty list * field_defn list
+  | Import     of (Mod_id.t * string) list
 
 and field_defn = plain_field_defn located
 
@@ -60,26 +63,11 @@ and plain_field_defn =
       * param list
       * ty option
       * plain_expr
-  (* class name, father name, list of generic type, class body (field defns) *)
-  | Class      of
-      Ty_id.t
-      * field_decorator
-      * (Ty_id.t * ty list) option
-      * generic_ty list
-      * field_defn list
-  (* trait name, list of generic type, trait body (field defns) *)
-  | Trait      of
-      Ty_id.t
-      * field_decorator
-      * (Ty_id.t * ty list) option
-      * generic_ty list
-      * field_defn list
-  (* class name, trait name, list of generic type, list of generic type param, impl body
-     (field defns) *)
-  | Impl       of Ty_id.t * Ty_id.t * generic_ty list * ty list * field_defn list
+
+and property = plain_property located
 
 (* property name, field decorator, type (optional), init value (optional) *)
-and property = Property of Property_id.t * field_decorator * ty option * expr option
+and plain_property = Property of Property_id.t * field_decorator * ty option * expr option
 
 and var = plain_var located
 
