@@ -4,7 +4,8 @@ open Ast.AstTypes
 type program = package list
 
 and package =
-  | Package    of Mod_id.t option * import_defn list * class_defn list * function_defn list * var list
+  | Package of
+      Mod_id.t option * import_defn list * class_defn list * function_defn list * var list
 
 and import_defn = plain_import_defn located
 
@@ -14,17 +15,34 @@ and class_defn = plain_class_defn located
 
 and plain_class_defn =
   (* class name, father name, list of generic type, properties, methods *)
-  | Class      of Ty_id.t * (Ty_id.t * ty list) option * generic_ty list * property_defn list * method_defn list
+  | Class of
+      Ty_id.t
+      * (Ty_id.t * ty list) option
+      * generic_ty list
+      * property_defn list
+      * method_defn list
   (* trait name, father name, list of generic type, properties, methods *)
-  | Trait      of Ty_id.t * (Ty_id.t * ty list) list * generic_ty list * property_defn list * method_defn list
-  (* class name, trait name, list of generic type, list of generic type param, properties, methods *)
-  | Impl       of Ty_id.t * Ty_id.t * generic_ty list * ty list * property_defn list * method_defn list
+  | Trait of
+      Ty_id.t
+      * (Ty_id.t * ty list) list
+      * generic_ty list
+      * property_defn list
+      * method_defn list
+  (* class name, trait name, list of generic type, list of generic type param, properties,
+     methods *)
+  | Impl  of
+      Ty_id.t
+      * Ty_id.t
+      * generic_ty list
+      * ty list
+      * property_defn list
+      * method_defn list
 
 and function_defn = plain_function_defn located
 
 and plain_function_defn =
   (* function name, list of generic type, list of param, return type (optional), expr*)
-  | Fn         of Fn_id.t * generic_ty list * param list * ty option * block_expr
+  | Fn of Fn_id.t * generic_ty list * param list * ty option * block_expr
 
 and expr = plain_expr located
 
@@ -60,21 +78,20 @@ and plain_expr =
 
 and block_expr = plain_block_expr located
 
-and plain_block_expr =
-  | Block      of expr list
+and plain_block_expr = Block of expr list
 
 and property_defn = plain_property_defn located
 
 and plain_property_defn =
   (* property name, field decorator, type (optional), init value (optional) *)
-  | Property   of Property_id.t * field_decorator * ty option * expr option
+  | Property of Property_id.t * field_decorator * ty option * expr option
 
 and method_defn = plain_method_defn located
 
-and plain_method_defn = 
+and plain_method_defn =
   (* method name, field decorator, list of generic type, list of params, return type
      (optional), body *)
-  | Method     of
+  | Method of
       Method_id.t
       * field_decorator
       * generic_ty list
