@@ -1,31 +1,58 @@
-exception ContextError of string
+open Rbtree
 
-type ('key, 'value) ctx = ('key, 'value) Hashtbl.t
-type ('key, 'value) env = ('key, 'value) ctx list
+module type VALUE = sig
+  type t
+end
 
-let rec create_env () = create_ctx []
+module type ENV = sig
+  type key_t
+  type value_t
+  type pair = {k: key_t; mutable v: value_t option}
 
-and create_ctx env =
-  let ctx = Hashtbl.create 44 in
-  ctx :: env
+  module Pair : COMPARE with type t = pair
+  module Map : SET with type elt = Pair.t
 
-and destroy_ctx env =
-  match env with
-  | x :: xs -> Hashtbl.reset x ; xs
-  | []      -> raise (ContextError "you are destroying context in an empty environment!")
+  val empty : Map.t
+  val is_empty : Map.t -> bool
+  val find : Map.t -> key_t -> value_t
+  val add : Map.t -> key_t -> value_t -> Map.t
+  val del : Map.t -> key_t -> Map.t
+  val cover : Map.t -> key_t -> value_t -> Map.t
+  val set : Map.t -> key_t -> value_t -> unit
+  val to_list : Map.t -> pair list
+  val has_key : Map.t -> key_t -> bool
+end
 
-and add env k v =
-  match env with
-  | x :: _ -> Hashtbl.add x k v ; env
-  | []     -> raise (ContextError "you are adding element to an empty environment!")
+module MakeEnv (Key : COMPARE) (Value : VALUE) :
+  ENV with type key_t = Key.t with type value_t = Value.t = struct
+  type key_t = Key.t
+  type value_t = Value.t
+  type pair = {k: key_t; mutable v: value_t option}
 
-and find_opt env k =
-  match env with
-  | x :: xs -> (
-    match Hashtbl.find_opt x k with Some v -> Some v | None -> find_opt xs k )
-  | []      -> None
+  module Pair : COMPARE with type t = pair = struct
+    type t = pair
 
-and find env k =
-  match env with
-  | x :: xs -> ( match Hashtbl.find_opt x k with Some v -> v | None -> find xs k )
-  | []      -> raise (ContextError "key not found in environment")
+    let compare {k= k1; _} {k= k2; _} = Key.compare k1 k2
+  end
+
+  module Map : SET with type elt = Pair.t = MakeSet (Pair)
+
+  let empty = Map.empty
+  let is_empty map = Map.is_empty map
+
+  let find map k =
+    let {v; _} = Map.find {k; v= None} map in
+    match v with Some value -> value | None -> raise Not_found
+
+  let has_key map k =
+    try
+      ignore (find map k) ;
+      true
+    with Not_found -> false
+
+  let add map k v = Map.add {k; v= Some v} map
+  let del map k = Map.del (Map.find {k; v= None} map) map
+  let cover map k v = Map.add {k; v= Some v} (Map.del {k; v= None} map)
+  let set map k v = (Map.find {k; v= None} map).v <- Some v
+  let to_list map = Map.to_list map
+end
