@@ -1,3 +1,4 @@
+open Comparison
 open Rbtree
 
 module type VALUE = sig
